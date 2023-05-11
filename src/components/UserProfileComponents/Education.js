@@ -22,7 +22,15 @@ import { makeStyles } from '@material-ui/core/styles'
 const Education = (props) => {
 
     const formField = {
-        textAlign: 'center',
+        AlignItems: 'center',
+        marginTop: '18px',
+    }
+
+    const inputFieldForm = {
+        borderRadius: '0.2rem',
+        height: '21px',
+        width: '15rem',
+        border: '1px solid #245799',
     }
 
     const cross = {
@@ -32,65 +40,122 @@ const Education = (props) => {
         color: '#5c99ea',
         cursor: 'pointer',
         float: 'right',
-        marginBottom: '14px',
+        marginBottom: '20px',
         marginRight: '-7px',
     };
 
+    const labelField = {
+        fontFamily: "'Arial', sans-serif",
+        margin: '17px',
+        color: '#072042',
+        
+    };
 
+    // const inputFieldForm = {
+    //     height: '15px',
+        
+    // };
 
-
-
-
-    //API things Start 
-
-    useEffect(() => {
-        // console.log(user._id)
-        fetch(`http://localhost:8000/personal/${user._id}`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-            .then(response => response.json())
-            .then(data => { console.log(data); setUserInfo(data.data) })
-            .catch(err => console.log(err))
-        console.log(userInfo)
-    }, [])
-
-    const [eduData, setEduData] = useState([])
-
-    function getEducationData() {
-        fetch("http://localhost:8000/education/64047a3d01c89a38448f8de1", {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((result) => result.json())
-            .then((resp) => {
-                console.log("resp", resp)
-                setEduData(resp)
-                console.log("eduData", eduData)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+    const saveButton = {
+        
+        float: 'left',
+        backgroundColor: '#2f6cc0',
+        fontSize: '18px',
+        textColor: 'white',
+        borderRadius: '0.3rem',
+        border: 'none',
     }
 
-    const Navigate = useNavigate();
+    const cancelButton ={
+        
+        float: 'right',
+        backgroundColor: '#2f6cc0',
+        fontSize: '18px',
+        textColor: 'white',
+        borderRadius: '0.3rem',
+        border: 'none',
 
-    const user = JSON.parse(localStorage.getItem("userDetails"))
-    //  console.log(user)
-    if (!user) Navigate("/login")
-
-    const [userInfo, setUserInfo] = useState([])
-
-
-    useEffect(() => {
-        getEducationData()
-    }, [])
+    }
 
 
-    //API things End
+
+
+
+//API things Start 
+
+  
+      const Navigate = useNavigate();
+      const user = JSON.parse(localStorage.getItem("userDetails"))
+       console.log('user', user)
+      if (!user) Navigate("/login")
+
+      useEffect(() => {
+          getEducationData()
+      }, [])
+      
+      const [userInfo, setUserInfo] = useState([])
+      useEffect(() => {
+          // console.log(user._id)
+          fetch(`http://localhost:8000/personal/${user._id}`, {
+              headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+              }
+          })
+              .then(response => response.json())
+              .then(data => { console.log(data); setUserInfo(data.data) })
+              .catch(err => console.log(err))
+          console.log(userInfo)
+      }, [])
+      const [eduData, setEduData] = useState(
+        {
+          _id:'',
+          educationLevel: '',
+          collegeName: '',
+          authority: '',
+          discipline: '',
+          yearOfpassout: ''
+        }
+        )
+        const [isEditing, setIsEditing] = useState(false);
+      function getEducationData(id) {
+          fetch(`http://localhost:8000/education/${id}`, {
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              }
+          })
+              .then((result) => result.json())
+              .then((resp) => {
+                  console.log("resp", resp)
+                  setEduData(resp)
+                  setIsEditing(true);
+                  console.log("eduData", eduData)
+              })
+              .catch(error => {
+                  console.log(error)
+              })
+      };
+      // Function to handle changes in form values
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      setEduData((prevValues) => ({ ...prevValues, [name]: value }));
+    };
+
+
+    // Function to submit the form data and save it to the API
+    const handleSubmit = async (id) => {
+      await fetch(`http://localhost:8000/education/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eduData)
+      });
+      setIsEditing(false);
+    };
+
+    
+//API things End
 
 
 
@@ -105,16 +170,44 @@ const Education = (props) => {
                 <div className="edu-Modal-container">
 
                     <div className="edu-modal-form">
-                        <button style={cross} onClick={() => setShowModalEdit(false)}><AiFillCloseCircle /></button>
-                        <form style={formField}>
+                        <button style={cross} onClick={() => setShowModalEdit(false)}><AiFillCloseCircle style={{color: 'rgb(22 102 197)',}} /></button>
+                        <form style={formField} onSubmit={(event)=>{event.preventDefault();handleSubmit(eduData.data?._id)}} >
 
-                            <TextField className='textField' fullWidth label="College Name" id="fullWidth" name="collegeName" value={eduData.data?.collegeName} />
+                            <Select
+                                options={educationLevels}
+                            />
+                            <br />
+
+                            <label style={labelField}>College Name</label>
+                            <input style={inputFieldForm} type='text' placeholder='College Name' name="collegeName" value={eduData.data?.collegeName}/>
+                            <br />
+                            <br/>
+
+                            <label style={labelField}>Authority</label>
+                            <input style={inputFieldForm} type='text' placeholder='Authority' name='authority' value={eduData.data?.authority}/>
+                            <br />
+                            <br />
+
+                            <label style={labelField}>Discipline</label>
+                            <input style={inputFieldForm} type='text' placeholder='Discipline' name='discipline' value={eduData.data?.discipline}/>
+                            <br />
+                            <br />
+
+                            <label style={labelField}>Year of Passout</label>
+                            <input style={inputFieldForm} type='date' name='yearOfpassout' value={eduData.data?.yearOfpassout}/>
+                            <br />
+                            <br />
+
+                            <button type='submit' style={saveButton}>save</button>
+                            <button style={cancelButton}>cancel</button>
+
+                            {/* <TextField className='textField' fullWidth label="College Name" id="fullWidth" name="collegeName" value={eduData.data?.collegeName} />
 
                             <TextField className='textField' fullWidth label="Authority" id="fullWidth" name='authority' value={eduData.data?.authority} />
 
                             <TextField className='textField' fullWidth label="Discipline" id="fullWidth" name='discipline' value={eduData.data?.discipline} />
 
-                            <TextField className='textField' fullWidth label="Year of Passout" id="fullWidth" name='yearOfpassout' value={eduData.data?.yearOfpassout} />
+                            <TextField className='textField' fullWidth label="Year of Passout" id="fullWidth" name='yearOfpassout' value={eduData.data?.yearOfpassout} /> */}
 
                         </form>
 
@@ -134,9 +227,9 @@ const Education = (props) => {
                     <button className='back-arrow' onClick={() => props.edu(false)}><IoArrowBackCircle /></button>
 
 
-                    <h3 style={{ textAlign: 'center', marginBottom: '15px', fontFamily: "'Ubuntu', sans-serif", }}>Update Education</h3>
+                    <h3 style={{ textAlign: 'center', marginBottom: '20px', fontFamily: "'Arial', sans-serif", }}>Education</h3>
 
-                    
+
 
                     <div className='education-data'>
 
@@ -147,18 +240,18 @@ const Education = (props) => {
 
 
 
-                                    <h5 style={{ fontFamily: "'Sans-Serif', Arial", fontSize: '19px', }}>{education.educationLevel}</h5> <p style={{ fontSize: '10px', }}>from</p> <p>{education.collegeName}</p>
-                                    <button className="education-data-icon" onClick={() => { setShowModalEdit(true); getEducationData() }}><FiEdit2 /></button>
+                                    <h5 style={{ fontFamily: "'Sans-Serif', Arial", fontSize: '19px', color: 'rgb(22 102 197)', }}>{education.educationLevel}</h5> <p style={{ fontSize: '10px', }}>from</p> <p>{education.collegeName}</p>
+                                    <button className="education-data-icon" onClick={() => { setShowModalEdit(true); getEducationData(education._id) }}><FiEdit2 /></button>
                                     {showEducationEdit && <MyModalEducationSecond />}
-                                    <br />
+
 
                                     <p><span style={{ fontWeight: 'bold', color: 'black', }}>Authority: </span>{education.authority}</p>
-                                    <br />
+
                                     <p><span style={{ fontWeight: 'bold', color: 'black', }}>Discipline: </span>{education.discipline}</p>
-                                    <br />
+
                                     <p><span style={{ fontWeight: 'bold', color: 'black', }}>Year of Passout: </span>{education.yearofPassout}</p>
 
-                                    <hr style={{ fontSize: '10px', }}></hr>
+                                    <hr style={{ fontSize: '10px', marginTop: '9%', }}></hr>
                                 </div>
 
 

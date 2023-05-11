@@ -1,11 +1,11 @@
-import React from 'react';
-import '../../styles/App.css';
-import { useEffect } from 'react';
-import LoginCard from '../loginPage/loginCard';
-
-import SearchIcon from '@mui/icons-material/Search';
+import React from 'react'
+import '../../styles/App.css'
+import { useEffect } from 'react'
+import LoginCard from '../loginPage/loginCard'
+import SearchIcon from '@mui/icons-material/Search'
 import {useNavigate,Link} from "react-router-dom"
 import { AiOutlineUser } from "react-icons/"
+import Navbar from './Navbar'
 
 
 function App(){
@@ -27,9 +27,11 @@ function logOut(){
   return(
 
     <div className="hero">
-      <nav>
-       
-       <h1>H<span>iCLOUSIA</span></h1>
+      
+
+
+       <Navbar/>
+       {/* <h1>H<span>iCLOUSIA</span></h1>
        <div className="search">
           
           </div>
@@ -55,14 +57,14 @@ function logOut(){
             )}  
             &nbsp;&nbsp; &nbsp;
            
-            {/* <AiOutlineUser style={{width: '4%', height: '6%', backgroundColor: 'aqua', borderRadius: '20px', float: 'right', marginTop: '-5.5%',cursor: 'pointer'}} onClick={()=>navigate("/UserProfile")}/>  
-                   */}
+            <AiOutlineUser style={{width: '4%', height: '6%', backgroundColor: 'aqua', borderRadius: '20px', float: 'right', marginTop: '-5.5%',cursor: 'pointer'}} onClick={()=>navigate("/UserProfile")}/>  
+                  
 
                    <button className="profile" onClick={() => navigate("/UserProfile")}><i class="fa-solid fa-user" style={{height
                    : '15vh'
                   }}></i></button>
-       </ul>
-     </nav>
+       </ul> */}
+    
 
       <div className="talent-recruiter">
         <ul>

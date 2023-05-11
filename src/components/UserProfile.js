@@ -36,62 +36,77 @@ import EducationForm from './multiForm/EducationForm'
 
 const UserProfile = () => {
 
-//Primary Skills Start
-    const [priData, setPriData] = useState([])
 
-    function getPrimaryData() {
-        fetch(`http://localhost:8000/primarySkills/63f331a9870eb03618057960`, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((result) => result.json())
-            .then((resp) => {
-                console.log("resp", resp)
-                setPriData(resp)
-                console.log("priData", priData)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+    const styles = {
+        color: 'black',
+        float: 'left',
+        margin: '11px',
+        fontFamily: "'Arial', Sans-serif",
+        
+    };
+
+    const hrStyle = {
+       border: 'none',   
+       borderBottom: '1px solid #1f1209',
+       boxShadow: '0 20px 20px -20px #333',
     }
 
-    
-    useEffect(() => {
-        getPrimaryData()
-    }, [])
-//Primary Skills end
+    //Primary Skills Start
+    // const [priData, setPriData] = useState([])
+
+    // function getPrimaryData() {
+    //     fetch(`http://localhost:8000/primarySkills/63f331a9870eb03618057960`, {
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //         .then((result) => result.json())
+    //         .then((resp) => {
+    //             console.log("resp", resp)
+    //             setPriData(resp)
+    //             console.log("priData", priData)
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //         })
+    // }
+
+
+    // useEffect(() => {
+    //     getPrimaryData()
+    // }, [])
+    //Primary Skills end
 
 
 
 
-//Secondary Skills Start
-const [secData, setSecData] = useState([])
+    //Secondary Skills Start
+    // const [secData, setSecData] = useState([])
 
-function getSecData() {
-    fetch(`http://localhost:8000/secondarySkills/63f331a9870eb03618057960`, {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
-        .then((result) => result.json())
-        .then((resp) => {
-            console.log("resp", resp)
-            setSecData(resp)
-            console.log("secData",secData)
-        })
-        .catch(error => {
-            console.log(error)
-        })
-}
+    // function getSecData() {
+    //     fetch(`http://localhost:8000/secondarySkills/63f331a9870eb03618057960`, {
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //         .then((result) => result.json())
+    //         .then((resp) => {
+    //             console.log("resp", resp)
+    //             setSecData(resp)
+    //             console.log("secData", secData)
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //         })
+    // }
 
 
-useEffect(() => {
-    getSecData()
-}, [])
-//Secondary Skills End
+    // useEffect(() => {
+    //     getSecData()
+    // }, [])
+    //Secondary Skills End
 
 
 
@@ -103,7 +118,7 @@ useEffect(() => {
 
     const [userInfo, setUserInfo] = useState([])
 
- 
+
     useEffect(() => {
         // console.log(user._id)
         fetch(`http://localhost:8000/personal/${user._id}`, {
@@ -118,28 +133,28 @@ useEffect(() => {
     }, [])
 
 
-//Education Start
+    //Education Start
     //Education Pop-Up Start
     const [educationMain, setEducationMain] = useState(false)
     const EducationMain = () => {
-        return <Education edu={educationMain => setEducationMain(false)}/>
+        return <Education edu={educationMain => setEducationMain(false)} />
     }
     //Education Pop-Up End
 
     //Education Form Start
     const [educationForm, setEducationForm] = useState(false)
     const EducationForm = () => {
-        return <EducationForm eduForm={educationForm => setEducationForm(false)}/>
+        return <EducationForm eduForm={educationForm => setEducationForm(false)} />
     }
     //Education Form End
-//Education Start
+    //Education Start
 
 
     //Experience Pop-Up Start
 
     const [experienceMain, setExperienceMain] = useState(false)
     const ExperienceMain = () => {
-        return <Experience exp={experienceMain => setExperienceMain(false)}/>
+        return <Experience exp={experienceMain => setExperienceMain(false)} />
     }
     //Experience Pop-Up End
 
@@ -147,7 +162,7 @@ useEffect(() => {
     //Primary skills Start 
     const [primarySkillMain, setPrimarySkillMain] = useState(false)
     const PrimarySkillsMain = () => {
-        return <PrimarySkills  />
+        return <PrimarySkills />
     }
     //Primary Skills End
 
@@ -191,11 +206,11 @@ useEffect(() => {
                         </li>
                     </ul>
 
-                    <div className='hamburger-menu'>
+                    {/* <div className='hamburger-menu'>
                         <a onClick={() => setShowMediaIcons(!showMediaIcons)}>
                             <Menu />
                         </a>
-                    </div>
+                    </div> */}
                 </div>
             </nav>
 
@@ -212,89 +227,89 @@ useEffect(() => {
                 </div>
 
 
-        
-
-                <div className='edu-exp'>
-
-               
-                    <div className='edu'>
-                        <h3 className='headings' >Education</h3>
-
-                        <button onClick={() => setEducationMain(true)} className='edit-btn'>
-                            <FiEdit2 />
-                        </button>
-                        {educationMain && <EducationMain  />}
-
-                        <button className='edit-btn' style={{marginRight: '10px',}} onClick={() => setEducationForm(true)} ><GrAdd/></button>
-                        {educationForm && <EducationForm/>}
-                       
-                       
-
-                        <br></br>
-                        <br></br>
-
-
-                        {userInfo.educationData?.map((education) => (
-                            <Grid item xs={8} sm={8} key={education._id} >
-
-                                <div style={{ margin: '10%', marginTop: '6%', }}>
-
-                                    <h5 style={{ fontFamily: "'Sans-Serif', Arial", }}>{education.educationLevel}</h5> <p style={{ fontSize: '10px', }}>from</p> <p>{education.collegeName}</p>
-                                    <hr></hr>
-                                </div>
-
-
-                            </Grid>
-                        ))}
-
-
-                    </div>
-
-          
-
-
-                    &nbsp;&nbsp;&nbsp;
-
-               
-                    <div className='exp'>
-                        <h3 className='headings'>Experience</h3>
-                        <button className='edit-btn' onClick={() => setExperienceMain(true)}>
-                            <FiEdit2 />
-                        </button>
-                        <button className='edit-btn' style={{marginRight: '10px',}}><GrAdd/></button>
-                        {experienceMain && <ExperienceMain />}
-
-                        <br></br>
-                        <br></br>
 
 
 
-                        {userInfo.experienceData?.map((experience) => (
-                            <Grid item xs={8} sm={8} key={experience._id} >
-                                <div style={{ margin: '10%', marginTop: '6%', }}>
-
-                                    <h5 style={{ fontFamily: "'Sans-Serif', Arial", }}>{experience.jobTitle}</h5> at <p>{experience.companyName}</p>
-                                    <hr></hr>
 
 
+                <div className='edu'>
+                    <h3 style={styles}>Education</h3>
 
-                                </div>
+                    <button onClick={() => setEducationMain(true)} className='edit-btn'>
+                        <FiEdit2 />
+                    </button>
+                    {educationMain && <EducationMain />}
 
-                            </Grid>
-                        ))}
+                    <button className='edit-btn' style={{ marginRight: '10px', }} onClick={() => setEducationForm(true)} ><GrAdd /></button>
+                    {educationForm && <EducationForm />}
 
-                    </div>
-               
+
+
+                    <br></br>
+                    <br></br>
+
+
+                    {userInfo.educationData?.map((education) => (
+                        <Grid item xs={8} sm={8} key={education._id} >
+
+                            <div style={{ margin: '10%', marginTop: '2%', }}>
+
+                                <h5 style={{ fontFamily: "'Sans-Serif', Arial",fontSize: '18px', color: 'rgb(22 102 197)', }}>{education.educationLevel}</h5> <p style={{ fontSize: '10px', }}>from</p> <p>{education.collegeName}</p>
+                                <br></br>
+                                <hr style={hrStyle} />
+                            </div>
+
+
+                        </Grid>
+                    ))}
+
+
                 </div>
 
-           
+
+
+
+
+
+                <div className='exp'>
+                    <h3 style={styles}>Experience</h3>
+                    <button className='edit-btn' onClick={() => setExperienceMain(true)}>
+                        <FiEdit2 />
+                    </button>
+                    <button className='edit-btn' style={{ marginRight: '10px', }}><GrAdd /></button>
+                    {experienceMain && <ExperienceMain />}
+
+                    <br></br>
+                    <br></br>
+
+
+
+                    {userInfo.experienceData?.map((experience) => (
+                        <Grid item xs={8} sm={8} key={experience._id} >
+                            <div style={{ margin: '10%', marginTop: '6%', }}>
+
+                                <h5 style={{ fontFamily: "'Sans-Serif', Arial", }}>{experience.jobTitle}</h5> at <p>{experience.companyName}</p>
+                                <hr></hr>
+
+
+
+                            </div>
+
+                        </Grid>
+                    ))}
+
+                </div>
+
+
+
+{/*onClick={() => { setSecondarySkillMain(true); getSecData() }}*/}
 
 
 
                 <div className="skills">
                     <div className='primary'>
                         <h3 className='headings' >Primary Skills</h3>
-                        <button onClick={() => {setPrimarySkillMain(true);getPrimaryData()}} className='edit-btn'>
+                        <button  className='edit-btn'>
                             <FiEdit2 />
                         </button>
                         {primarySkillMain && <PrimarySkillsMain />}
@@ -305,7 +320,7 @@ useEffect(() => {
                     <div className='secondary'>
                         <h3 className='headings' >Secondary Skills</h3>
 
-                        <button onClick={() => {setSecondarySkillMain(true);getSecData()}} className='edit-btn'>
+                        <button  className='edit-btn'>
                             <FiEdit2 />
                         </button>
                         {secondarySkillMain && <SecondarySkillsMain />}

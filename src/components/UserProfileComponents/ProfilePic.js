@@ -16,7 +16,7 @@ const ProfilePic = () => {
                     height: '150px',
                     borderRadius: '50%',
                     objectFit: 'cover',
-                    border: '1px solid black',
+                    border: '1px solid blue',
                    }}
                    src={Profile}
                    alt=''
@@ -28,7 +28,7 @@ const ProfilePic = () => {
                     onChange={(event) => {
                         const file = event.target.files[0]
                         if (file && file.type.substring(0, 5) === "image") {
-                            setimage(file)
+                            setImage(file)
                         } else {
                             setImage(null)
                         }

@@ -2,10 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom"
 import { Button, TextField, Select, MenuItem, FormControl, InputLabel, FormHelperText, makeStyles, Typography } from '@material-ui/core';
-import baseurl from '../../baseURL/config'
-const userId = JSON.parse(localStorage.getItem('userDetails'));
-import '../../styles/userProfile.css'
 import { AiFillCloseCircle } from 'react-icons/ai'
+import baseurl from '../../baseURL/config'
+
+import '../../styles/userProfile.css'
+
+const userId = JSON.parse(localStorage.getItem('userDetails'));
 
 
 const useStyles = makeStyles((theme) => ({
