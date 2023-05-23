@@ -21,6 +21,7 @@ import TextField from '@mui/material/TextField'
 import { Box, Button, Container } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
+import Chip from '@mui/material/Chip'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Avatar from '@material-ui/core/Avatar'
 import avatar from "../images/avatar.jpg"
@@ -30,6 +31,12 @@ import Experience from './UserProfileComponents/Experience'
 import SecondarySkills from './UserProfileComponents/SecondarySkills'
 import PrimarySkills from './UserProfileComponents/PrimarySkills'
 import EducationForm from './multiForm/EducationForm'
+import userProfileForm from './multiForm/UserProfileForm'
+import Projects from './UserProfileComponents/Projects'
+import EducationFormNew from './multiForm/EducationFormNew'
+import ProjectForm from './multiForm/ProjectForm'
+import ExperienceForm from './multiForm/ExperienceForm'
+import ProjectData from './UserProfileComponents/ProjectData/ProjectData'
 
 
 
@@ -42,13 +49,22 @@ const UserProfile = () => {
         float: 'left',
         margin: '11px',
         fontFamily: "'Arial', Sans-serif",
-        
+
     };
 
     const hrStyle = {
-       border: 'none',   
-       borderBottom: '1px solid #1f1209',
-       boxShadow: '0 20px 20px -20px #333',
+        border: 'none',
+        borderBottom: '1px solid #1f1209',
+        boxShadow: '0 20px 20px -20px #333',
+    };
+
+    const chipStyle = {
+        marginTop: '19px',
+    };
+
+
+    const primaryStyle = {
+        marginTop: '30px',
     }
 
     //Primary Skills Start
@@ -133,6 +149,8 @@ const UserProfile = () => {
     }, [])
 
 
+
+
     //Education Start
     //Education Pop-Up Start
     const [educationMain, setEducationMain] = useState(false)
@@ -149,6 +167,11 @@ const UserProfile = () => {
     //Education Form End
     //Education Start
 
+    //Projects Start
+    const [project, setProject] = useState(false)
+
+    //Projects End
+
 
     //Experience Pop-Up Start
 
@@ -160,20 +183,26 @@ const UserProfile = () => {
 
 
     //Primary skills Start 
-    const [primarySkillMain, setPrimarySkillMain] = useState(false)
-    const PrimarySkillsMain = () => {
-        return <PrimarySkills />
-    }
+    // const [primarySkillMain, setPrimarySkillMain] = useState(false)
+    // const PrimarySkillsMain = () => {
+    //     return <PrimarySkills />
+    // }
     //Primary Skills End
 
 
     //Secondary Skills Start
-    const [secondarySkillMain, setSecondarySkillMain] = useState(false)
-    const SecondarySkillsMain = () => {
-        return <SecondarySkills />
-    }
+    // const [secondarySkillMain, setSecondarySkillMain] = useState(false)
+    // const SecondarySkillsMain = () => {
+    //     return <SecondarySkills />
+    // }
     //Secondary Skills End
 
+
+
+    const [eduFormNew, setEduFormNew] = useState(false)
+    const [expFormNew, setExpFormNew] = useState(false)
+    const [primary, setPrimary] = useState(false)
+    const [secondary, setSecondary] = useState(false)
 
     return (
         <>
@@ -240,8 +269,8 @@ const UserProfile = () => {
                     </button>
                     {educationMain && <EducationMain />}
 
-                    <button className='edit-btn' style={{ marginRight: '10px', }} onClick={() => setEducationForm(true)} ><GrAdd /></button>
-                    {educationForm && <EducationForm />}
+                    <button className='edit-btn' style={{ marginRight: '10px', }} onClick={() => setEduFormNew(true)} ><GrAdd /></button>
+                    {eduFormNew && <EducationFormNew form={eduFormNew => setEduFormNew(false)} />}
 
 
 
@@ -254,7 +283,7 @@ const UserProfile = () => {
 
                             <div style={{ margin: '10%', marginTop: '2%', }}>
 
-                                <h5 style={{ fontFamily: "'Sans-Serif', Arial",fontSize: '18px', color: 'rgb(22 102 197)', }}>{education.educationLevel}</h5> <p style={{ fontSize: '10px', }}>from</p> <p>{education.collegeName}</p>
+                                <h5 style={{ fontFamily: "'Sans-Serif', Arial", fontSize: '18px', color: 'rgb(22 102 197)', }}>{education.educationLevel}</h5> <p style={{ fontSize: '10px', }}>from</p> <p>{education.collegeName}</p>
                                 <br></br>
                                 <hr style={hrStyle} />
                             </div>
@@ -267,6 +296,31 @@ const UserProfile = () => {
                 </div>
 
 
+                <div className='projects'>
+                    <h3 style={styles}>Projects</h3>
+
+                    <button className='edit-btn'>
+                        <FiEdit2 />
+                    </button>
+
+                    <button className='edit-btn' style={{ marginRight: '10px', }} onClick={() => setProject(true)}><GrAdd /></button>
+                    {project && <ProjectForm proj={project => setProject(false)} />}
+
+                    <ProjectData/>
+
+
+                    {/* {userInfo.projects?.map((projects) => (
+                        <Grid item xs={8} key={projects._id}>
+                            {projects.projectTitle}
+                            {projects.description}
+                            {projects.startDate}
+                            {projects.endDate}
+                            {projects.Url}
+                            {projects.organizationName}
+
+                        </Grid>
+                    ))} */}
+                </div>
 
 
 
@@ -276,8 +330,11 @@ const UserProfile = () => {
                     <button className='edit-btn' onClick={() => setExperienceMain(true)}>
                         <FiEdit2 />
                     </button>
-                    <button className='edit-btn' style={{ marginRight: '10px', }}><GrAdd /></button>
-                    {experienceMain && <ExperienceMain />}
+
+                    <button className='edit-btn' style={{ marginRight: '10px', }} onClick={() => setExpFormNew(true)}><GrAdd /></button>
+                    {expFormNew && <ExperienceForm expFormNew={expFormNew => setExpFormNew(false)} />}
+                    {/* {expFormNew && <ExperienceForm expFormNew={expFormNew => setExpFormNew(false)}/>} */}
+
 
                     <br></br>
                     <br></br>
@@ -302,30 +359,52 @@ const UserProfile = () => {
 
 
 
-{/*onClick={() => { setSecondarySkillMain(true); getSecData() }}*/}
+                {/*onClick={() => { setSecondarySkillMain(true); getSecData() }}*/}
 
 
 
-                <div className="skills">
-                    <div className='primary'>
-                        <h3 className='headings' >Primary Skills</h3>
-                        <button  className='edit-btn'>
-                            <FiEdit2 />
-                        </button>
-                        {primarySkillMain && <PrimarySkillsMain />}
+
+                <div className='primary'>
+                    <h3 style={styles} >Primary Skills</h3>
+                    <button className='edit-btn' onClick={() => setPrimary(true)}>
+                        <FiEdit2 />
+                    </button>
+                    {primary && <PrimarySkills primary={primary => setPrimary(false)} />}
+
+                    <br></br>
+                    <br></br>
+
+                    <div className={primaryStyle}>
+                        {/* {userInfo.skills.primarySkills?.map((skill) => (
+
+
+
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+
+                                {skill}
+
+                            </Box>
+
+
+
+                        ))} */}
                     </div>
 
 
-
-                    <div className='secondary'>
-                        <h3 className='headings' >Secondary Skills</h3>
-
-                        <button  className='edit-btn'>
-                            <FiEdit2 />
-                        </button>
-                        {secondarySkillMain && <SecondarySkillsMain />}
-                    </div>
                 </div>
+
+
+
+                <div className='secondary'>
+                    <h3 style={styles} >Secondary Skills</h3>
+
+                    <button className='edit-btn' onClick={() => setSecondary(true)}>
+                        <FiEdit2 />
+                    </button>
+                    {secondary && <SecondarySkills secondary={secondary => setSecondary(false)} />}
+                </div>
+
+
 
 
             </section>

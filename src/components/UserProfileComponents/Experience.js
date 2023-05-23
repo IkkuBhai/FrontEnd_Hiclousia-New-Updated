@@ -18,6 +18,49 @@ import { Routes, Link, Route, useNavigate } from 'react-router-dom'
 
 const Experience = (props) => {
 
+    const formField = {
+        AlignItems: 'center',
+        marginTop: '18px',
+    };
+
+    const inputFieldForm = {
+        borderRadius: '0.2rem',
+        height: '21px',
+        width: '15rem',
+        border: '1px solid #245799',
+    };
+
+    const labelField = {
+        fontFamily: "'Arial', sans-serif",
+        margin: '17px',
+        color: '#072042',
+
+    };
+
+    const saveButton = {
+
+        float: 'left',
+
+    }
+
+    const cancelButton = {
+
+        float: 'right',
+
+    }
+
+    const cross = {
+        backgroundColor: 'transparent',
+        border: 'none',
+        fontSize: '25px',
+        color: '#5c99ea',
+        cursor: 'pointer',
+        float: 'right',
+        marginBottom: '20px',
+        marginRight: '-7px',
+    };
+
+
 
     //API things Start 
 
@@ -79,26 +122,55 @@ const Experience = (props) => {
             <>
                 <div className="edu-Modal-wrapper">
                     <div className="edu-Modal-container">
-                        <button calssName="close-btn" onClick={() => setShowModalExperienceEdit(false)}><AiFillCloseCircle /></button>
+
+                        <button style={cross} onClick={() => setShowModalExperienceEdit(false)}><AiFillCloseCircle style={{ color: 'rgb(22 102 197)', }} /></button>
+
+                        <h3 style={{ textAlign: 'center', marginBottom: '20px', fontFamily: "'Arial', sans-serif", }}>Update Experience</h3>
+
+
                         <div className="edu-modal-form">
 
-                            <form>
-                            <TextField className='textField' fullWidth label="Job Status" id="fullWidth" name="jobStatus" value={expData.data?.jobStatus} />
+                            <form style={formField}>
 
-                                <TextField className='textField' fullWidth label="Job Title" id="fullWidth" name="jobRole" value={expData.data?.jobRole} />
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Job Status" id="fullWidth" />
+                                </Box>
+                                <br />
 
-                                <TextField className='textField' fullWidth label="Company Name" id="fullWidth" name='companyName' value={expData.data?.companyName} />
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Job Title" id="fullWidth" />
+                                </Box>
+                                <br />
 
-                                <TextField className='textField' fullWidth label="Company Type" id="fullWidth" name='companyType' value={expData.data?.companyType} />
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Company Name" id="fullWidth" />
+                                </Box>
+                                <br />
 
-                                <TextField className='textField' fullWidth label="Location" id="fullWidth" name='companyLocation' value={expData.data?.companyLocation} />
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Company Type" id="fullWidth" />
+                                </Box>
+                                <br />
 
-                                <TextField className='textField' fullWidth label="Skills" id="fullWidth" name='skills' value={expData.data?.skills} />
 
-                                <TextField className='textField' fullWidth label="Experience" id="fullWidth" name='experience' value={expData.data?.experience} />
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Company Location" id="fullWidth" />
+                                </Box>
+                                <br />
 
-                                <button className="modal-btn-edu" type='submit' style={{ float: 'left', }} >save</button>
-                                <button className="modal-btn-edu" style={{ float: 'right', }}>delete</button>
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Skills" id="fullWidth" />
+                                </Box>
+                                <br />
+
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Experience" id="fullWidth" />
+                                </Box>
+
+                                <br />
+
+                                <Button style={saveButton} variant="contained">save</Button>
+                                <Button style={cancelButton} variant="contained">cancel</Button>
                             </form>
 
                         </div>
@@ -117,7 +189,7 @@ const Experience = (props) => {
             <div className="edu-Modal-container">
                 <button style={{ float: 'left', cursor: 'pointer', fontSize: '24px', marginLeft: '-5px', backgroundColor: 'transparent', border: 'none', }} onClick={() => props.exp(false)}><IoArrowBackCircle /></button>
 
-                <h3 style={{ textAlign: 'center', marginBottom: '15px', fontFamily: "'Ubuntu', sans-serif", }}>Update Eexperience</h3>
+                <h3 style={{ textAlign: 'center', marginBottom: '15px', fontFamily: "'Ubuntu', sans-serif", }}>Eexperience</h3>
                 <button className="education-data-icon" onClick={() => { setShowModalExperienceEdit(true); getExperienceData() }} ><FiEdit2 /></button>
                 {showModalExperienceEdit && <MyModalExperienceEdit />}
 
