@@ -4,7 +4,7 @@ import Third from './components/HomePage/Third';
 import Fourth from './components/HomePage/Fourth';
 import Fifth from './components/HomePage/Fifth';
 import UserProfile from './components/UserProfile.js';
-import Login from "./components/loginPage/login.js"
+import LogInSignIn from './components/loginPage/LoginSignIn/LogInSignIn'
 // import JobForm from './components/formjob.js'
 import EducationForm from './components/multiForm/EducationForm';
 import ExperienceForm  from './components/multiForm/UserExperience';
@@ -34,7 +34,7 @@ function App() {
                    
                       
                 </>} />
-                <Route path ="login" element={<Login />}/>
+                <Route path ="LogInSignIn" element={<LogInSignIn />}/>
                 
                 <Route path ="UserProfile" element={<UserProfile/>}/>
                 <Route path= "EducationForm" element={ <EducationForm/>}/>

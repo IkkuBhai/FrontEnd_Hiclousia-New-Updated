@@ -70,18 +70,22 @@ const ProjectData = () => {
                     <Typography className={classes.heading} variant="h5" gutterBottom>
                         {projects.projectTitle}
                     </Typography>
+                    <br />
 
                     <Typography variant="subtitle1" gutterBottom>
                         {projects.description}
                     </Typography>
+                    <br />
 
                     <Typography variant="subtitle1" gutterBottom>
-                        <span className={classes.span}>Started:</span> {projects.startDate}
+                        <span className={classes.span}>Started: </span>{projects.startDate}
                     </Typography>
+                    <br />
 
                     <Typography variant="subtitle1" gutterBottom>
                         <span className={classes.span}>Ended: </span>{projects.endDate}
                     </Typography>
+                    <br />
 
                     {/* <Typography variant="subtitle2" gutterBottom>
                         <span className={classes.span}>Project Link: </span>{projects.Url}
@@ -91,8 +95,7 @@ const ProjectData = () => {
                         <span className={classes.span}>Organization: </span>{projects.organizationName}
                     </Typography> */}
 
-                    <br></br>
-                    <br></br>
+
 
 
 

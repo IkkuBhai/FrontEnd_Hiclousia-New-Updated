@@ -43,7 +43,7 @@ const Navbar = () => {
                         </li>
                         ) : (
                             <li style={{listStyleType: 'none',}}>
-                                <a href="/login" style={{color: 'goldenrod',}}>Login</a>
+                                <a href="/LogInSignIn" style={{color: 'goldenrod',}}>Login</a>
                             </li>
                         )}
 
