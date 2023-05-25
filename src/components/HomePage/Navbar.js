@@ -51,7 +51,7 @@ const Navbar = () => {
                 </div>
 
                 <div className='profile-icon'>
-                    <button className='profile-icon-btn' onClick={() => navigate("/UserProfile")}><CgProfile style={{ color: 'goldenrod', fontSize: '27px', }} /></button>
+                    <button className='profile-icon-btn' onClick={() => navigate("/UserProfile")}><CgProfile style={{ color: 'goldenrod', fontSize: '35px', }} /></button>
 
                 </div>
             </nav>

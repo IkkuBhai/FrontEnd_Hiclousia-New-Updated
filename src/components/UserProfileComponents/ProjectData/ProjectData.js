@@ -73,7 +73,7 @@ const ProjectData = () => {
                     <br />
 
                     <Typography variant="subtitle1" gutterBottom>
-                        {projects.description}
+                        <span className={classes.span}>Description: </span>{projects.description}
                     </Typography>
                     <br />
 
@@ -85,7 +85,10 @@ const ProjectData = () => {
                     <Typography variant="subtitle1" gutterBottom>
                         <span className={classes.span}>Ended: </span>{projects.endDate}
                     </Typography>
-                    <br />
+              
+
+                    <hr style={{ fontSize: '10px', marginTop: '9%', marginBottom: '9%', }}></hr>
+
 
                     {/* <Typography variant="subtitle2" gutterBottom>
                         <span className={classes.span}>Project Link: </span>{projects.Url}
