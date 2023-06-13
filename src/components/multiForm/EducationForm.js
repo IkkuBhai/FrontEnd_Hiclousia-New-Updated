@@ -1,11 +1,18 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
-import { Button, TextField, Select, MenuItem, FormControl, InputLabel, FormHelperText, makeStyles, Typography } from '@material-ui/core';
-import { AiFillCloseCircle } from 'react-icons/ai'
+import { Button, TextField, FormHelperText, makeStyles, Typography } from '@material-ui/core'
 import baseurl from '../../baseURL/config'
-
 import '../../styles/userProfile.css'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import { yearofPassouts, educationLevels , authorities } from '../../constraints/arrays'
+import MenuItem from '@mui/material/MenuItem'
+// import { Theme, useTheme } from '@mui/material/styles'
+
+
 
 const userId = JSON.parse(localStorage.getItem('userDetails'));
 
@@ -18,32 +25,40 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: theme.spacing(1),
       paddingBottom: theme.spacing(3),
       [theme.breakpoints.down('sm')]: {
-        // backgroundColor: theme.palette.info.main 
+
       },
       width: '70ch',
     },
 
-    background: theme.palette.info.light,
-    color: '#784bff',
-    //  boxShadow: '0px 3px 5px 2px rgba(255, 105, 135, .3)',
+
     padding: '50px 30px',
     margin: "0px,500px"
   },
 
   formControl: {
     margin: theme.spacing(5),
-    // width: '70ch'
-
   },
+
   addButton: {
     margin: theme.spacing(5),
-
   },
+
   removeButton: {
     margin: theme.spacing(5),
 
   },
 }));
+
+
+
+const educationFormFields = {
+
+  border: 'solid 0.1px',
+  margin: '48px',
+  borderRadius: '0.5rem',
+  AlignItems: 'center'
+
+}
 
 const EducationForm = (props) => {
 
@@ -55,6 +70,8 @@ const EducationForm = (props) => {
       alert("Please login first")
     }
   }, [])
+
+
   const classes = useStyles();
 
   const [educationList, setEducationList] = useState([
@@ -64,7 +81,9 @@ const EducationForm = (props) => {
       collegeName: '',
       authority: '',
       discipline: '',
-      yearOfpassout: ''
+      yearOfpassout: '',
+      startYear: '',
+      endYear: ''
     },
   ]
 
@@ -78,7 +97,9 @@ const EducationForm = (props) => {
       collegeName: '',
       authority: '',
       discipline: '',
-      yearOfpassout: ''
+      yearOfpassout: '',
+      startYear: '',
+      endYear: ''
     },
     ]);
   };
@@ -123,10 +144,13 @@ const EducationForm = (props) => {
           setEducationList([{
             userDetailsID: userId._id,
             educationLevel: '',
+            degreeName: '',
             collegeName: '',
             authority: '',
             discipline: '',
-            yearOfpassout: ''
+            yearOfpassout: '',
+            startYear: '',
+            endYear: ''
           }])
           navigate("/ExperienceForm")
         }
@@ -145,127 +169,186 @@ const EducationForm = (props) => {
 
   }
 
-  const close = {
-    backgroundColor: 'transparent',
-    border: 'none',
-    fontSize: '25px',
-    color: '#5c99ea',
-    cursor: 'pointer',
-    float: 'right',
-    marginBottom: '14px',
-    marginRight: '-7px',
-  };
 
   return (
-    <>
-      <div className="edu-Modal-wrapper">
-        <div className="edu-Modal-container">
-          {educationList.map((education, i) => (
-            <div key={education._id} className={classes.root} >
-              <Typography textalign="center" variant="h6" gutterBottom color="primary">
-                Education Details Form:
-              </Typography>
 
-              <button style={close} onClick={() => props.eduForm(false)}><AiFillCloseCircle /></button>
 
-              <FormControl variant="outlined" className="form-control"  >
-                <InputLabel >EducationLevel</InputLabel>
-                <Select
-                  value={education.educationLevel}
-                  name="educationLevel"
-                  onChange={(e) => handleChange(e, i)}
-                  label="EducationLevel"
-                  required
+    <div style={educationFormFields}>
 
+      {educationList.map((education, i) => (
+        <div key={education._id} className={classes.root} >
+          <Typography textalign="center" variant="h6" gutterBottom color="primary">
+            Education Details:
+          </Typography>
+
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel>Education Level</InputLabel>
+            <Select
+              value={education.educationLevel}
+              name="educationLevel"
+              onChange={(e) => handleChange(e, i)}
+              label="EducationLevel"
+              required
+              input={<OutlinedInput label="Education Level" />}
+            >
+              {educationLevels.map((educationLevel) => (
+                <MenuItem
+                  key={educationLevel}
+                  value={educationLevel}
                 >
-                  <MenuItem value="">
-                    <em>Select</em>
-                  </MenuItem>
-                  <MenuItem value="PhD">PhD</MenuItem>
-                  <MenuItem value="Master of Technology">Master of Technology </MenuItem>
-                  <MenuItem value="Master of Business Administration">Master of Business Administration</MenuItem>
-                  <MenuItem value="Master Degree">Master Degree</MenuItem>
-                  <MenuItem value="Bachelor of Technology">Bachelor of Technology</MenuItem>
-                  <MenuItem value="Bachelor Degree">Bachelor Degree</MenuItem>
-                  <MenuItem value="Diploma Equavalant to Bachelor degree">Diploma Equavalant to Bachelor degree</MenuItem>
-                  <MenuItem value="Diploma Equavalant to Master degree">Diploma Equavalant to Master degree</MenuItem>
-                  <MenuItem value="Online Degree">Online Degree</MenuItem>
-                  <MenuItem value="Advance Diploma">Advance Diploma</MenuItem>
+                  {educationLevel}
+                </MenuItem>
+              ))}
 
-                </Select>
-              </FormControl>
-              <br></br>
-              <TextField
-                variant="outlined"
-                label="College Name"
-                name="collegeName"
+            </Select>
+          </FormControl>
 
-                value={education.collegeName}
-                onChange={(e) => handleChange(e, i)}
-                fullWidth
-                required
-              />
-              <br></br>
-              <TextField
-                variant="outlined"
-                label="Authority"
-                name="authority"
 
-                value={education.authority}
-                onChange={(e) => handleChange(e, i)}
-                fullWidth
-                required
-              />
-              <br></br>
-              <TextField
-                variant="outlined"
-                label="Discipline"
-                name="discipline"
 
-                value={education.discipline}
-                onChange={(e) => handleChange(e, i)}
-                fullWidth
-                required
-              />
-              <br></br>
-              <TextField
-                variant="outlined"
-                label="Year of Passout"
-                name="yearOfpassout"
+          <TextField
+            variant="outlined"
+            label="College Name"
+            name="collegeName"
+            value={education.collegeName}
+            onChange={(e) => handleChange(e, i)}
+            fullWidth
+            required
+          />
 
-                value={education.yearOfpassout}
-                onChange={(e) => handleChange(e, i)}
-                type="date"
-                fullWidth
-                required
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              {educationList.length !== 1 && (
-                <Button className={classes.addButton}
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => handleRemoveEducation(i)}
+          <TextField
+            variant="outlined"
+            label="Degree Name"
+            name="degreeName"
+            value={education.degreeName}
+            onChange={(e) => handleChange(e, i)}
+            fullWidth
+
+          />
+
+
+          <FormControl sx={{  m: 3, width: 600 }}>
+          <InputLabel>Authority</InputLabel>
+            <Select
+              name="authority"
+              label="Authority"
+              value={education.authority}
+              onChange={(e) => handleChange(e, i)}
+              input={<OutlinedInput label="Authority" />}
+              required                     
+              inputProps={{ 'aria-label': 'Without label' }}
+            >
+              {authorities.map((authority) => (
+                <MenuItem
+                  key={authority} 
+                  value={authority}                 
                 >
-                  Remove
-                </Button>
-              )}
-              <Button className={classes.removeButton}
-                variant="contained"
-                color="primary"
-                onClick={handleAddEducation}
-              >
-                Add Education
-              </Button>
-              <Button variant="contained" color="primary" onClick={handleSubmit}>
-                Submit
-              </Button>
-            </div>
-          ))}
+                  {authority}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+
+
+
+
+          <TextField
+            variant="outlined"
+            label="Discipline"
+            name="discipline"
+            value={education.discipline}
+            onChange={(e) => handleChange(e, i)}
+            fullWidth
+            required
+          />
+
+
+
+
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel id="demo-multiple-name-label">Year of Passout</InputLabel>
+            <Select
+              name="yearOfpassout"
+              value={education.yearOfpassout}
+              onChange={(e) => handleChange(e, i)}
+              labelId="demo-multiple-name-label"
+              id="demo-multiple-name"
+
+              input={<OutlinedInput label="Year of Passout" />}
+
+            >
+              {yearofPassouts.map((yearofPassout) => (
+                <MenuItem
+                  key={yearofPassout}
+                  value={yearofPassout}
+                >
+                  {yearofPassout}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+
+
+
+          <TextField
+            variant="outlined"
+            label="Start Year"
+            name="startYear"
+            value={education.startYear}
+            onChange={(e) => handleChange(e, i)}
+
+            type="date"
+            fullWidth
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+
+          />
+
+          <TextField
+            variant="outlined"
+            label="End Year"
+            name="endYear"
+            value={education.endYear}
+            onChange={(e) => handleChange(e, i)}
+
+            type="date"
+            fullWidth
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          {educationList.length !== 1 && (
+            <Button className={classes.addButton}
+              variant="contained"
+              color="red"
+              onClick={() => handleRemoveEducation(i)}
+            >
+              Remove
+            </Button>
+          )}
+
+          <br></br>
+          <Button className={classes.removeButton}
+            variant="contained"
+            color="primary"
+            onClick={handleAddEducation}
+          >
+            Add Education
+          </Button>
+
+
+          <Button
+            variant="contained" color="primary" onClick={handleSubmit}>
+            Submit
+          </Button>
+
         </div>
-      </div>
-    </>
+      ))}
+    </div>
   );
 };
 

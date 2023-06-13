@@ -15,13 +15,7 @@ import { FiEdit2 } from "react-icons/fi"
 import Multiselect from "multiselect-react-dropdown"
 import { Routes, Link, Route, useNavigate } from 'react-router-dom'
 import { educationLevels } from '../../constraints/arrays'
-import styled from 'styled-components'
-import { makeStyles } from '@material-ui/core/styles'
-import FilledInput from '@mui/material/FilledInput'
-import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
-import Input from '@mui/material/Input'
-import InputLabel from '@mui/material/InputLabel'
+   
 import OutlinedInput from '@mui/material/OutlinedInput'
 
 
@@ -89,23 +83,17 @@ const Education = (props) => {
 
 
 
-
-
-    //API things Start 
-
-
     const Navigate = useNavigate();
+
     const user = JSON.parse(localStorage.getItem("userDetails"))
-    console.log('user', user)
+  
     if (!user) Navigate("/login")
 
-    useEffect(() => {
-        getEducationData()
-    }, [])
-
     const [userInfo, setUserInfo] = useState([])
+
+
     useEffect(() => {
-        // console.log(user._id)
+      
         fetch(`http://localhost:8000/personal/${user._id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -116,6 +104,32 @@ const Education = (props) => {
             .catch(err => console.log(err))
         console.log(userInfo)
     }, [])
+
+
+
+    //API things Start 
+
+
+   
+    
+
+    useEffect(() => {
+        getEducationData()
+    }, [])
+
+    // const [userInfo, setUserInfo] = useState([])
+    // useEffect(() => {
+    //     // console.log(user._id)
+    //     fetch(`http://localhost:8000/personal/${user._id}`, {
+    //         headers: {
+    //             Authorization: `Bearer ${localStorage.getItem('token')}`
+    //         }
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => { console.log(data); setUserInfo(data.data) })
+    //         .catch(err => console.log(err))
+    //     console.log(userInfo)
+    // }, [])
 
     const [eduData, setEduData] = useState(
         {

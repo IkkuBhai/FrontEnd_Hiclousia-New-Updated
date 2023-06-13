@@ -1,30 +1,34 @@
- import React, { useState } from 'react';
- import { makeStyles } from '@material-ui/core/styles';
- import TextField from '@material-ui/core/TextField';
- import { Button, Typography } from '@material-ui/core';
- import { Add, Remove} from '@material-ui/icons';
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import { Button, Typography } from '@material-ui/core';
+import { Add, Remove } from '@material-ui/icons';
+import { primarySkills } from '../../constraints/arrays'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(2),
       paddingTop: theme.spacing(1),
-      paddingLeft : theme.spacing(1),
-      paddingBottom : theme.spacing(3),
+      paddingLeft: theme.spacing(1),
+      paddingBottom: theme.spacing(3),
       [theme.breakpoints.down('sm')]: {
       },
       width: '70ch',
     },
-   
-       color: theme.palette.primary.main ,
-       background: '#8ec9ff',
-       boxShadow: '0px 3px 5px 2px rgba(255, 105, 135, .3)',
-       padding: '50px 30px',
-       margin : "0px,500px"
+
+    color: theme.palette.primary.main,
+
+    //  boxShadow: '0px 3px 5px 2px rgba(255, 105, 135, .3)',
+    padding: '50px 30px',
+    margin: "0px,500px"
   },
-  // feildColor: {
-  //   color: "#000080"
-  // },
+
   addButton: {
     margin: theme.spacing(5),
 
@@ -43,34 +47,38 @@ function ProjectForm() {
     {
       userDetailsID: userId._id,
       projectTitle: '',
+      projectType: '',
       description: '',
-      skillsUsed: '',
+      skills: [],
       startDate: '',
       endDate: '',
-      Url: '',
+      url: '',
       organizationName: ''
     }
   ]
   );
 
- 
+
   const handleAddProject = () => {
-  
+
     const projects = [...projectData, {
       userDetailsID: userId._id,
       projectTitle: '',
+      projectType: '',
       description: '',
-      skillsUsed: '',
+      skills: [],
       startDate: '',
       endDate: '',
-      Url: '',
+      url: '',
       organizationName: ''
     }];
- 
+
     setProjectData(
       projects
     );
   }
+
+
 
   const handleRemoveProject = (index) => {
     const projects = [...projectData];
@@ -83,7 +91,7 @@ function ProjectForm() {
   const handleProjectChange = (event, index) => {
 
     const { name, value } = event.target;
-  
+
     const projects = [...projectData];
     projects[index] = {
       ...projectData[index],
@@ -96,7 +104,7 @@ function ProjectForm() {
     console.log(projectData)
     let projectInfo = projectData;
     projectInfo?.map((e, index) => {
-      fetch("http://localhost:8000/project", {
+      return (fetch("http://localhost:8000/project", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -107,40 +115,45 @@ function ProjectForm() {
       }).then(response => response.json().then(data => {
         console.log(data)
         if (data.status === false) return false
-        else{
+        else {
 
-          setProjectData( [{
+          setProjectData([{
             userDetailsID: userId._id,
             projectTitle: '',
+            projectType: '',
             description: '',
-            skillsUsed: '',
+            skills: [],
             startDate: '',
             endDate: '',
-            Url: '',
+            url: '',
             organizationName: ''
           }])
-          
+
         }
       }
-      ))
+      )))
     })
     return true
   }
 
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-   SaveProject() 
+
+    SaveProject()
     alert("Profile submitted sccessfully")
-   
+
     // alert(JSON.stringify(projectData));
   };
+
+
+
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <Typography textAlign="center" variant="h6" gutterBottom>
         Projects :
       </Typography>
+
       {projectData?.map((project, index) => (
         <div key={index}>
           <TextField
@@ -152,14 +165,51 @@ function ProjectForm() {
             onChange={(event) => handleProjectChange(event, index)}
           />
 
+
           <TextField
-            label="Skills"
-            name="skillsUsed"
+            label="Project Type"
+            name="projectType"
             variant="outlined"
             required
-            value={project.skillsUsed}
+            value={project.projectType}
             onChange={(event) => handleProjectChange(event, index)}
           />
+
+
+
+
+
+
+
+
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel id="demo-multiple-name-label">Skills Used</InputLabel>
+            <Select
+              labelId="demo-multiple-name-label"
+              id="demo-multiple-name"
+              name="skills"
+              value={project.skills}
+              onChange={(event) => handleProjectChange(event, index)}
+              multiple
+              input={<OutlinedInput label="Skills Used" />}
+
+            >
+              {primarySkills.map((primarySkill, i) => (
+                <MenuItem
+                  key={i}
+                  value={primarySkill}
+                >
+                  {primarySkill}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+
+
+
+
+
           <TextField
             label="Start Date"
             name="startDate"
@@ -172,6 +222,9 @@ function ProjectForm() {
               shrink: true,
             }}
           />
+
+
+
           <TextField
             label="End Date"
             name="endDate"
@@ -184,14 +237,19 @@ function ProjectForm() {
               shrink: true,
             }}
           />
+
+
           <TextField
             label="URL"
-            name="Url"
+            name="url"
             variant="outlined"
-            required
-            value={project.Url}
-            onChange={(event) => handleProjectChange(event,index )}
+            // required
+            value={project.url}
+            onChange={(event) => handleProjectChange(event, index)}
           />
+
+
+
           <TextField
             label="Organization Name"
             name="organizationName"
@@ -199,8 +257,11 @@ function ProjectForm() {
             variant="outlined"
             required
             value={project.organizationName}
-            onChange={(event) => handleProjectChange(event,index)}
+            onChange={(event) => handleProjectChange(event, index)}
           />
+
+
+
           <TextField
             label="Description"
             name="description"
@@ -213,8 +274,13 @@ function ProjectForm() {
             defaultValue="Text limit 250 characters"
             // color="success"
             focused
-            onChange={(event) => handleProjectChange(event,index)}
+            onChange={(event) => handleProjectChange(event, index)}
           />
+
+
+
+
+          {/* <br/> */}
           {index === projectData?.length - 1 &&
             <Button
               className={classes.addButton}
@@ -243,7 +309,7 @@ function ProjectForm() {
         type="submit"
         variant="contained"
         color="primary"
-        >
+      >
         Submit
 
       </Button>
@@ -254,177 +320,3 @@ function ProjectForm() {
 
 export default ProjectForm;
 
-// // import React, { useState } from "react";
-// // import {
-// //   TextField,
-// //   Button,
-// //   Grid,
-// //   IconButton,
-// //   Typography,
-// // } from "@material-ui/core";
-// // import { AddCircleOutline, RemoveCircleOutline } from "@material-ui/icons";
-
-// const mandatoryFields = [  "userDetailsID","projectTitle",  "description",  "skillsUsed",  "startDate",  "endDate",  "Url",  "organizationName",];
-
-// const ExperienceForm = () => {
-//   const [projectData, setprojectData] = useState([{
-//     userDetailsID: userId._id,
-//     projectTitle: "",
-//     description: "",
-//     skillsUsed: "",
-//     startDate: "",
-//     endDate: "",
-//     Url: "",
-//     organizationName: "",
-//   }]);
-
-//   const handleAddForm = () => {
-//     setprojectData([...projectData, {
-//       userDetailsID: userId._id,
-//       projectTitle: "",
-//       description: "",
-//       skillsUsed: "",
-//       startDate: "",
-//       endDate: "",
-//       Url: "",
-//       organizationName: "",
-//     }]);
-//   };
-
-//   const handleRemoveForm = (index) => {
-//     const newprojectData = [...projectData];
-//     newprojectData.splice(index, 1);
-//     setprojectData(newprojectData);
-//   };
-
-//   const handleChange = (event, index) => {
-//     const { name, value } = event.target;
-//     const newprojectData = [...projectData];
-//     newprojectData[index][name] = value;
-//     setprojectData(newprojectData);
-//   };
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const hasEmptyField = mandatoryFields.some(
-//       (field) => projectData[0][field] === ""
-//     );
-//     if (hasEmptyField) {
-//       alert("Please fill in all mandatory fields");
-//     } else {
-//       console.log(projectData);
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       {projectData.map((experience, index) => (
-//         <Grid container spacing={2} key={index}>
-//           <Grid item xs={12} md={6}>
-//             <TextField
-//               label="Project Title"
-//               name="projectTitle"
-//               fullWidth
-//               required
-//               value={experience.projectTitle}
-//               onChange={(event) => handleChange(event, index)}
-//             />
-//           </Grid>
-//           <Grid item xs={12} md={6}>
-//             <TextField
-//               label="Organization Name"
-//               name="organizationName"
-//               fullWidth
-//               required
-//               value={experience.organizationName}
-//               onChange={(event) => handleChange(event, index)}
-//             />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <TextField
-//               label="Description"
-//               name="description"
-//               fullWidth
-//               required
-//               value={experience.description}
-//               onChange={(event) => handleChange(event, index)}
-//             />
-//           </Grid>
-//           <Grid item xs={12} md={6}>
-//             <TextField
-//               label="Skills Used"
-//               name="skillsUsed"
-//               fullWidth
-//               required
-//               value={experience.skillsUsed}
-//               onChange={(event) => handleChange(event, index)}
-//             />
-//           </Grid>
-//           <Grid item xs={12} md={6}>
-//             <TextField
-//               label="Start Date"
-//               name="startDate"
-//               fullWidth
-//               required
-//               value={experience.startDate}
-//               onChange={(event) => handleChange(event, index)}
-//               type="date"
-//               InputLabelProps={{
-//                 shrink: true,
-//               }}
-//             />
-//           </Grid>
-//           <Grid item xs={12} md={6}>
-//             <TextField
-//               label="End Date"
-//               name="endDate"
-//               fullWidth
-//               required
-//               value={experience.endDate}
-//               onChange={(event) => handleChange(event, index)}
-//               type="date"
-//               InputLabelProps={{
-//                 shrink: true,
-//               }}
-//             />
-//           </Grid>
-//           <Grid item xs={12} md={6}>
-//             <TextField
-//               label="URL"
-//               name="Url"
-//               fullWidth
-//               required
-//               value={experience.Url}
-//               onChange={(event) => handleChange(event, index)}
-//             />
-//           </Grid>
-//           {projectData.length > 1 && (
-//             <Grid item xs={12}>
-//               <IconButton
-//                 onClick={() => handleRemoveForm(index)}
-//                 color="secondary"
-//               >
-//                 <RemoveCircleOutline />
-//               </IconButton>
-//             </Grid>
-//           )}
-//           {index === projectData.length - 1 && (
-//             <Grid item xs={12}>
-//               <IconButton onClick={handleAddForm} color="primary">
-//                 <AddCircleOutline />
-//               </IconButton>
-//               <Typography variant="caption">Add another project</Typography>
-//             </Grid>
-//           )}
-//         </Grid>
-//       ))}
-//       <Button type="submit" variant="contained" color="primary">
-//         Submit
-//       </Button>
-//     </form>
-    
-//   )
-// }
-
-
-// export default ExperienceForm;

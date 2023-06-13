@@ -1,38 +1,18 @@
 import React, { useState, useEffect, Component } from 'react'
-import { GiHamburgerMenu, GiSkills } from "react-icons/gi"
+import {  GiSkills } from "react-icons/gi"
 import { FaBriefcase, FaUserGraduate } from "react-icons/fa"
 import { BsFillShareFill } from "react-icons/bs"
 import { GrAdd } from "react-icons/gr"
-import { IoArrowBackCircle } from "react-icons/io5"
-import { AiFillCloseCircle } from "react-icons/ai"
 import { ImFilesEmpty } from "react-icons/im"
 import { FiEdit2 } from "react-icons/fi"
-import Multiselect from "multiselect-react-dropdown"
-import { primarySkills, secondarySkills, educationLevels, experience, location } from '../constraints/arrays'
-import { slide as Menu } from 'react-burger-menu'
-import axios from 'axios'
-import { FileUpload } from 'primereact/fileupload'
-import { Dialog } from 'primereact/dialog'
-import { InputText } from 'primereact/inputtext'
 import '../styles/userProfile.css'
-import { Routes, Link, Route, useNavigate } from 'react-router-dom'
-import Select from 'react-select'
-import TextField from '@mui/material/TextField'
-import { Box, Button, Container } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
+import { useNavigate } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
-import Chip from '@mui/material/Chip'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Avatar from '@material-ui/core/Avatar'
-import avatar from "../images/avatar.jpg"
 import ProfilePic from './UserProfileComponents/ProfilePic'
 import Education from './UserProfileComponents/Education'
 import Experience from './UserProfileComponents/Experience'
 import SecondarySkills from './UserProfileComponents/SecondarySkills'
 import PrimarySkills from './UserProfileComponents/PrimarySkills'
-import EducationForm from './multiForm/EducationForm'
-import userProfileForm from './multiForm/UserProfileForm'
-import Projects from './UserProfileComponents/Projects'
 import EducationFormNew from './multiForm/EducationFormNew'
 import ProjectForm from './multiForm/ProjectForm'
 import ExperienceForm from './multiForm/ExperienceForm'
@@ -67,76 +47,21 @@ const UserProfile = () => {
         marginTop: '30px',
     }
 
-    //Primary Skills Start
-    // const [priData, setPriData] = useState([])
 
-    // function getPrimaryData() {
-    //     fetch(`http://localhost:8000/primarySkills/63f331a9870eb03618057960`, {
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //         .then((result) => result.json())
-    //         .then((resp) => {
-    //             console.log("resp", resp)
-    //             setPriData(resp)
-    //             console.log("priData", priData)
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         })
-    // }
-
-
-    // useEffect(() => {
-    //     getPrimaryData()
-    // }, [])
-    //Primary Skills end
-
-
-
-
-    //Secondary Skills Start
-    // const [secData, setSecData] = useState([])
-
-    // function getSecData() {
-    //     fetch(`http://localhost:8000/secondarySkills/63f331a9870eb03618057960`, {
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //         .then((result) => result.json())
-    //         .then((resp) => {
-    //             console.log("resp", resp)
-    //             setSecData(resp)
-    //             console.log("secData", secData)
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         })
-    // }
-
-
-    // useEffect(() => {
-    //     getSecData()
-    // }, [])
-    //Secondary Skills End
 
 
 
     const Navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem("userDetails"))
-    //  console.log(user)
+  
     if (!user) Navigate("/login")
 
     const [userInfo, setUserInfo] = useState([])
 
 
     useEffect(() => {
-        // console.log(user._id)
+      
         fetch(`http://localhost:8000/personal/${user._id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -180,22 +105,6 @@ const UserProfile = () => {
         return <Experience exp={experienceMain => setExperienceMain(false)} />
     }
     //Experience Pop-Up End
-
-
-    //Primary skills Start 
-    // const [primarySkillMain, setPrimarySkillMain] = useState(false)
-    // const PrimarySkillsMain = () => {
-    //     return <PrimarySkills />
-    // }
-    //Primary Skills End
-
-
-    //Secondary Skills Start
-    // const [secondarySkillMain, setSecondarySkillMain] = useState(false)
-    // const SecondarySkillsMain = () => {
-    //     return <SecondarySkills />
-    // }
-    //Secondary Skills End
 
 
 
@@ -320,6 +229,7 @@ const UserProfile = () => {
 
                         </Grid>
                     ))} */}
+                    
                 </div>
 
 
@@ -330,6 +240,7 @@ const UserProfile = () => {
                     <button className='edit-btn' onClick={() => setExperienceMain(true)}>
                         <FiEdit2 />
                     </button>
+                    {experienceMain && <ExperienceMain/>}
 
                     <button className='edit-btn' style={{ marginRight: '10px', }} onClick={() => setExpFormNew(true)}><GrAdd /></button>
                     {expFormNew && <ExperienceForm expFormNew={expFormNew => setExpFormNew(false)} />}

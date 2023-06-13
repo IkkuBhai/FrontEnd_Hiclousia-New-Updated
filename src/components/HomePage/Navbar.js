@@ -43,7 +43,7 @@ const Navbar = () => {
                         </li>
                         ) : (
                             <li style={{listStyleType: 'none',}}>
-                                <a href="/LogInSignIn" style={{color: 'goldenrod',}}>Login</a>
+                                <a href="/SignUp" style={{color: 'goldenrod',textDecoration: 'none',}}>Sign Up</a>
                             </li>
                         )}
 
@@ -51,7 +51,7 @@ const Navbar = () => {
                 </div>
 
                 <div className='profile-icon'>
-                    <button className='profile-icon-btn' onClick={() => navigate("/UserProfile")}><CgProfile style={{ color: 'goldenrod', fontSize: '35px', }} /></button>
+                    <button className='profile-icon-btn' onClick={() => navigate("/Portfolio")}><CgProfile style={{ color: 'goldenrod', fontSize: '35px', }} /></button>
 
                 </div>
             </nav>

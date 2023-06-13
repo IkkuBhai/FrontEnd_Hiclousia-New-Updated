@@ -8,14 +8,14 @@ import Button from '@mui/material/Button'
 const Project = (props) => {
 
     // Api Start
-    const navigate = useNavigate();
-    useEffect(() => {
+    // const navigate = useNavigate();
+    // useEffect(() => {
   
-      if (userId == null) {
-        navigate("/login")
-        alert("Please login first")
-      }
-    }, [])
+    //   if (userId == null) {
+    //     navigate("/login")
+    //     alert("Please login first")
+    //   }
+    // }, [])
     // Api End
 
 
@@ -77,7 +77,7 @@ const Project = (props) => {
 
     function getProjects() 
     {
-        fetch(`http://localhost:8000/projects/${id}`, {
+        fetch(`http://localhost:8000/projects`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Button, Typography, Grid, IconButton, } from '@material-ui/core';
-import { Add, Remove, AddCircleOutline, RemoveCircleOutline } from '@material-ui/icons';
-import { useTheme } from '@mui/material/styles';
+import { Button, Typography,  } from '@material-ui/core';
+import { Add, Remove,  } from '@material-ui/icons';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import MultipleSelectChip from './MultiSelect';
-import { primarySkills } from '../../constraints/arrays';
+import { primarySkills, experienceTypes, companyTypes, location } from '../../constraints/arrays';
+import OutlinedInput from '@mui/material/OutlinedInput'
 
-// import CssBaseline from '@material-ui/core/CssBaseline';
+
+
+
 
 
 
@@ -28,17 +29,18 @@ const useStyles = makeStyles((theme) => ({
       },
       width: '70ch',
     },
-    //  width :"auto",
-    //  height : "auto",
+
     color: theme.palette.primary.main,
-    background: '#8ec9ff',
-    boxShadow: '0px 3px 5px 2px rgba(255, 105, 135, .3)',
+
+
     padding: '50px 30px',
-    margin: "0px,500px"
+    // margin: "0px,500px",
+
+    border: '1px solid',
+    borderRadius: '0.5rem',
+    margin: '48px'
   },
-  // feildColor: {
-  //   color: "#000080"
-  // },
+
   addButton: {
     margin: theme.spacing(5),
 
@@ -57,14 +59,16 @@ function ExperienceForm() {
   const [experienceData, setExperienceData] = useState([
     {
       userDetailsID: userId._id,
-      jobTitle: '',
-      experience: '',
-      skills: [],
+      jobStatus: "Active",
+      experienceType: '',
+      jobRole: '',
       companyName: '',
       companyType: '',
-      companyLocation: '',
-      jobStatus: "Active"
-
+      skills: [],
+      location: '',
+      startDate: '',
+      endDate: '',
+    
 
     }
   ]
@@ -74,13 +78,16 @@ function ExperienceForm() {
   const handleAddexperience = () => {
 
     const experiences = [...experienceData, {
-      jobTitle: '',
-      experience: '',
-      skills: [],
-      companyName: '',
+      experienceType: '',
+      jobStatus: "Active",
+      jobRole: '',
       companyType: '',
-      companyLocation: '',
-      jobStatus: "Active"
+      companyName: '',
+      skills: [],
+      location: '',
+      startDate: '',
+      endDate: '',
+      
     }];
 
     setExperienceData(
@@ -126,16 +133,19 @@ function ExperienceForm() {
         else {
 
           setExperienceData([{
-            jobTitle: '',
-            experience: '',
+            experienceType: '',
+            jobStatus: "Active",
+            jobRole: '',
+            companyType: '',
+            experienceType: '',
             skills: [],
             companyName: '',
-            companyType: '',
-            companyLocation: '',
-            jobStatus: "Active"
+            location: '',
+            startDate: '',
+            endDate: ''
           }])
-          navigate("/ProjectForm")
-         
+          navigate("/UserProjects")
+
         }
       }
       ))
@@ -148,97 +158,42 @@ function ExperienceForm() {
 
     SaveExperience()
 
-    alert(JSON.stringify(experienceData));
+    // alert(JSON.stringify(experienceData));
   };
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <Typography textAlign="center" variant="h6" gutterBottom>
-        Experience Details Form  :
+        Experience Details:
       </Typography>
       {experienceData?.map((experience, index) => (
         <div key={index}>
-          <TextField
-            label="Job Title"
-            name="jobTitle"
-            variant="outlined"
-            required
-            value={experience.jobTitle}
-            onChange={(event) => handleExperienceChange(event, index)}
-          />
 
-          {/* <TextField
-            label="Expereince"
-            name="experience"
-            variant="outlined"
-            required
-            value={experience.experience}
-            onChange={(event) => handleExperienceChange(event, index)}
-          /> */}
-          <FormControl variant="outlined" className={classes.root} >
-            <InputLabel >Experience</InputLabel>
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel>Experience Type</InputLabel>
             <Select
-              value={experience.experience}
-              name="experience"
-              onChange={(e) => handleExperienceChange(e, index)}
-              label="Experience"
+              name="experienceType"
+              value={experience.experienceType}
+              onChange={(event) => handleExperienceChange(event, index)}
+              label="Experience Type"
               required
+              input={<OutlinedInput label="Experience Type" />}
             >
-              <MenuItem value="">
-                <em>Select</em>
-              </MenuItem>
-              <MenuItem value="Fresher">Fresher</MenuItem>
-              <MenuItem value="1 Year">1 Year </MenuItem>
-              <MenuItem value="2 Year">2 Year</MenuItem>
-              <MenuItem value="3 Year">3 Year</MenuItem>
-              <MenuItem value="4 Year">4 Year</MenuItem>
-              <MenuItem value="5 Year">5 Year</MenuItem>
-              <MenuItem value="6 Year">6 Year</MenuItem>
-              <MenuItem value="7 Year">7 Year</MenuItem>
-              <MenuItem value="8 Year">8 Year</MenuItem>
-              <MenuItem value="9 Year">9 Year</MenuItem>
-              <MenuItem value="9 Year">9 Year</MenuItem>
-              <MenuItem value="10 Year">10 Year</MenuItem>
-              <MenuItem value="11 to 15 Year">11 to 15 Year</MenuItem>
-              <MenuItem value="15 to 20 Year">15 to 20 Year</MenuItem>
-              <MenuItem value="20+ Year">20+ Year</MenuItem>
+              {experienceTypes.map((experienceType) => (
+                <MenuItem
+                  key={experienceType}
+                  value={experienceType}
+                >
+                  {experienceType}
+                </MenuItem>
+              ))}
 
             </Select>
           </FormControl>
-          {/* <TextField
-           label="Skills"
-           name="skills"
-           variant="outlined"
-           required
-           value={experience.skills}
-           onChange={(event) => handleExperienceChange(event, index)}
-        
-         /> */}
 
-          <TextField
-            label="Company Name"
-            name="companyName"
-            variant="outlined"
-            required
-            value={experience.companyName}
-            onChange={(event) => handleExperienceChange(event, index)}
 
-          />
-          <TextField
-            label="Company Type"
-            name="companyType"
-            variant="outlined"
-            required
-            value={experience.companyType}
-            onChange={(event) => handleExperienceChange(event, index)}
-          />
-          <TextField
-            label="Company Location"
-            name="companyLocation"
-            variant="outlined"
-            required
-            value={experience.companyLocation}
-            onChange={(event) => handleExperienceChange(event, index)}
-          />
+
+
+
           <TextField
             label="Job Status"
             name="jobStatus"
@@ -249,7 +204,142 @@ function ExperienceForm() {
             onChange={(event) => handleExperienceChange(event, index)}
           />
 
-          <MultipleSelectChip handleFunction={handleExperienceChange} index={index} requiredData={primarySkills} labelName={"Skills"} />
+
+
+
+
+          <TextField
+            label="Job Role"
+            name="jobRole"
+            variant="outlined"
+            required
+            value={experience.jobRole}
+            onChange={(event) => handleExperienceChange(event, index)}
+          />
+
+
+
+
+
+          <TextField
+            label="Organization Name"
+            name="companyName"
+            variant="outlined"
+            required
+            value={experience.companyName}
+            onChange={(event) => handleExperienceChange(event, index)}
+          />
+
+
+
+
+
+
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel>Company Type</InputLabel>
+            <Select
+              name="companyType"
+              value={experience.companyType}
+              onChange={(event) => handleExperienceChange(event, index)}
+              label="Company Type"
+              required
+              input={<OutlinedInput label="Company Type" />}
+            >
+              {companyTypes.map((companyType) => (
+                <MenuItem
+                  key={companyType}
+                  value={companyType}
+                >
+                  {companyType}
+                </MenuItem>
+              ))}
+
+            </Select>
+          </FormControl>
+
+
+
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel id="demo-multiple-name-label">Skills Practiced</InputLabel>
+            <Select
+              labelId="demo-multiple-name-label"
+              id="demo-multiple-name"
+              name="skills"
+              value={experience.skills}
+              onChange={(event) => handleExperienceChange(event, index)}
+              multiple
+              input={<OutlinedInput label="Skills Practiced" />}
+
+            >
+              {primarySkills.map((primarySkill) => (
+                <MenuItem
+                  key={primarySkill}
+                  value={primarySkill}
+                >
+                  {primarySkill}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+ 
+
+
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel>Company Location</InputLabel>
+            <Select
+              name="location"
+              value={experience.location}
+              onChange={(event) => handleExperienceChange(event, index)}
+              label="Company Location"
+              required
+              input={<OutlinedInput label="Company Location" />}
+            >
+              {location.map((locations) => (
+                <MenuItem
+                  key={locations}
+                  value={locations}
+                >
+                  {locations}
+                </MenuItem>
+              ))}
+
+            </Select>
+          </FormControl>
+
+          {/* <MultipleSelectChip handleFunction={handleExperienceChange} index={index} requiredData={primarySkills} labelName={"Skills"} /> */}
+
+          <TextField
+
+            variant="outlined"
+            label="Start Year"
+            name="startDate"
+            value={experience.startDate}
+            onChange={(event) => handleExperienceChange(event, index)}
+            type="date"
+            fullWidth
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+
+          />
+
+          <TextField
+            variant="outlined"
+            label="End Year"
+            name="endDate"
+            value={experience.endDate}
+            onChange={(event) => handleExperienceChange(event, index)}
+            type="date"
+            fullWidth
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+
+          <br />
+
           {index === experienceData?.length - 1 &&
             <Button
               className={classes.addButton}

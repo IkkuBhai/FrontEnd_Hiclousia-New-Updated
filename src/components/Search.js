@@ -22,7 +22,7 @@ const StyledTableCell = withStyles((theme) => ({
   },
   body: {
     fontSize: 24,
-  },
+  }, 
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({

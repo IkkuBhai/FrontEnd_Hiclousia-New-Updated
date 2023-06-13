@@ -5,6 +5,8 @@ import { Box, Button, Container } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import { AiFillCloseCircle } from 'react-icons/ai'
+import Select from '@mui/material/Select'
+import { educationLevels } from '../../constraints/arrays'
 
 const useStyles = makeStyles({
 
@@ -55,6 +57,13 @@ const EducationFormNew = (props) => {
             <div className={classes.modalContainer}>
                 <form className={classes.formField} >
 
+                    <Box>
+                        <Select
+                            label="Education Level"
+                            placeholder="Education Level"
+                        />
+                    </Box>
+
                     <Box mb={2}>
                         <TextField fullWidth label="College Name" />
                     </Box>
@@ -77,7 +86,7 @@ const EducationFormNew = (props) => {
                     </Box>
                     <br />
 
-            
+
 
                     <Button variant="contained" className={classes.save}>save</Button>
                     <Button variant="contained" className={classes.cancel} onClick={() => props.form(false)}>cancel</Button>

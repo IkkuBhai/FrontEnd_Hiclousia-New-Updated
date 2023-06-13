@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext'
 import Profile from '../../images/Profile.jpg'
 import { FiEdit2 } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
-import Grid from '@material-ui/core/Grid'
 import UserProfileForm from '../multiForm/UserProfileForm'
 
 

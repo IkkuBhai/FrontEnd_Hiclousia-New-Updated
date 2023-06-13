@@ -1,147 +1,216 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import '../../styles/userProfile.css'
-import { AiFillCloseCircle } from 'react-icons/ai'
-import Button from '@mui/material/Button'
-import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
 
-const UserProfileForm = (props) => {
+const UserProfileForm = () => {
+
+    const navigate = useNavigate();
 
     const formField = {
         AlignItems: 'center',
         marginTop: '18px',
+        // backgroundColor: 'red',fgyfyhjmnyhyjmyhtyjhyf
+        width: '87%',
+        margin: '80px',
     };
 
-    const inputFieldForm = {
-        borderRadius: '0.2rem',
-        height: '21px',
-        width: '15rem',
-        border: '1px solid #245799',
+
+
+
+
+
+
+    const userId = JSON.parse(localStorage.getItem("userDetails"))
+
+
+    const [personalData, setPersonalData] = useState([
+        {
+            userDetailsID: userId._id,
+            aboutMe: '',
+            profileLink: '',
+            gender: '',
+            doB: '',
+            phone: '',
+            gitLink: '',
+            state: '',
+            location: ''
+        }
+    ]);
+
+
+
+
+
+
+
+
+    const handlePersonalChange = (event, index) => {
+
+        const { name, value } = event.target;
+
+        const personal = [...personalData]
+        personal[index] = {
+            ...personalData[index],
+            [name]: value
+        }
+
+        setPersonalData(personal)
+
     };
 
-    const labelField = {
-        fontFamily: "'Arial', sans-serif",
-        margin: '17px',
-        color: '#072042',
 
-    };
 
-    const saveButton = {
+    function SavePersonal() {
+        console.log(personalData)
+        let personalInfo = personalData;
+        personalInfo?.map((e, index) => {
+            return(fetch("http://localhost:8000/userProfile", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(e)
 
-        float: 'left',
+            }).then(response => response.json().then(data => {
+                console.log(data)
+                if (data.status === false) return
 
-    }
+                else {
+                    setPersonalData([{
+                        userDetailsID: userId._id,
+                        aboutMe: '',
+                        profileLink: '',
+                        gender: '',
+                        doB: '',
+                        phone: '',
+                        gitLink: '',
+                        state: '',
+                        location: ''
 
-    const cancelButton = {
-
-        float: 'right',
-
-    }
-
-    const cross = {
-        backgroundColor: 'transparent',
-        border: 'none',
-        fontSize: '25px',
-        color: '#5c99ea',
-        cursor: 'pointer',
-        float: 'right',
-        marginBottom: '20px',
-        marginRight: '-7px',
-    }
-
-    const [data, setData] = useState([])
-    useEffect(()=>{
-        fetch(`http://localhost:8000/userprofiles/6433b453e9f602c1383d35f0`, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+                    }])
+                    navigate('/EducationForm')
+                }
+            })))
         })
-        
-        .then((result)=> {
-            result.json().then((resp)=>{
-               
-                setData(resp)
-            })
-           })
-    },[])
 
-    console.log(data)
+        return true;
+    }
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        SavePersonal()
+    }
 
 
 
-    
+
+
+
 
     return (
         <>
-            <div className="edu-Modal-wrapper">
-                <div className="edu-Modal-container">
 
-                    <button style={cross} onClick={() => props.pro(false)}><AiFillCloseCircle style={{ color: 'rgb(22 102 197)', }} /></button>
-
-                    <h3 style={{ textAlign: 'center', marginBottom: '20px', fontFamily: "'Arial', sans-serif", }}>Personal Information</h3>
-
-                    <div className="edu-modal-form">
+            <div className="edu-Modal-container">
 
 
 
+                <h3 style={{ textAlign: 'center', marginTop: '25px', fontFamily: "'Arial', sans-serif", }}>Personal Information</h3>
 
-
-                        <form style={formField} >
-
-                            <Box mb={2}>
-                                <TextField fullWidth label="Git Link" />
-                            </Box>
-                            <br />
-
-                            <Box mb={2}>
-                                <TextField fullWidth label="Gender"  />
-                            </Box>
-                            <br />
-
-                            {/* <Box mb={2}>
-                                <TextField fullWidth label="Discipline" />
-                            </Box>
-                            <br /> */}
-
-
-                            <Box mb={2}>
-                                <label>Date of Birth</label>
-                                <TextField fullWidth type='date'  />
-                            </Box>
-                            <br />
-
-                            <Box mb={2}>
-                                <TextField fullWidth label="Phone Number"  />
-                            </Box>
-                            <br />
-
-                            <Box mb={2}>
-                                <TextField fullWidth label="Location"  />
-                            </Box>
-                            <br />
-
-                            
+                <div className="edu-modal-form">
 
 
 
-                
+
+
+                    <form style={formField} onSubmit={handleSubmit} >
+
+                        {personalData?.map((userProfile, index) => (
+                            <div key={index}>
+
+                                <Box mb={2}>
+                                    <TextField
+                                        fullWidth
+                                        label="About Me"
+                                        name='aboutMe'
+                                        value={userProfile.aboutMe}
+                                        onChange={(event, index) => handlePersonalChange(event, index)}
+                                    />
+                                </Box>
+                                <br />
+
+                                <Box mb={2}>
+                                    <TextField
+                                        fullWidth
+                                        label="Link"
+                                        name='profileLink'
+                                        value={userProfile.profileLink}
+                                        onChange={(event, index) => handlePersonalChange(event, index)}
+                                    />
+                                </Box>
+                                <br />
+
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Gender" name='gender' value={userProfile.gender} onChange={(event, index) => handlePersonalChange(event, index)} />
+                                </Box>
+                                <br />
 
 
 
-                            <Button style={saveButton} variant="contained">save</Button>
-                            <Button style={cancelButton} variant="contained" onClick={() => props.pro(false)}>cancel</Button>
 
-                        </form>
+                                <Box mb={2}>
+                                    <label>Date of Birth</label>
+                                    <TextField fullWidth type='date' name='doB' value={userProfile.doB} onChange={(event, index) => handlePersonalChange(event, index)} />
+                                </Box>
+                                <br />
 
-                    </div>
+                                {/* <Box mb={2}>
+                                    <TextField fullWidth label="Email" />
+                                </Box>
+                                <br /> */}
 
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Phone Number" name='phone' value={userProfile.phone} onChange={(event, index) => handlePersonalChange(event, index)} />
+                                </Box>
+                                <br />
+
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Git Link" name='gitLink' value={userProfile.gitLink} onChange={(event, index) => handlePersonalChange(event, index)} />
+                                </Box>
+                                <br />
+
+                                <Box mb={2}>
+                                    <TextField fullWidth label="State" name='state' value={userProfile.state} onChange={(event, index) => handlePersonalChange(event, index)} />
+                                </Box>
+                                <br />
+
+                                <Box mb={2}>
+                                    <TextField fullWidth label="Location" name='location' value={userProfile.location} onChange={(event, index) => handlePersonalChange(event, index)} />
+                                </Box>
+                                <br />
+
+
+
+                                {/* <Box mb={2}>
+                                    <TextField fullWidth label="Document" name='document' value={userProfile.document} />
+                                </Box>
+                                <br /> */}
+
+
+                            </div>
+                        ))}
+
+                    </form>
 
                 </div>
+
+
             </div>
+
         </>
     )
 }

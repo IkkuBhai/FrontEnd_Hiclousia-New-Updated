@@ -1,113 +1,170 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@mui/material/TextField'
-import { Box, Button, Container } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import { AiFillCloseCircle } from 'react-icons/ai'
-
-
-const useStyles = makeStyles({
-
-    modalWrapper: {
-        position: 'fixed',
-        left: '0',
-        right: '0',
-        bottom: '0',
-        top: '0',
-        backgroundColor: 'rgba(189 , 189 , 189 , 0.9)',
-    },
-
-    modalContainer: {
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        maxWidth: '30rem',
-        padding: '2rem 3rem',
-        borderRadius: '0.5rem',
-        backgroundColor: '#fff',
-    },
-
-    formField: {
-        AlignItems: 'center',
-        marginTop: '18px',
-        width: '25rem',
-    },
-
-    save: {
-        float: 'left',
-        cursor: 'pointer',
-    },
-    cancel: {
-        float: 'right',
-        cursor: 'pointer',
-    }
-
-
-})
-
-
-const ProjectForm = (props) => {
-
-    const classes = useStyles()
-
-    return (
-        <div className={classes.modalWrapper}>
-            <div className={classes.modalContainer}>
-                <form className={classes.formField} >
-
-                    <Box mb={2}>
-                        <TextField fullWidth label="Project Title" />
-                    </Box>
-                    <br />
-
-
-                    <Box mb={2}>
-                        <label>Start Date</label>
-                        <TextField fullWidth type='date' />
-                    </Box>
-                    <br />
-
-                    <Box mb={2}>
-                        <label>End Date</label>
-                        <TextField fullWidth type='date' />
-                    </Box>
-                    <br />
-
-                    <Box mb={2}>
-                        <TextField fullWidth label="Organization Name" />
-                    </Box>
-                    <br />
-
-            
-                    <Box mb={2} >
-                        <TextField
-                            id="outlined-multiline-static"
-                            style={{width: '100%',}}
-                            label="Description"
-                            multiline
-                            rows={4}
-                            defaultValue="Deescription"
-                        />
-                    </Box>
-                    <br />
+import React, { useState } from 'react';
+import { styled } from '@mui/system';
+import TextField from '@mui/material/TextField';
+import { Button, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 
 
 
+const form = {
 
-
-
-                    <Button variant="contained" className={classes.save} >save</Button>
-                    <Button variant="contained" className={classes.cancel} onClick={() => props.proj(false)}>cancel</Button>
-
-                </form>
-
-
-            </div>
-        </div>
-    )
+  border: '1px solid',
+  backgroundColor: '#fff'
 }
 
-export default ProjectForm
+
+// const useStyles = styled('div')(({ theme }) => ({
+//   // root: {
+//   //   '& .MuiTextField-root': {
+//   //     margin: theme.spacing(2),
+//   //     paddingTop: theme.spacing(1),
+//   //     paddingLeft: theme.spacing(1),
+//   //     paddingBottom: theme.spacing(3),
+//   //     [theme.breakpoints.down('sm')]: {
+//   //     },
+//   //     width: '70ch',
+//   //   },
+
+//   //   // background: '#8EC9FF',
+
+//   //   padding: '50px 30px',
+//   //   margin: "0px,500px"
+//   // },
+//   addButton: {
+//     margin: theme.spacing(5),
+//   },
+//   removeButton: {
+//     margin: theme.spacing(5),
+//   }
+// }));
+
+
+function ProjectForm() {
+
+  const [projectData, setProjectData] = useState([
+    {
+      projectTitle: '',
+      description: '',
+      skillsUsed: '',
+      startDate: '',
+      endDate: '',
+      Url: '',
+      organizationName: ''
+    }
+  ]);
+  const handleAddProject = () => {
+    const projects = [
+      ...projectData,
+      {
+        projectTitle: '',
+        description: '',
+        skillsUsed: '',
+        startDate: '',
+        endDate: '',
+        Url: '',
+        organizationName: ''
+      }
+    ];
+    setProjectData(projects);
+  };
+  const handleRemoveProject = (index) => {
+    const projects = [...projectData];
+    projects.splice(index, 1);
+    setProjectData(projects);
+  };
+  const handleProjectChange = (event, index) => {
+    const { name, value } = event.target;
+    const projects = [...projectData];
+    projects[index] = {
+      ...projectData[index],
+      [name]: value
+    };
+    setProjectData(projects);
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(projectData);
+    // Perform your save operation here
+    // ...
+    alert('Profile submitted successfully');
+  };
+
+
+
+  return (
+
+    
+      <form style={form} onSubmit={handleSubmit}>
+
+
+        <Typography textAlign="center" variant="h6" gutterBottom>
+          Projects:
+        </Typography>
+        {projectData?.map((project, index) => (
+
+
+          <div key={index}>
+
+
+            <TextField
+              label="Project Title"
+              name="projectTitle"
+              variant="outlined"
+              required
+              value={project.projectTitle}
+              onChange={(event) => handleProjectChange(event, index)}
+            />
+
+
+            <TextField
+              label="Skills"
+              name="skillsUsed"
+              variant="outlined"
+              required
+              value={project.skillsUsed}
+              onChange={(event) => handleProjectChange(event, index)}
+            />
+
+
+       
+            {index === projectData?.length - 1 ? (
+              <Button
+             
+                variant="contained"
+                color="primary"
+                startIcon={<AddIcon />}
+                onClick={handleAddProject}
+              >
+                Add
+              </Button>
+
+
+            ) : (
+              <Button
+               
+                variant="contained"
+                color="primary"
+                startIcon={<RemoveIcon />}
+                onClick={() => handleRemoveProject(index)}
+              >
+                Remove
+              </Button>
+            )}
+          </div>
+        ))}
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          Submit
+        </Button>
+      </form>
+ 
+
+
+  );
+}
+export default ProjectForm;
