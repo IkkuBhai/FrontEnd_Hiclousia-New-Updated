@@ -1,23 +1,24 @@
-
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
-import { Button, TextField, FormHelperText, makeStyles, Typography } from '@material-ui/core'
 import baseurl from '../../baseURL/config'
 import '../../styles/userProfile.css'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import { yearofPassouts, educationLevels , authorities } from '../../constraints/arrays'
+import { yearofPassouts, educationLevels, authorities } from '../../constraints/arrays'
 import MenuItem from '@mui/material/MenuItem'
-// import { Theme, useTheme } from '@mui/material/styles'
+import TextField from '@mui/material/TextField';
+import { styled } from '@mui/system';
+import { Button, Typography } from '@mui/material';
+
 
 
 
 const userId = JSON.parse(localStorage.getItem('userDetails'));
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(2),
@@ -69,7 +70,7 @@ const EducationForm = (props) => {
       navigate("/login")
       alert("Please login first")
     }
-  }, [])
+  },)
 
 
   const classes = useStyles();
@@ -126,37 +127,42 @@ const EducationForm = (props) => {
 
   function SaveEducation() {
 
-    educationList.map((e, index) => {
+    educationList.map((e) => {
 
-      fetch(`${baseurl}/education`, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(e)
-
-      }).then(response => response.json().then(data => {
-        console.log(data)
-        if (data.status === false) return false
-        else {
-
-          setEducationList([{
-            userDetailsID: userId._id,
-            educationLevel: '',
-            degreeName: '',
-            collegeName: '',
-            authority: '',
-            discipline: '',
-            yearOfpassout: '',
-            startYear: '',
-            endYear: ''
-          }])
-          navigate("/ExperienceForm")
+      return (
+        
+        fetch(`${baseurl}/education`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(e)
+  
+        }).then(response => response.json().then(data => {
+          console.log(data)
+          if (data.status === false) return false
+          else {
+  
+            setEducationList([{
+              userDetailsID: userId._id,
+              educationLevel: '',
+              degreeName: '',
+              collegeName: '',
+              authority: '',
+              discipline: '',
+              yearOfpassout: '',
+              startYear: '',
+              endYear: ''
+            }])
+            navigate("/ExperienceForm")
+          }
         }
-      }
+  
+        ))
+      )
 
-      ))
+      
 
     })
 
@@ -226,21 +232,21 @@ const EducationForm = (props) => {
           />
 
 
-          <FormControl sx={{  m: 3, width: 600 }}>
-          <InputLabel>Authority</InputLabel>
+          <FormControl sx={{ m: 3, width: 600 }}>
+            <InputLabel>Authority</InputLabel>
             <Select
               name="authority"
               label="Authority"
               value={education.authority}
               onChange={(e) => handleChange(e, i)}
               input={<OutlinedInput label="Authority" />}
-              required                     
+              required
               inputProps={{ 'aria-label': 'Without label' }}
             >
               {authorities.map((authority) => (
                 <MenuItem
-                  key={authority} 
-                  value={authority}                 
+                  key={authority}
+                  value={authority}
                 >
                   {authority}
                 </MenuItem>

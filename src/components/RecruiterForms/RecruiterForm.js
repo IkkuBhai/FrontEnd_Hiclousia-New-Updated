@@ -1,18 +1,16 @@
 
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { styled } from '@mui/system';
 import {
     TextField,
     Typography,
     Button,
-    InputLabel,
-    Select,
-    MenuItem,
     Box,
     Paper
 } from '@material-ui/core';
+
 import { useNavigate } from 'react-router-dom';
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
@@ -195,35 +193,7 @@ const RecruiterProfileForm = () => {
                         Add Work Experience
                     </Button>
 
-                    {/* <Typography variant="h6" gutterBottom>
-                        Awards
-                    </Typography>
-                    <Box className={classes.formControl}>
-                        {formData.awards.map((award, index) => (
-
-                            <Box key={index}>
-                                <TextField
-                                    label="award given by Company"
-                                    name={`awards[${index}]`}
-                                    value={award}
-                                    onChange={handleInputChange}
-                                    variant="outlined"
-                                    required
-                                />
-                            </Box>
-                        ))}
-                    </Box>
-                    <Button
-                        variant="outlined"
-                        onClick={() =>
-                            setFormData(
-                                ...formData,
-                                ...formData.awards
-                            )
-                        }
-                    >
-                        Add++
-                    </Button> */}
+                   
                     
 
                     <Typography variant="h6" gutterBottom>

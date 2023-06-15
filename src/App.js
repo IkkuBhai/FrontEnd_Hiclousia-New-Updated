@@ -19,6 +19,8 @@ import { Routes,  Route } from 'react-router-dom'
 import UserProfileForm from './components/multiForm/UserProfileForm'
 import ExperienceForm from './components/multiForm/UserExperience'
 import ProjectForm from './components/multiForm/UserProjects'
+import Pricing from './components/revenueModal/SubscriptionModal'
+import JobPost from './components/RecruiterForms/JobPost'
 
 
 function App() {
@@ -32,9 +34,9 @@ function App() {
                     <Third />
                     <Fourth />
                     <Fifth />
-
-
                 </>} />
+
+                
                 <Route path="Login" element={<Login />} />
                 <Route path="SignUp" element={<SignUp />} />
                 <Route path='ForgotPassword' element={<ForgotPassword />} />
@@ -50,6 +52,8 @@ function App() {
                 <Route path="RecruiterForm" element={<RecruiterProfileForm />} />
                 <Route path="SearchPreferences" element={<Dashboard />} />
                 <Route path='Portfolio' element={<DashboardPortfolio />} />
+                <Route path='SubscriptionModal' element={<Pricing />} />
+                <Route path='JobPost' element={<JobPost />} />
 
 
 

@@ -1,5 +1,4 @@
-import React,{useState , useEffect} from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,15 +6,16 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {TextField, Typography} from '@material-ui/core'
-import Box from '@mui/material/Box';
+import {TextField} from '@material-ui/core'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Filter } from '@material-ui/icons';
+import { styled } from '@mui/system';
+import {  Typography } from '@mui/material';
 
-const StyledTableCell = withStyles((theme) => ({
+
+const StyledTableCell = styled((theme) => ({
   head: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
@@ -25,7 +25,7 @@ const StyledTableCell = withStyles((theme) => ({
   }, 
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
+const StyledTableRow = styled((theme) => ({
   root: {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover
@@ -33,7 +33,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const useStyles = makeStyles({
+const useStyles = styled({
   table: {
     minWidth: 700,
   },

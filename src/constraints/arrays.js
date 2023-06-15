@@ -30,7 +30,7 @@ let location = ["Amaravati", "Anantapur", "Chandragiri", "Chittoor", "Dowlaiswar
   "Murshidabad", "Nabadwip", "Palashi", "Panihati", "Purulia", "Raiganj", "Santipur", "Shantiniketan", "Shrirampur", "Siliguri", "Siuri", "Tamluk", "Titagarh"]
 
 
-let jobRole = ["Marketing Manager", "Marketing Director", "Graphic Designer", "Marketing Research Analyst", "Marketing Communications Manager", "Marketing Consultant", -"Store Manager", "Account Executive",
+let jobRoles = ["Software Engineer", "Frontend", "Backend", "Fullstack Developer", "Director of Ethical Hacking", "Data Analyst", "Blockchain", "Web Devloper", "Android Developer", "Devops Developer", "UI/UX Design", "Digital Marketing", "CRM Specialist", "Business Analyst", "Financial Analyst", "Marketing Manager", "Marketing Director", "Graphic Designer", "Marketing Research Analyst", "Marketing Communications Manager", "Marketing Consultant", -"Store Manager", "Account Executive",
   "Account Manager", "Area Sales Manager", "Direct Salesperson", "Director of Inside Sales", "Outside Sales Manager", "Sales Analyst", "Market Development Manager", "B2B Sales Specialist", "Sales Engineer",
   "Merchandising Associate", "CEO", "Proprietor", "Principal", "Owner", "President", "Founder", "Administrator", "Director", "Managing Partner", "Managing Member", "Board of Directors", "Shareholders", "Managers",
   "Supervisors", "Front Line Employees", "Quality Control", "Human Resources", "Accounting Staff", "Marketing Staff", "Purchasing Staff", "Shipping and Receiving Staff", "Office Manager", "Receptionist", "Virtual Assistant",
@@ -40,8 +40,8 @@ let jobRole = ["Marketing Manager", "Marketing Director", "Graphic Designer", "M
   "Financial Analyst", "Finance Manager", "Economist", "Payroll Manager", "Payroll Clerk", "Financial Planner", "Financial Services Representative", "Finance Director", "Commercial Loan Office", "Engineer", "Mechanical Engineer",
   "Civil Engineer", "Electrical Engineer", "Assistant Engineer", "Chemical Engineer", "Chief Engineer", "Drafter", "Engineering Technician", "Geological Engineer", "Biological Engineer", "Maintenance Engineer", "Mining Engineer",
   "Nuclear Engineer", "Petroleum Engineer", "Plant Engineer", "Production Engineer", "Quality Engineer", "Safety Engineer", "Sales Engineer", "Chief People Officer", "VP of Miscellaneous Stuff", "Chief Robot Whisperer",
-  "Director of First Impressions", "Culture Operations Manager", "Director of Ethical Hacking", "Software Engineer", "Director of Bean Counting", "Digital Overlord", "Director of Storytelling", "Researcher",
-  "Research Assistant", "Data Analyst", "Business Analyst", "Financial Analyst", "Biostatistician", "Title Researcher", "Market Researcher", "Title Analyst", "Medical Researcher", "Mentor", "Online Tutor", "Teacher",
+  "Director of First Impressions", "Culture Operations Manager", "Director of Bean Counting", "Digital Overlord", "Director of Storytelling", "Researcher",
+  "Research Assistant", "Biostatistician", "Title Researcher", "Market Researcher", "Title Analyst", "Medical Researcher", "Mentor", "Online Tutor", "Teacher",
   "Teaching Assistant", "Substitute Teacher", "Preschool Teacher", "Test Scorer", "Online ESL Instructor", "Professor", "Assistant Professor"]
 
 
@@ -180,10 +180,10 @@ let secondarySkills = [
 
 
 
-let sector = [
+let sectors = [
   "Fishing industry",
   "Horticulture industry",
-  "Tobacco industry",
+  
   "Wood industry",
   "Mechanical Manufacturing",
   "Aerospace industry",
@@ -201,9 +201,7 @@ let sector = [
   "Food industry",
   "Industrial robot industry",
   "Low technology industry",
-  "Meat",
-  "Meat packing",
-  "Mining",
+  "Mining Industry",
   "Petroleum industry",
   "Oil shale",
   "Pulp and paper industry",
@@ -219,11 +217,8 @@ let sector = [
   "Cultural industry",
   "Culture industry",
   "Education industry",
-  "Entertainment industry",
-  "Film industry",
-  "Gambling industry",
+  "Entertainment industry", 
   "Music industry",
-  "Sex industry",
   "Video game industry",
   "Financial services industry",
   "Insurance industry",
@@ -279,6 +274,24 @@ let experience = [
 
 ]
 
+let experiences = [
+
+  "Fresher",
+  "1 Year",
+  "2 Year",
+  "3 Year",
+  "4 Year",
+  "5 Year",
+  "6 Year",
+  "7 Year",
+  "8 Year",
+  "9 Year",
+  "10 Year",
+  "11 to 15 Year",
+  "15 to 20 Year",
+  "20+ Year"
+]
+
 // let yearofPassouts = [
 
 //   1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982,
@@ -317,4 +330,4 @@ let companyTypes = [
   'Product-Based'
 ]
 
-export { location, jobRole, primarySkills, secondarySkills, sector, educationLevels, experience, yearofPassouts, authorities, experienceTypes, companyTypes }
+export { location, jobRoles, primarySkills, secondarySkills, sectors, educationLevels, experience, yearofPassouts, authorities, experienceTypes, companyTypes , experiences}
