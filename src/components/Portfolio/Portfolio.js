@@ -25,7 +25,8 @@ import Project from './PortfolioComponents/ProjectPortfolio'
 import Experience from './PortfolioComponents/ExperiencePortfolio'
 import { useNavigate } from 'react-router-dom'
 import ProfilePic from './PortfolioComponents/PortfolioPic'
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
+
 
 
 
@@ -220,8 +221,7 @@ export default function DashboardPortfolio() {
                                     Personal Info.
                                 </Typography>
 
-                                {/* <ProfilePic /> */}
-
+                                 
                                 <button
                                     onClick={() => setPersonal(true)}
                                     style={{
@@ -233,6 +233,8 @@ export default function DashboardPortfolio() {
                                     }}>
                                     <FiEdit2 style={{ fontSize: '20px' }} />
                                 </button>
+
+                                <ProfilePic />
 
                                 {personal && <Personal personal={personal => setPersonal(false)} />}
 

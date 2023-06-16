@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import TextField from '@mui/material/TextField';
+import { styled } from '@mui/system';
+// import TextField from '@material-ui/core/TextField';
 import { Button, Typography,  } from '@material-ui/core';
-import { Add, Remove,  } from '@material-ui/icons';
+import { Add, Remove,  } from '@mui/icons-material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -17,7 +18,7 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(2),
