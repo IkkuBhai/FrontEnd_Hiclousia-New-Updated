@@ -35,7 +35,7 @@ const SearchedItems = () => {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small">Learn More</Button>
+                        <Button size="small">job description</Button>
                     </CardActions>
                 </Card>
 
@@ -87,7 +87,7 @@ const SearchedItems = () => {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small">Learn More</Button>
+                        <Button size="small">job description</Button>
                     </CardActions>
                 </Card>
 

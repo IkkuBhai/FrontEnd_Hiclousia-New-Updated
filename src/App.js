@@ -21,6 +21,7 @@ import ExperienceForm from './components/multiForm/UserExperience'
 import ProjectForm from './components/multiForm/UserProjects'
 import Pricing from './components/revenueModal/SubscriptionModal'
 import JobPost from './components/RecruiterForms/JobPost'
+import SearchResult from './components/Search/SearchComponents/SearchResult'
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
                 <Route path='Portfolio' element={<DashboardPortfolio />} />
                 <Route path='SubscriptionModal' element={<Pricing />} />
                 <Route path='JobPost' element={<JobPost />} />
+                <Route path='SearchResult' element={<SearchResult />} />
 
 
 

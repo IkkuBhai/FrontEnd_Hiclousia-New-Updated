@@ -78,17 +78,9 @@ const PreferenceForm = (props) => {
 
 
     return (
-
-        // <Grid>
-        //     <Typography>
-        //         Hey Vishal! Welcome to our site Hiclousia
-        //     </Typography>
-        // </Grid>
-
-       
-
+   
         <Grid
-            item xs={12} md={8} lg={9}
+            item xs={15} md={8} lg={9}
         >
             <Paper
                 sx={{
@@ -181,7 +173,7 @@ const PreferenceForm = (props) => {
 
                 <br />
 
-                <Button variant="contained" onClick={() => { props.nameForm(false); props.nameSearchItem(true) }}>Submit</Button>
+                <Button variant="contained" href='/SearchResult'>Submit</Button>
 
 
             </Paper>

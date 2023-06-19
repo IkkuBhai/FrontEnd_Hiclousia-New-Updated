@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { styled } from '@mui/system';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid'; 
+import CssBaseline from '@mui/material/CssBaseline';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
@@ -11,7 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import MultipleSelectChip from '../components/multiForm/MultiSelect';
 import { educationLevels, primarySkills, experience } from '../constraints/arrays';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
 
     root: {
 

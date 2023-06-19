@@ -1,7 +1,53 @@
-import React from 'react'
+import React, { useEffect , useState } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
+import { useNavigate } from "react-router-dom"
+
+
+
+const modalWrapper = {
+
+    position: 'fixed',
+    left: '0',
+    right: '0',
+    bottom: '0',
+    top: '0',
+    backgroundColor: 'rgba(189 , 189 , 189 , 0.9)'
+}
+
+const modalContainer = {
+
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50% , -50%)',
+    maxWidth: '45rem',
+    backgroundColor: '#fff',
+    AlignItems: 'center',
+    borderRadius: '0.5rem'
+}
+
+const feild = {
+
+    width: '40rem',
+    AlignItems: 'center',
+    marginTop: '18px',
+    margin: '18px',
+    
+
+}
+
+const save = {
+    float: 'left',
+    margin: '20px'
+}
+
+const cancel = {
+    float: 'right',
+    margin: '20px'
+}
+
 
 
 
@@ -9,52 +55,29 @@ import Button from '@mui/material/Button'
 
 const Personal = (props) => {
 
+    // const navigate = useNavigate()
 
+    // useEffect(() => {
 
-    const modalWrapper = {
+    //     if(userId == null) {
+    //         navigate("/login")
 
-        position: 'fixed',
-        left: '0',
-        right: '0',
-        bottom: '0',
-        top: '0',
-        backgroundColor: 'rgba(189 , 189 , 189 , 0.9)'
-    }
+    //     }
+    // },)
 
-    const modalContainer = {
-
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50% , -50%)',
-        maxWidth: '45rem',
-        backgroundColor: '#fff',
-        AlignItems: 'center',
-        borderRadius: '0.5rem'
-    }
-
-    const feild = {
-
-        width: '40rem',
-        AlignItems: 'center',
-        marginTop: '18px',
-        margin: '18px',
-        
-
-    }
-
-    const save = {
-        float: 'left',
-        margin: '20px'
-    }
-
-    const cancel = {
-        float: 'right',
-        margin: '20px'
-    }
+    // const [personalDetails , setPersonalDetails] = useState([
+    //     {
+    //         userDetailsID: userId.id,
+    //         firstName: "",
+    //         lastName: "",
+    //         profileLink: "",
+    //         doB: "",
 
 
 
+
+    //     }
+    // ])
     
     return (
         <div style={modalWrapper}>
@@ -104,7 +127,7 @@ const Personal = (props) => {
                     </Box>
 
                     <Button variant="contained" style={save}>save</Button>
-                    <Button variant="contained" style={cancel}>cancel</Button>
+                    <Button variant="contained" style={cancel} onClick={() => props.personalinfo(false)}>cancel</Button>
 
                 </div>
 

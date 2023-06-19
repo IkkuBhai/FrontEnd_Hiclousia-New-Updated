@@ -16,7 +16,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText  primary="Home" />
     </ListItemButton>
-    <ListItemButton href="/UserProfile">
+    <ListItemButton href="/Portfolio">
       <ListItemIcon>
         <Person />
       </ListItemIcon>

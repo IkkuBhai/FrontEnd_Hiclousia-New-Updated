@@ -28,27 +28,6 @@ import ProfilePic from './PortfolioComponents/PortfolioPic'
 import Grid from '@mui/material/Grid'
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -215,20 +194,14 @@ export default function DashboardPortfolio() {
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 
                         <Card sx={{ minWidth: 200 }}>
-                            <CardContent>
-
-                                <Typography variant="h5" component="div">
-                                    Personal Info.
-                                </Typography>
-
-                                 
+                            <CardContent>  
                                 <button
                                     onClick={() => setPersonal(true)}
                                     style={{
                                         float: 'right',
                                         border: 'none',
                                         background: 'transparent',
-                                        marginTop: '-26px',
+                                        marginTop: '18px',
                                         cursor: 'pointer'
                                     }}>
                                     <FiEdit2 style={{ fontSize: '20px' }} />
@@ -236,7 +209,9 @@ export default function DashboardPortfolio() {
 
                                 <ProfilePic />
 
-                                {personal && <Personal personal={personal => setPersonal(false)} />}
+                                {personal && <Personal personalinfo={personal => setPersonal(false)} />}
+
+                                
 
                             </CardContent>
                         </Card>

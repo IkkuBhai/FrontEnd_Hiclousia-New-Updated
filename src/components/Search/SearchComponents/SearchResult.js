@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react'
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -16,10 +15,9 @@ import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-// import Select from '@mui/material/Select'
-import PreferenceForm from './SearchComponents/PreferenceForm';
-import { mainListItems } from './SearchComponents/List';
-import SearchedItems from './SearchComponents/SearchedItems';
+import { mainListItems } from './List';
+import SearchedItems from './SearchedItems';
+import SearchAppBar from './Searchbar';
 
 
 
@@ -74,16 +72,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function SearchResult() {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
     };
-
-
-    const [prefForm, setPrefForm] = useState(true)
-    const [searchItem,setSearchItem] = useState(false)
-
 
 
     return (
@@ -118,6 +111,7 @@ export default function Dashboard() {
                         >
                             Hiclousia
                         </Typography>
+                        <SearchAppBar />
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <NotificationsIcon />
@@ -145,6 +139,7 @@ export default function Dashboard() {
                         {/* {secondaryListItems} */}
                     </List>
                 </Drawer>
+
                 <Box
                     component="main"
                     sx={{
@@ -160,30 +155,8 @@ export default function Dashboard() {
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
-                            {/* Chart */}
-
-
-
-                            {prefForm && <PreferenceForm nameForm={prefForm => setPrefForm(false)} />}
-
-                            {searchItem && <SearchedItems nameSearchItem={ setSearchItem(true)} />} 
-
-                            {/* <Grid item xs={12} md={4} lg={3}>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                >
-                                    {/* <Deposits /> */}
-                                {/* </Paper>
-                            </Grid> */} 
-                            {/* Recent Orders */}
-                            
+                            <SearchedItems />
                         </Grid>
-                       
                     </Container>
                 </Box>
             </Box>
