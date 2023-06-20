@@ -17,7 +17,7 @@ import DashboardPortfolio from './components/Portfolio/Portfolio'
 import ResetPassword from './components/loginPage/ResetPassword'
 import { Routes,  Route } from 'react-router-dom'
 import UserProfileForm from './components/multiForm/UserProfileForm'
-import ExperienceForm from './components/multiForm/UserExperience'
+import UserExperience from './components/multiForm/UserExperience'
 import ProjectForm from './components/multiForm/UserProjects'
 import Pricing from './components/revenueModal/SubscriptionModal'
 import JobPost from './components/RecruiterForms/JobPost'
@@ -46,7 +46,7 @@ function App() {
                 <Route path='UserProfileForm' element={<UserProfileForm />} />
                 <Route path="UserProfile" element={<UserProfile />} />
                 <Route path="EducationForm" element={<EducationForm />} />
-                <Route path="ExperienceForm" element={<ExperienceForm />} />
+                <Route path="UserExperience" element={<UserExperience />} />
                 <Route path="UserProjects" element={<ProjectForm />} />
                 <Route path="ProductSearch" element={<ProductSearch />} />
                 <Route path="RecruiterSearch" element={<RecruiterSearch />} />

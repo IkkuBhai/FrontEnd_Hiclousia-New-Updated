@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { makeStyles } from '@material-ui/styles'
+import { styled } from '@mui/system'
 import Profile from '../../imgs/Profile.jpg'
 import { FiEdit2 } from 'react-icons/fi'
 import ProfileForm from "../Forms/ProfileForm"
@@ -22,7 +22,7 @@ import JobDescription from "./JobDescription"
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
 
     main: {
         width: '100%',
@@ -111,7 +111,7 @@ const Employer = () => {
 
                 <button className={classes.icon} onClick={() => setForm(true)}><FiEdit2 style={{ fontSize: '18px', }} /></button>
                 {form && <ProfileForm recPro={form => setForm(false)} />}
-                <img
+                {/* <img
                     style={{
                         width: '120px',
                         height: '120px',
@@ -123,7 +123,7 @@ const Employer = () => {
                     }}
 
                     src={Profile}
-                />
+                /> */}
             </div>
 
             <div className={classes.jobPost}>

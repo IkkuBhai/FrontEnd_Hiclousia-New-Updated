@@ -64,23 +64,27 @@ const EducationFormNew = (props) => {
                         />
                     </Box>
 
-                    <Box mb={2}>
+                    <Box mb={1}
+                        sx={{ m: 3, width: 600 }}>
                         <TextField fullWidth label="College Name" />
                     </Box>
                     <br />
 
-                    <Box mb={2}>
+                    <Box mb={1}
+                        sx={{ m: 3, width: 600 }}>
                         <TextField fullWidth label="Authority" />
                     </Box>
                     <br />
 
-                    <Box mb={2}>
+                    <Box mb={1}
+                        sx={{ m: 3, width: 600 }}>
                         <TextField fullWidth label="Discipline" />
                     </Box>
                     <br />
 
 
-                    <Box mb={2}>
+                    <Box mb={1}
+                        sx={{ m: 3, width: 600 }}>
                         <label>Year of Passout</label>
                         <TextField fullWidth type='date' />
                     </Box>

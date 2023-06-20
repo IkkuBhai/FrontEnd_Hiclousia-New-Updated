@@ -19,6 +19,8 @@ import { mainListItems } from './PortfolioComponents/ListPortfolio'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import { FiEdit2 } from 'react-icons/fi'
+import { FaGraduationCap } from 'react-icons/fa'
+import { GrAdd } from 'react-icons/gr'
 import Personal from './PortfolioComponents/PersonalPortfolio'
 import Education from './PortfolioComponents/EducationPortfolio'
 import Project from './PortfolioComponents/ProjectPortfolio'
@@ -26,6 +28,14 @@ import Experience from './PortfolioComponents/ExperiencePortfolio'
 import { useNavigate } from 'react-router-dom'
 import ProfilePic from './PortfolioComponents/PortfolioPic'
 import Grid from '@mui/material/Grid'
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import { AiFillDelete } from 'react-icons/ai'
+import SchoolSharpIcon from '@mui/icons-material/SchoolSharp';
+
+
 
 
 const drawerWidth = 240;
@@ -194,7 +204,7 @@ export default function DashboardPortfolio() {
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 
                         <Card sx={{ minWidth: 200 }}>
-                            <CardContent>  
+                            <CardContent>
                                 <button
                                     onClick={() => setPersonal(true)}
                                     style={{
@@ -211,7 +221,7 @@ export default function DashboardPortfolio() {
 
                                 {personal && <Personal personalinfo={personal => setPersonal(false)} />}
 
-                                
+
 
                             </CardContent>
                         </Card>
@@ -225,6 +235,7 @@ export default function DashboardPortfolio() {
                                     Education
                                 </Typography>
 
+
                                 <button
                                     onClick={() => setEducation(true)}
                                     style={{
@@ -234,27 +245,64 @@ export default function DashboardPortfolio() {
                                         marginTop: '-26px',
                                         cursor: 'pointer'
                                     }}>
-                                    <FiEdit2 style={{ fontSize: '20px' }} />
+                                    <GrAdd style={{ fontSize: '20px' }} />
                                 </button>
+                                {/* <Divider variant="inset" component="li" /> */}
+                                <br></br>
+                                <br></br>
+
                                 {education && <Education />}
 
 
-
                                 {userInfo.educationData?.map((education) => (
-                                    <Grid item xs={8} sm={8} key={education._id} >
+                                    <List>
 
-                                        <div style={{ margin: '10%', marginTop: '2%', }}>
+                                        <ListItem alignItems="flex-start">
 
-                                            <h5 style={{ fontFamily: "'Sans-Serif', Arial", fontSize: '18px', color: 'rgb(22 102 197)', }}>{education.educationLevel}</h5> <p style={{ fontSize: '10px', }}>from</p> <p>{education.collegeName}</p>
-                                            <br></br>
-                                            {/* <hr style={hrStyle} /> */}
-                                        </div>
+                                            <ListItemAvatar>
+                                                <Avatar><SchoolSharpIcon/></Avatar>
+                                            </ListItemAvatar>
 
+ 
 
-                                    </Grid>
+                                            <ListItemText
+
+                                                primary={
+                                                    <React.Fragment>
+                                                        <Typography variant='h6' style={{fontFamily: "'Montserrat', sans-serif" , fontFamily: "'Lora', sans-serif"}}>{education.collegeName}</Typography>
+                                                    </React.Fragment>
+                                                }
+                                                
+                                                secondary={
+                                                    <React.Fragment>
+                                                        <Typography 
+                                                            sx={{ display: 'inline' }}
+                                                            style={{fontFamily: "'Montserrat', sans-serif"}} 
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="text.primary"
+                                                        >
+                                                            {education.educationLevel}
+                                                        </Typography>
+                                                        {" — "} {education.degreeName}, {education.discipline}
+
+                                                        <Typography variant="subtitle1" gutterBottom>
+                                                            {education.startYear} {" — "} {education.endYear}
+                                                        </Typography>
+                                                    </React.Fragment>
+                                                }
+                                            />
+                                            <button style={{
+                                                float: 'right',
+                                                border: 'none',
+                                                background: 'transparent',
+                                                cursor: 'pointer'
+                                            }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} /></button>
+
+                                        </ListItem>
+                                        <Divider variant="inset" component="li" />
+                                    </List>
                                 ))}
-
-
                             </CardContent>
 
                         </Card>
@@ -322,6 +370,33 @@ export default function DashboardPortfolio() {
                                 {experience && <Experience />}
 
 
+                                {userInfo.experienceData?.map((experience) => (
+                                    <List>
+                                        <ListItem>
+                                            <ListItemText>
+                                                <Grid item xs={8} sm={8} key={experience._id} >
+                                                    <ListItemAvatar>
+                                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                                    </ListItemAvatar>
+                                                    <button style={{
+                                                        float: 'right',
+                                                        border: 'none',
+                                                        background: 'transparent',
+                                                        marginTop: '-26px',
+                                                        cursor: 'pointer'
+                                                    }}><AiFillDelete style={{ float: 'right', fontSize: '20px' }} /></button>
+
+                                                    <div style={{ margin: '10%', marginTop: '6%', }}>
+
+                                                        <h5 style={{ fontFamily: "'Sans-Serif', Arial", }}>{experience.jobTitle}</h5> at <p>{experience.companyName}</p>
+
+                                                    </div>
+                                                    <Divider variant="inset" component="li" />
+                                                </Grid>
+                                            </ListItemText>
+                                        </ListItem>
+                                    </List>
+                                ))}
                             </CardContent>
 
                         </Card>
