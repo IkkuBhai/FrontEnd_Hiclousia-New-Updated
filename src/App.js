@@ -24,6 +24,7 @@ import JobPost from './components/RecruiterForms/JobPost'
 import SearchResult from './components/Search/SearchComponents/SearchResult'
 import RecruiterProfilePage from './components/RecruiterProfile/RecruiterProfilePage'
 import TalentPoolNew from './components/RecruiterProfile/Templates/TalentPoolNew'
+import MyPlans from './components/RecruiterProfile/Templates/MyPlans'
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
                 <Route path='SearchResult' element={<SearchResult />} />
                 <Route path='RecruiterProfilePage' element={<RecruiterProfilePage />} />
                 <Route path='TalentPoolNew' element={<TalentPoolNew />} />
+                <Route path='MyPlans' element={<MyPlans/>} />
 
 
 
