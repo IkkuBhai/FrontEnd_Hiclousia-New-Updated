@@ -22,6 +22,8 @@ import ProjectForm from './components/multiForm/UserProjects'
 import Pricing from './components/revenueModal/SubscriptionModal'
 import JobPost from './components/RecruiterForms/JobPost'
 import SearchResult from './components/Search/SearchComponents/SearchResult'
+import RecruiterProfilePage from './components/RecruiterProfile/RecruiterProfilePage'
+import TalentPoolNew from './components/RecruiterProfile/Templates/TalentPoolNew'
 
 
 function App() {
@@ -56,6 +58,8 @@ function App() {
                 <Route path='SubscriptionModal' element={<Pricing />} />
                 <Route path='JobPost' element={<JobPost />} />
                 <Route path='SearchResult' element={<SearchResult />} />
+                <Route path='RecruiterProfilePage' element={<RecruiterProfilePage />} />
+                <Route path='TalentPoolNew' element={<TalentPoolNew />} />
 
 
 

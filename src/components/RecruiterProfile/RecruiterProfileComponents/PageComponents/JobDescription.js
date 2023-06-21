@@ -1,10 +1,10 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { styled } from '@mui/system'
 import Typography from '@mui/material/Typography'
 import { AiFillCloseCircle } from 'react-icons/ai'
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
 
     modalWrapper: {
         position: 'fixed',

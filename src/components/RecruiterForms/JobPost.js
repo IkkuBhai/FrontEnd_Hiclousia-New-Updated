@@ -5,11 +5,12 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { jobRoles, experiences, secondarySkills, primarySkills, educationLevels } from '../../constraints/arrays';
+import { jobRoles, experiences, secondarySkills, primarySkills, educationLevels, sectors , jobCategory } from '../../constraints/arrays';
 import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
+
 
 
 
@@ -37,6 +38,9 @@ const JobPost = () => {
         }
     },)
     // const classes = useStyles();
+
+    const [skillstemplatedata, setSkillstemplatedata] = useState([]);
+
     const [jobData, setJobData] = useState([
         {
             userDetailsID: userId._id,
@@ -65,6 +69,18 @@ const JobPost = () => {
     };
 
 
+    
+    async function getSkillsprompt(jobRole) {
+        try {
+            const response = await fetch(`http://localhost:8000/insertskillstemplates?jobProfile=${jobRole}`);
+            const data = await response.json();
+            setSkillstemplatedata(data.data[0].skills);
+            // console.log("getSkillsprompt",skillstemplatedata)
+            return skillstemplatedata
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     function SaveJob() {
 
@@ -205,7 +221,13 @@ const JobPost = () => {
                             multiple
                             name='primarySkills'
                             value={job.primarySkills}
-                            onChange={(event) => handleJobChange(event, index)}
+                            // onChange={(event) => handleJobChange(event, index)}
+                            onChange={async (event) => {
+                                let skill = await getSkillsprompt(job.jobRole);
+                                // console.log("skill", skill)
+                                alert(skill)
+                                handleJobChange(event, index)
+                            }}
 
                             input={<OutlinedInput label="Primary Skills" />}
 
@@ -252,7 +274,9 @@ const JobPost = () => {
 
 
 
-                    {/* <FormControl sx={{ m: 1, width: 500 }}>
+
+
+                    <FormControl sx={{ m: 1, width: 500 }}>
                         <InputLabel id="demo-multiple-name-label">Sector</InputLabel>
                         <Select
                             labelId="demo-multiple-name-label"
@@ -275,7 +299,33 @@ const JobPost = () => {
                                 </MenuItem>
                             ))}
                         </Select>
-                    </FormControl> */}
+                    </FormControl>
+
+
+                    <FormControl sx={{ m: 1, width: 500 }}>
+                        <InputLabel id="demo-multiple-name-label">Job Categoryr</InputLabel>
+                        <Select
+                            labelId="demo-multiple-name-label"
+                            id="demo-multiple-name"
+                            multiple
+                            name='sector'
+                            value={job.jobCategory}
+                            onChange={(event) => handleJobChange(event, index)}
+
+                            input={<OutlinedInput label="Secondary Skills" />}
+
+                        >
+                            {jobCategory.map((jobCategory, i) => (
+                                <MenuItem
+                                    key={i}
+                                    value={jobCategory}
+
+                                >
+                                    {jobCategory}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
 
 
 
@@ -287,15 +337,7 @@ const JobPost = () => {
                         noValidate
                         autoComplete="off"
                     >
-                        <TextField
-                            fullWidth
-                            name='sector'
-                            value={job.sector}
-                            onChange={(event) => handleJobChange(event, index)}
-                            label="Sector"
-                            id="fullWidth"
-                        />
-
+                       
 
                         <TextField
                             id="outlined-multiline-static"
@@ -326,36 +368,6 @@ const JobPost = () => {
                         label="Location"
                         id="fullWidth"
                     />
-
-
-
-
-
-                    {/* <FormControl sx={{ m: 1, width: 500 }}>
-                        <InputLabel id="demo-multiple-name-label">Location</InputLabel>
-                        <Select
-                            labelId="demo-multiple-name-label"
-                            id="demo-multiple-name"
-
-                            name='location'
-                            value={job.location}
-                            onChange={(event) => handleJobChange(event, index)}
-
-                            input={<OutlinedInput label="Location" />}
-
-                        >
-                            {location.map((locations) => (
-                                <MenuItem
-                                    key={locations}
-                                    value={locations}
-
-                                >
-                                    {locations}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl> */}
-
 
                     <TextField fullWidth name='salary'
                         value={job.salary}

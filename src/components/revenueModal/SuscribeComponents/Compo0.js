@@ -17,6 +17,10 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
 
 
+
+
+const user = JSON.parse(localStorage.getItem('userDetails')); 
+
 const tiers = [
   {
     title: 'Silver',
@@ -68,7 +72,33 @@ const tiers = [
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+
+
+
 export default function PricingZero() {
+
+  const handleBuy = async (plan) => {
+    const info = {
+      userDetailsID: user._id,
+      recruiterPlan: plan.title,
+      jobPostno: 1,
+    }
+    fetch("http://localhost:8000/revenueR", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(info)
+    }).then(response => response.json().then(data => {
+      console.log(data)
+      if (data.status === true) {
+        alert("Created Plan Sucessfully")
+      }
+    }))
+  };
+
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
@@ -11,13 +11,12 @@ import { primarySkills, experienceTypes, companyTypes, location } from '../../..
 import OutlinedInput from '@mui/material/OutlinedInput'
 
 
-const userId = JSON.parse(localStorage.getItem('userDetails'));
 
 
 
 
 
-const ExperiencePortfolio = (props) => {
+const EditExperience = (props) => {
 
     const modalWrapper = {
 
@@ -61,101 +60,76 @@ const ExperiencePortfolio = (props) => {
         margin: '20px'
     }
 
+    //     //API things Start 
 
-
-
-    const navigate = useNavigate();
-    const [experienceData, setExperienceData] = useState([
-        {
-            userDetailsID: userId._id,
-            jobStatus: "Active",
-            experienceType: '',
-            jobRole: '',
-            companyName: '',
-            companyType: '',
-            skills: [],
-            location: '',
-            startDate: '',
-            endDate: '',
-
-
-        }
-    ]
-    );
-
-
-    const handleExperienceChange = (event, index) => {
-
-        const { name, value } = event.target;
-        //  console.log(name,value)
-        const experiences = [...experienceData];
-        experiences[index] = {
-            ...experienceData[index],
-            [name]: value
-        };
-        setExperienceData(experiences);
-    }
-
-    function SaveExperience() {
-        console.log(experienceData)
-        let experienceInfo = experienceData;
-        experienceInfo?.map((e, index) => {
-            fetch("http://localhost:8000/experience", {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(e)
-
-            }).then(response => response.json().then(data => {
-                console.log(data)
-                if (data.status === false) return false
-                else {
-
-                    setExperienceData([{
-                        experienceType: '',
-                        jobStatus: "Active",
-                        jobRole: '',
-                        companyType: '',
-                        experienceType: '',
-                        skills: [],
-                        companyName: '',
-                        location: '',
-                        startDate: '',
-                        endDate: ''
-                    }])
-                    navigate("/Portfolio")
-
-                }
+    useEffect(() => {
+        // console.log(user._id)
+        fetch(`http://localhost:8000/personal/${user._id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
-            ))
         })
-        return true
+            .then(response => response.json())
+            .then(data => { console.log(data); setUserInfo(data.data) })
+            .catch(err => console.log(err))
+        console.log(userInfo)
+    }, [])
+
+    const [expData, setExpData] = useState({})
+
+    function getExperienceData() {
+        fetch(`http://localhost:8000/experience/63f229c2fcc41f1dc0ec4082`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((result) => result.json())
+            .then((resp) => {
+                console.log("resp", resp)
+                setExpData(resp)
+                console.log("expData", expData)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const Navigate = useNavigate();
 
-        SaveExperience()
+    const user = JSON.parse(localStorage.getItem("userDetails"))
+    //  console.log(user)
+    if (!user) Navigate("/login")
 
-        // alert(JSON.stringify(experienceData));
-    };
+    const [userInfo, setUserInfo] = useState([])
+
+
+    useEffect(() => {
+        getExperienceData()
+    }, [])
+
+
+//     //API things End
+
+
+
+
+
+    
+  
 
     return (
         <div style={modalWrapper}>
             <div style={modalContainer}>
 
-                {experienceData?.map((experience, index) => (
-                    <div style={feild} key={index}>
+               
+                    <div style={feild}>
 
                         <Box
                             mb={2}
                         >
                             <TextField fullWidth label="Current Status"
-                                name="jobStatus"
-                                value={experience.jobStatus}
-                                onChange={(event) => handleExperienceChange(event, index)}
+
                                 id="fullWidth"
                             />
                         </Box>
@@ -163,10 +137,7 @@ const ExperiencePortfolio = (props) => {
                         <Box
                             mb={2}
                         >
-                            <TextField fullWidth label="Job Role"
-                                name="jobRole"
-                                value={experience.jobRole}
-                                onChange={(event) => handleExperienceChange(event, index)}
+                            <TextField fullWidth label="Job Role"            
                                 id="fullWidth" />
                         </Box>
 
@@ -174,18 +145,12 @@ const ExperiencePortfolio = (props) => {
                             mb={2}
                         >
                             <TextField fullWidth label="Company Name"
-                                name="companyName"
-                                value={experience.jcompanyName}
-                                onChange={(event) => handleExperienceChange(event, index)}
                                 id="fullWidth" />
                         </Box>
 
                         <FormControl sx={{ m: 3, width: 600 }}>
                             <InputLabel>Experience Type</InputLabel>
                             <Select
-                                name="experienceType"
-                                value={experience.experienceType}
-                                onChange={(event) => handleExperienceChange(event, index)}
                                 label="Experience Type"
                                 required
                                 input={<OutlinedInput label="Experience Type" />}
@@ -207,9 +172,6 @@ const ExperiencePortfolio = (props) => {
                             <InputLabel>Company Type</InputLabel>
                             <Select
                                 name="companyType"
-                                value={experience.companyType}
-                                onChange={(event) => handleExperienceChange(event, index)}
-                                label="Company Type"
                                 required
                                 input={<OutlinedInput label="Company Type" />}
                             >
@@ -230,9 +192,6 @@ const ExperiencePortfolio = (props) => {
                             <Select
                                 labelId="demo-multiple-name-label"
                                 id="demo-multiple-name"
-                                name="skills"
-                                value={experience.skills}
-                                onChange={(event) => handleExperienceChange(event, index)}
                                 multiple
                                 input={<OutlinedInput label="Skills Practiced" />}
 
@@ -251,9 +210,6 @@ const ExperiencePortfolio = (props) => {
                         <FormControl sx={{ m: 3, width: 600 }}>
                             <InputLabel>Company Location</InputLabel>
                             <Select
-                                name="location"
-                                value={experience.location}
-                                onChange={(event) => handleExperienceChange(event, index)}
                                 label="Company Location"
                                 required
                                 input={<OutlinedInput label="Company Location" />}
@@ -277,9 +233,6 @@ const ExperiencePortfolio = (props) => {
                             <TextField
                                 variant="outlined"
                                 label="Start Year"
-                                name="startDate"
-                                value={experience.startDate}
-                                onChange={(event) => handleExperienceChange(event, index)}
                                 type="date"
                                 fullWidth
                                 required
@@ -293,11 +246,7 @@ const ExperiencePortfolio = (props) => {
 
                         <Box mb={1}
                             sx={{ m: 3, width: 600 }}><TextField
-                                variant="outlined"
-                                label="End Year"
-                                name="endDate"
-                                value={experience.endDate}
-                                onChange={(event) => handleExperienceChange(event, index)}
+                                variant="outlined"                              
                                 type="date"
                                 fullWidth
                                 required
@@ -307,11 +256,11 @@ const ExperiencePortfolio = (props) => {
                             />
                         </Box>
 
-                        <Button variant="contained" style={save} onClick={handleSubmit}>save</Button>
-                        <Button variant="contained" style={cancel} onCLick={() => props.experienceInfo(false)} >cancel</Button>
+                        <Button variant="contained" style={save}>save</Button>
+                        <Button variant="contained" style={cancel}>delete</Button>
 
                     </div>
-                ))}
+               
 
                 <br />
 
@@ -320,4 +269,4 @@ const ExperiencePortfolio = (props) => {
     )
 }
 
-export default ExperiencePortfolio
+export default EditExperience

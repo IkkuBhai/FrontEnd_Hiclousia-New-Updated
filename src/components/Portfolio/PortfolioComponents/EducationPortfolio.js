@@ -8,8 +8,9 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import InputLabel from '@mui/material/InputLabel'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import { yearofPassouts, educationLevels, authorities } from '../../../constraints/arrays'
+import { yearofPassouts, educationLevels, authorities, discipline } from '../../../constraints/arrays'
 import MenuItem from '@mui/material/MenuItem'
+
 
 
 
@@ -57,12 +58,13 @@ const save = {
 
 const cancel = {
     float: 'right',
-    margin: '20px'
+    margin: '20px',
+    cursor: 'pointer'
 }
 
 
 
-const Education = () => {
+const EducationPortfolio = (props) => {
 
 
 
@@ -151,7 +153,7 @@ const Education = () => {
     };
 
     const handleChange = (event, index) => {
-      
+
         const { name, value } = event.target;
 
         const newEducation = [...educationList];
@@ -165,9 +167,10 @@ const Education = () => {
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault();       
+        event.preventDefault();
         SaveEducation();
     }
+
 
 
     return (
@@ -179,172 +182,183 @@ const Education = () => {
 
                     <div style={feild}>
 
-                        
-                                    <FormControl sx={{ m: 3, width: 600 }}>
-                                        <InputLabel>Education Level</InputLabel>
-                                        <Select
-                                            value={education.educationLevel}
-                                            name="educationLevel"
-                                            onChange={(e) => handleChange(e, i)}
-                                            label="EducationLevel"
-                                            required
-                                            input={<OutlinedInput label="Education Level" />}
-                                        >
-                                            {educationLevels.map((educationLevel) => (
-                                                <MenuItem
-                                                    key={educationLevel}
-                                                    value={educationLevel}
-                                                >
-                                                    {educationLevel}
-                                                </MenuItem>
-                                            ))}
 
-                                        </Select>
-                                    </FormControl>
-
-
-
-                                    <Box
-                                        mb={1}
-                                        sx={{ m: 3, width: 600 }}
+                        <FormControl sx={{ m: 3, width: 600 }}>
+                            <InputLabel>Education Level</InputLabel>
+                            <Select
+                                value={education.educationLevel}
+                                name="educationLevel"
+                                onChange={(e) => handleChange(e, i)}
+                                label="EducationLevel"
+                                required
+                                input={<OutlinedInput label="Education Level" />}
+                            >
+                                {educationLevels.map((educationLevel) => (
+                                    <MenuItem
+                                        key={educationLevel}
+                                        value={educationLevel}
                                     >
-                                        <TextField fullWidth label="Degree Name"
-                                            name="degreeName"
-                                            value={education.degreeName}
-                                            onChange={(e) => handleChange(e, i)}
-                                            id="fullWidth"
-                                        />
-                                    </Box>
+                                        {educationLevel}
+                                    </MenuItem>
+                                ))}
+
+                            </Select>
+                        </FormControl>
 
 
 
-                                    <Box
-                                        mb={1}
-                                        sx={{ m: 3, width: 600 }}
+                        <Box
+                            mb={1}
+                            sx={{ m: 3, width: 600 }}
+                        >
+                            <TextField fullWidth label="Degree Name"
+
+                                name="degreeName"
+                                value={education.degreeName} 
+                                onChange={(e) => handleChange(e, i)}
+
+                                id="fullWidth"
+                            />
+                        </Box>
+
+
+
+                        <Box
+                            mb={1}
+                            sx={{ m: 3, width: 600 }}
+                        >
+                            <TextField fullWidth label="College Name" id="fullWidth"
+
+                                name="collegeName"
+                                value={education.collegeName}
+                                onChange={(e) => handleChange(e, i)}
+                            />
+                        </Box>
+
+
+
+                        <FormControl sx={{ m: 3, width: 600 }}>
+                            <InputLabel>Authority</InputLabel>
+                            <Select
+
+                                name="authority"
+                                label="Authority"
+                                value={education.authority}
+                                onChange={(e) => handleChange(e, i)}
+                                input={<OutlinedInput label="Authority" />}
+                                required
+                                inputProps={{ 'aria-label': 'Without label' }}
+                            >
+                                {authorities.map((authority) => (
+                                    <MenuItem
+                                        key={authority}
+                                        value={authority}
                                     >
-                                        <TextField fullWidth label="College Name" id="fullWidth"
-                                            name="collegeName"
-                                            value={education.collegeName}
-                                            onChange={(e) => handleChange(e, i)} />
-                                    </Box>
+                                        {authority}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
 
+                        <FormControl sx={{ m: 3, width: 600 }}>
+                            <InputLabel>Discipline</InputLabel>
+                            <Select
+                                variant="outlined"
+                                label="Discipline"
+                                name="discipline"
+                                value={education.discipline}
+                                onChange={(e) => handleChange(e, i)}
 
-
-                                    <FormControl sx={{ m: 3, width: 600 }}>
-                                        <InputLabel>Authority</InputLabel>
-                                        <Select
-                                            name="authority"
-                                            label="Authority"
-                                            value={education.authority}
-                                            onChange={(e) => handleChange(e, i)}
-                                            input={<OutlinedInput label="Authority" />}
-                                            required
-                                            inputProps={{ 'aria-label': 'Without label' }}
-                                        >
-                                            {authorities.map((authority) => (
-                                                <MenuItem
-                                                    key={authority}
-                                                    value={authority}
-                                                >
-                                                    {authority}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-
-
-
-                                    <Box
-                                        mb={1}
-                                        sx={{ m: 3, width: 600 }}
+                                input={<OutlinedInput label="Discipline" />}
+                                required
+                                inputProps={{ 'aria-label': 'Without label' }}
+                            >
+                                {discipline.map((disciplines, i) => (
+                                    <MenuItem
+                                        key={i}
+                                        value={disciplines}
                                     >
-                                        <TextField
-                                            variant="outlined"
-                                            label="Discipline"
-                                            name="discipline"
-                                            value={education.discipline}
-                                            onChange={(e) => handleChange(e, i)}
-                                            fullWidth
-                                            required
-                                        />
-                                    </Box>
+                                        {disciplines}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
 
 
 
 
-                                    <FormControl sx={{ m: 3, width: 600 }}>
-                                        <InputLabel id="demo-multiple-name-label">Year of Passout</InputLabel>
-                                        <Select
-                                            name="yearOfpassout"
-                                            value={education.yearOfpassout}
-                                            onChange={(e) => handleChange(e, i)}
-                                            labelId="demo-multiple-name-label"
-                                            id="demo-multiple-name"
-
-                                            input={<OutlinedInput label="Year of Passout" />}
-
-                                        >
-                                            {yearofPassouts.map((yearofPassout) => (
-                                                <MenuItem
-                                                    key={yearofPassout}
-                                                    value={yearofPassout}
-                                                >
-                                                    {yearofPassout}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
 
 
 
-                                    <Box
-                                        mb={1}
-                                        sx={{ m: 3, width: 600 }}>
-                                        <TextField
-                                            variant="outlined"
-                                            label="Start Year"
-                                            name="startYear"
-                                            value={education.startYear}
-                                            onChange={(e) => handleChange(e, i)}
+                        {/* <FormControl sx={{ m: 3, width: 600 }}>
+                            <InputLabel id="demo-multiple-name-label">Year of Passout</InputLabel>
+                            <Select
 
-                                            type="date"
-                                            fullWidth
-                                            required
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
+                                name="yearOfpassout"
+                                value={education.yearOfpassout}
+                                onChange={(e) => handleChange(e, i)}
+                                labelId="demo-multiple-name-label"
+                                id="demo-multiple-name"
 
-                                        />
-                                    </Box>
+                                input={<OutlinedInput label="Year of Passout" />}
 
-
-                                    <Box mb={1}
-                                        sx={{ m: 3, width: 600 }}><TextField
-                                            variant="outlined"
-                                            label="End Year"
-                                            name="endYear"
-                                            value={education.endYear}
-                                            onChange={(e) => handleChange(e, i)}
-
-                                            type="date"
-                                            fullWidth
-                                            required
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                        /></Box>
+                            >
+                                {yearofPassouts.map((yearofPassout) => (
+                                    <MenuItem
+                                        key={yearofPassout}
+                                        value={yearofPassout}
+                                    >
+                                        {yearofPassout}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl> */}
 
 
 
-                                    <Button variant="contained" style={save} onClick={handleSubmit} >save</Button>
+                        <Box
+                            mb={1}
+                            sx={{ m: 3, width: 600 }}>
+                            <TextField
+                                variant="outlined"
+                                label="Start Year"                                     
+                                name="startYear"
+                                value={education.startYear}
+                                onChange={(e) => handleChange(e, i)}
+
+                                type="date"
+                                fullWidth
+                                required
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+
+                            />
+                        </Box>
+
+
+                        <Box mb={1}
+                            sx={{ m: 3, width: 600 }}><TextField
+                                variant="outlined"
+                                label="End Year"
+                                name="endYear"
+                                value={education.endYear}
+                                onChange={(e) => handleChange(e, i)}
+                                type="date"
+                                fullWidth
+                                required
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            /></Box>
 
 
 
-                                    <Button variant="contained" style={cancel} >cancel</Button>
-                                
+                        <Button variant="contained" style={save} onClick={handleSubmit} >Update</Button>
 
 
 
+                        <Button variant="contained" style={cancel} onClick={() => props.educationInfo(false)}  >cancel</Button>
 
                     </div>
 
@@ -356,4 +370,4 @@ const Education = () => {
     )
 }
 
-export default Education
+export default EducationPortfolio

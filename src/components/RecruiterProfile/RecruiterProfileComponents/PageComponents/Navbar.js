@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { styled } from '@mui/system'
 import Button from '@mui/material/Button'
 import { TfiAnnouncement } from 'react-icons/tfi'
 import { useState } from 'react'
@@ -10,7 +10,7 @@ import { FaHandPointRight } from 'react-icons/fa'
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
 
     mainNav: {
         backgroundColor: '#fff',

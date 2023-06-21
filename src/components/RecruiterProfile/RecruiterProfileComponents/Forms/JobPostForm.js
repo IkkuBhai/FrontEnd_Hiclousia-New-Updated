@@ -2,7 +2,7 @@ import React from 'react'
 import { styled } from '@mui/system';
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { Box } from '@material-ui/core'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { AiFillCloseCircle } from 'react-icons/ai'
 

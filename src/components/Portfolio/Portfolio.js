@@ -19,22 +19,25 @@ import { mainListItems } from './PortfolioComponents/ListPortfolio'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import { FiEdit2 } from 'react-icons/fi'
-import { FaGraduationCap } from 'react-icons/fa'
 import { GrAdd } from 'react-icons/gr'
 import Personal from './PortfolioComponents/PersonalPortfolio'
-import Education from './PortfolioComponents/EducationPortfolio'
-import Project from './PortfolioComponents/ProjectPortfolio'
-import Experience from './PortfolioComponents/ExperiencePortfolio'
+import EducationPortfolio from './PortfolioComponents/EducationPortfolio'
+import ProjectPortfolio from './PortfolioComponents/ProjectPortfolio'
+import ExperiencePortfolio from './PortfolioComponents/ExperiencePortfolio'
 import { useNavigate } from 'react-router-dom'
 import ProfilePic from './PortfolioComponents/PortfolioPic'
-import Grid from '@mui/material/Grid'
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import { AiFillDelete } from 'react-icons/ai'
 import SchoolSharpIcon from '@mui/icons-material/SchoolSharp';
-
+import WbIncandescentSharpIcon from '@mui/icons-material/WbIncandescentSharp';
+import WorkIcon from '@mui/icons-material/Work';
+import EditEducation from './PortfolioComponents/EditEducation'
+import PersonIcon from '@mui/icons-material/Person';
+import About from './PortfolioComponents/AboutMe'
+import EditExperience from './PortfolioComponents/EditExperience'
+import EditProjects from './PortfolioComponents/EditProjects'
 
 
 
@@ -90,7 +93,7 @@ const defaultTheme = createTheme();
 export default function DashboardPortfolio() {
 
 
-
+    //API Start
 
     const Navigate = useNavigate();
 
@@ -111,7 +114,136 @@ export default function DashboardPortfolio() {
             .then(data => { console.log(data); setUserInfo(data.data) })
             .catch(err => console.log(err))
         console.log(userInfo)
+    },)
+
+
+
+    useEffect(() => {
+        getEducationData()
     }, [])
+
+
+
+
+    const [eduData, setEduData] = useState(
+        {
+            _id: '',
+            educationLevel: '',
+            collegeName: '',
+            authority: '',
+            discipline: '',
+            startYear: '',
+            endYear: ''
+        }
+    )
+
+    const [isEditing, setIsEditing] = useState(false);
+    function getEducationData(id) {
+        fetch(`http://localhost:8000/education/${id}`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((result) => result.json())
+            .then((resp) => {
+                console.log("resp", resp)
+                setEduData(resp)
+                setIsEditing(true);
+                console.log("eduData", eduData)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    };
+
+    // Function to handle changes in form values
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setEduData((prevValues) => ({ ...prevValues, [name]: value }));
+    };
+
+
+    // Function to submit the form data and save it to the API
+    const handleSubmit = async (id) => {
+        await fetch(`http://localhost:8000/education/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(eduData)
+        });
+        setIsEditing(false);
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const [expData, setExpData] = useState({})
+
+    function getExperienceData() {
+        fetch(`http://localhost:8000/experience/63f229c2fcc41f1dc0ec4082`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((result) => result.json())
+            .then((resp) => {
+                console.log("resp", resp)
+                setExpData(resp)
+                console.log("expData", expData)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    useEffect(() => {
+        getExperienceData()
+    }, [])
+
+
+
+
+
+    const [proData, setProData] = useState({})
+
+    function getProjects() {
+        fetch(`http://localhost:8000/projects`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((result) => result.json())
+            .then((resp) => {
+                console.log("resp", resp)
+                setProData(resp)
+                console.log("proData", proData)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    useEffect(() => {
+        getProjects()
+    }, [])
+
+
+    //API End
 
 
 
@@ -123,10 +255,14 @@ export default function DashboardPortfolio() {
 
 
 
-    const [personal, setPersonal] = React.useState(false)
-    const [education, setEducation] = React.useState(false)
-    const [project, setProject] = React.useState(false)
-    const [experience, setExperience] = React.useState(false)
+    const [personal, setPersonal] = useState(false)
+    const [education, setEducation] = useState(false)
+    const [project, setProject] = useState(false)
+    const [experience, setExperience] = useState(false)
+    const [editEducation, setEditEducation] = useState(false)
+    const [editExperience, setEditExperience] = useState(false)
+    const [editProjects, setEditProjects] = useState(false)
+    // const [about, setAbout] = useState(false)
 
 
     return (
@@ -201,9 +337,11 @@ export default function DashboardPortfolio() {
                     }}
                 >
                     <Toolbar />
+
+
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 
-                        <Card sx={{ minWidth: 200 }}>
+                        <Card style={{ width: '80%' }}>
                             <CardContent>
                                 <button
                                     onClick={() => setPersonal(true)}
@@ -217,21 +355,86 @@ export default function DashboardPortfolio() {
                                     <FiEdit2 style={{ fontSize: '20px' }} />
                                 </button>
 
-                                <ProfilePic />
-
-                                {personal && <Personal personalinfo={personal => setPersonal(false)} />}
 
 
+
+                                <ListItem alignItems="center">
+
+                                    <ListItemAvatar sx={{ marginTop: '-9px' }}>
+                                        <Avatar alt="Cindy Baker" sx={{ width: 200, height: 200 }}><PersonIcon sx={{ fontSize: 150, cursor: 'pointer' }} /></Avatar>
+                                    </ListItemAvatar>
+
+                                    <ListItemText
+                                        primary={
+                                            <React.Fragment>
+                                                <Typography variant='h4' style={{ fontFamily: "'Lora', sans-serif", marginLeft: '80px' }}>
+                                                    {user.firstName} {user.lastName}
+                                                </Typography>
+                                            </React.Fragment>
+                                        }
+                                        secondary={
+                                            <React.Fragment>
+                                                <Typography
+                                                    sx={{ display: 'inline', marginLeft: '80px' }}
+                                                    component="span"
+                                                    variant="body2"
+                                                    color="text.primary"
+                                                >
+                                                    Professional Link - {user.gitLink}
+                                                </Typography>
+
+                                                <br />
+
+                                                <Typography
+                                                    sx={{ display: 'inline', marginLeft: '80px' }}
+                                                    component="span"
+                                                    variant="body2"
+                                                    color="text.primary"
+                                                >
+                                                    Address- {user.location}
+                                                </Typography>
+
+                                                <br />
+
+                                            </React.Fragment>
+                                        }
+
+
+                                    />
+
+                                </ListItem>
 
                             </CardContent>
                         </Card>
+
+                        <br />
+
+                        <Card style={{ width: '80%' }}>
+                            <CardContent>
+                                <Typography variant="h5" component="div" color="rgb(22 102 197)">
+                                    About Me
+                                </Typography>
+
+                                {/* {about && <About/>} */}
+
+                                <Box display="flex" flexDirection="column" alignItems="center">
+                                    <Typography variant="body1" sx={{ mb: 2 }}>
+                                        {user.aboutMe}
+                                    </Typography>
+                                    {/* Add other content for the "About Me" section */}
+                                </Box>
+                            </CardContent>
+                        </Card>
+
+
                         <br />
 
 
-                        <Card sx={{ minWidth: 200 }}>
+
+                        <Card style={{ width: '80%' }}>
                             <CardContent>
 
-                                <Typography variant="h5" component="div">
+                                <Typography variant="h5" component="div" color="rgb(22 102 197)">
                                     Education
                                 </Typography>
 
@@ -247,37 +450,37 @@ export default function DashboardPortfolio() {
                                     }}>
                                     <GrAdd style={{ fontSize: '20px' }} />
                                 </button>
-                                {/* <Divider variant="inset" component="li" /> */}
-                                <br></br>
-                                <br></br>
 
-                                {education && <Education />}
 
 
                                 {userInfo.educationData?.map((education) => (
+
                                     <List>
+
 
                                         <ListItem alignItems="flex-start">
 
+
+
                                             <ListItemAvatar>
-                                                <Avatar><SchoolSharpIcon/></Avatar>
+                                                <Avatar><SchoolSharpIcon /></Avatar>
                                             </ListItemAvatar>
 
- 
+
 
                                             <ListItemText
 
                                                 primary={
                                                     <React.Fragment>
-                                                        <Typography variant='h6' style={{fontFamily: "'Montserrat', sans-serif" , fontFamily: "'Lora', sans-serif"}}>{education.collegeName}</Typography>
+                                                        <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{education.collegeName}</Typography>
                                                     </React.Fragment>
                                                 }
-                                                
+
                                                 secondary={
                                                     <React.Fragment>
-                                                        <Typography 
+                                                        <Typography
                                                             sx={{ display: 'inline' }}
-                                                            style={{fontFamily: "'Montserrat', sans-serif"}} 
+                                                            style={{ fontFamily: "'Montserrat', sans-serif" }}
                                                             component="span"
                                                             variant="body2"
                                                             color="text.primary"
@@ -287,32 +490,40 @@ export default function DashboardPortfolio() {
                                                         {" — "} {education.degreeName}, {education.discipline}
 
                                                         <Typography variant="subtitle1" gutterBottom>
-                                                            {education.startYear} {" — "} {education.endYear}
+                                                            {"From: "}{education.startYear} {" — "} {education.endYear}
                                                         </Typography>
                                                     </React.Fragment>
                                                 }
+
+
                                             />
+
                                             <button style={{
                                                 float: 'right',
                                                 border: 'none',
                                                 background: 'transparent',
                                                 cursor: 'pointer'
-                                            }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} /></button>
+                                            }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} onClick={() => { setEditEducation(true); getEducationData(education._id) }} /></button>
+
 
                                         </ListItem>
                                         <Divider variant="inset" component="li" />
                                     </List>
                                 ))}
+
+                                {education && <EducationPortfolio educationInfo={() => setEducation(false)} />}
+                                {editEducation && <EditEducation EditEducationInfo={() => setEditEducation(false)} />}
+
                             </CardContent>
 
                         </Card>
                         <br />
 
 
-                        <Card sx={{ minWidth: 275 }}>
+                        <Card style={{ width: '80%' }}>
                             <CardContent>
 
-                                <Typography variant="h5" component="div">
+                                <Typography variant="h5" component="div" color="rgb(22 102 197)">
                                     Project
                                 </Typography>
 
@@ -325,34 +536,82 @@ export default function DashboardPortfolio() {
                                         marginTop: '-26px',
                                         cursor: 'pointer'
                                     }}>
-                                    <FiEdit2 style={{ fontSize: '20px' }} />
+                                    <GrAdd style={{ fontSize: '20px' }} />
                                 </button>
-                                {project && <Project />}
-
 
 
                                 {userInfo.projects?.map((projects) => (
-                                    <Grid item xs={8} key={projects._id}>
-                                        {projects.projectTitle}
-                                        {projects.description}
-                                        {projects.startDate}
-                                        {projects.endDate}
-                                        {projects.Url}
-                                        {projects.organizationName}
+                                    <List>
 
-                                    </Grid>
+                                        <ListItem alignItems="flex-start">
+
+                                            <ListItemAvatar>
+                                                <Avatar><WbIncandescentSharpIcon /></Avatar>
+                                            </ListItemAvatar>
+
+                                            <ListItemText
+
+                                                primary={
+                                                    <React.Fragment>
+                                                        <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{projects.projectTitle}</Typography>
+                                                    </React.Fragment>
+                                                }
+
+                                                secondary={
+                                                    <React.Fragment>
+                                                        <Typography
+                                                            sx={{ display: 'inline' }}
+                                                            style={{ fontFamily: "'Montserrat', sans-serif" }}
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="text.primary"
+                                                        >
+                                                            {projects.projectType}
+                                                        </Typography>
+                                                        {" — "}{projects.projectDescription}
+
+                                                        <Typography variant="subtitle1" gutterBottom>
+                                                            {projects.organizationName}
+                                                        </Typography>
+
+                                                        <Typography variant="subtitle1" gutterBottom>
+                                                            {projects.Url}
+                                                        </Typography>
+
+                                                        <Typography variant="subtitle1" gutterBottom>
+                                                            {"From: "}{projects.startDate} {" — "}  {projects.endDate}
+                                                        </Typography>
+                                                    </React.Fragment>
+                                                }
+                                            />
+                                            <button 
+                                            onClick={() => {setEditProjects(true) ;getProjects()}}
+                                            style={{
+                                                float: 'right',
+                                                border: 'none',
+                                                background: 'transparent',
+                                                cursor: 'pointer'
+                                            }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} /></button>
+
+                                            {editProjects && <EditProjects projectInfoEdit={() => setEditProjects(false)} />}
+
+                                        </ListItem>
+                                        <Divider variant="inset" component="li" />
+                                    </List>
                                 ))}
 
+                                {project && <ProjectPortfolio projectInfo={() => setProject(false)} />}
 
                             </CardContent>
 
                         </Card>
                         <br />
 
-                        <Card sx={{ minWidth: 275 }}>
+
+                        <Card style={{ width: '80%' }}>
                             <CardContent>
 
-                                <Typography variant="h5" component="div">
+                                <Typography variant="h5" component="div" color="rgb(22 102 197)">
                                     Experience
                                 </Typography>
 
@@ -365,44 +624,130 @@ export default function DashboardPortfolio() {
                                         marginTop: '-26px',
                                         cursor: 'pointer'
                                     }}>
-                                    <FiEdit2 style={{ fontSize: '20px' }} />
+                                    <GrAdd style={{ fontSize: '20px' }} />
                                 </button>
-                                {experience && <Experience />}
+
 
 
                                 {userInfo.experienceData?.map((experience) => (
                                     <List>
-                                        <ListItem>
-                                            <ListItemText>
-                                                <Grid item xs={8} sm={8} key={experience._id} >
-                                                    <ListItemAvatar>
-                                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                                    </ListItemAvatar>
-                                                    <button style={{
-                                                        float: 'right',
-                                                        border: 'none',
-                                                        background: 'transparent',
-                                                        marginTop: '-26px',
-                                                        cursor: 'pointer'
-                                                    }}><AiFillDelete style={{ float: 'right', fontSize: '20px' }} /></button>
 
-                                                    <div style={{ margin: '10%', marginTop: '6%', }}>
+                                        <ListItem alignItems="flex-start">
 
-                                                        <h5 style={{ fontFamily: "'Sans-Serif', Arial", }}>{experience.jobTitle}</h5> at <p>{experience.companyName}</p>
+                                            <ListItemAvatar>
+                                                <Avatar><WorkIcon /></Avatar>
+                                            </ListItemAvatar>
 
-                                                    </div>
-                                                    <Divider variant="inset" component="li" />
-                                                </Grid>
-                                            </ListItemText>
+
+
+                                            <ListItemText
+
+                                                primary={
+                                                    <React.Fragment>
+                                                        <Typography variant='h6' style={{ fontFamily: "'Lora', sans-serif" }}>{experience.companyName}</Typography>
+                                                    </React.Fragment>
+                                                }
+
+                                                secondary={
+                                                    <React.Fragment>
+                                                        <Typography
+                                                            sx={{ display: 'inline' }}
+                                                            style={{ fontFamily: "'Montserrat', sans-serif" }}
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="text.primary"
+                                                        >
+                                                            {experience.jobRole}
+                                                        </Typography>
+
+                                                        <Typography variant="subtitle1" gutterBottom>
+                                                            {"Skills Practiced: "}{experience.skills} {", "}
+                                                        </Typography>
+
+                                                        <Typography variant="subtitle1" gutterBottom>
+                                                            {experience.experienceType}
+                                                        </Typography>
+
+                                                        <Typography variant="subtitle1" gutterBottom>
+                                                            {experience.companyType}
+                                                        </Typography>
+
+
+
+                                                        <Typography variant="subtitle1" gutterBottom>
+                                                            {"From: "} {experience.startDate}  {" — "}  {experience.endDate}
+                                                        </Typography>
+
+                                                        <Typography variant="subtitle1" gutterBottom>
+                                                            {experience.location}
+                                                        </Typography>
+                                                    </React.Fragment>
+                                                }
+                                            />
+                                            <button
+                                                onClick={() => { setEditExperience(true); getExperienceData() }}
+                                                style={{
+                                                    float: 'right',
+                                                    border: 'none',
+                                                    background: 'transparent',
+                                                    cursor: 'pointer'
+                                                }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} /></button>
+
+                                            {editExperience && <EditExperience />}
+
                                         </ListItem>
+                                        <Divider variant="inset" component="li" />
                                     </List>
                                 ))}
+                                {experience && <ExperiencePortfolio experienceInfo={() => setExperience(false)} />}
                             </CardContent>
 
                         </Card>
 
                         <br />
+
+                        {/* <Card style={{ width: '80%' }}>
+                            <CardContent>
+
+                                <Typography variant="h5" component="div">
+                                    Primary Skills
+                                </Typography>
+                                <button
+
+                                    style={{
+                                        float: 'right',
+                                        border: 'none',
+                                        background: 'transparent',
+                                        marginTop: '-26px',
+                                        cursor: 'pointer'
+                                    }}>
+                                    <FiEdit2 style={{ fontSize: '20px' }} />
+                                </button>
+
+                            </CardContent>
+                        </Card>
+
                         <br />
+
+                        <Card style={{ width: '80%' }}>
+                            <CardContent>
+                                <Typography variant="h5" component="div">
+                                    Secondary Skills
+                                </Typography>
+                                <button
+                                    style={{
+                                        float: 'right',
+                                        border: 'none',
+                                        background: 'transparent',
+                                        marginTop: '-26px',
+                                        cursor: 'pointer'
+                                    }}>
+                                    <FiEdit2 style={{ fontSize: '20px' }} />
+                                </button>
+                            </CardContent>
+                        </Card> */}
+
+
                     </Container>
                 </Box>
             </Box>

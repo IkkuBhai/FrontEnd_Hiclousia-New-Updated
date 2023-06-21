@@ -1,6 +1,6 @@
 import React from "react"
-import Navbar from "./Components/PageComponents/Navbar"
-import Employer from './Components/PageComponents/Employer'
+import Navbar from "./RecruiterProfileComponents/PageComponents/Navbar"
+import Employer from './RecruiterProfileComponents/PageComponents/Employer'
 
 
 const RecruiterProfilePage = () => {

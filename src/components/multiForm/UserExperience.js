@@ -228,6 +228,29 @@ const UserExperience = (props) => {
             onChange={(event) => handleExperienceChange(event, index)}
           />
 
+          
+          <FormControl sx={{ m: 3, width: 600 }}>
+                            <InputLabel>Experience Type</InputLabel>
+                            <Select
+                                name="experienceType"
+                                value={experience.experienceType}
+                                onChange={(event) => handleExperienceChange(event, index)}
+                                label="Experience Type"
+                                required
+                                input={<OutlinedInput label="Experience Type" />}
+                            >
+                                {experienceTypes.map((experienceType, i) => (
+                                    <MenuItem
+                                        key={i}
+                                        value={experienceType}
+                                    >
+                                        {experienceType}
+                                    </MenuItem>
+                                ))}
+
+                            </Select>
+                        </FormControl>
+
 
 
 

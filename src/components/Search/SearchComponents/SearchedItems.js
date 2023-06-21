@@ -36,6 +36,7 @@ const SearchedItems = () => {
                     </CardContent>
                     <CardActions>
                         <Button size="small">job description</Button>
+                        <Button size="small" style={{float: 'right'}}>Apply</Button>
                     </CardActions>
                 </Card>
 
@@ -63,6 +64,7 @@ const SearchedItems = () => {
                     </CardContent>
                     <CardActions>
                         <Button size="small">job description</Button>
+                        <Button size="small" style={{float: 'right'}}>Apply</Button>
                     </CardActions>
                 </Card>
 
@@ -88,6 +90,7 @@ const SearchedItems = () => {
                     </CardContent>
                     <CardActions>
                         <Button size="small">job description</Button>
+                        <Button size="small" style={{float: 'right'}}>Apply</Button>
                     </CardActions>
                 </Card>
 

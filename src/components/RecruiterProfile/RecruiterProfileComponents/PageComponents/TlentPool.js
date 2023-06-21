@@ -1,8 +1,8 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { styled } from '@mui/system'
 import Navbar from './Navbar'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
 
     main: {
         width: '100%',

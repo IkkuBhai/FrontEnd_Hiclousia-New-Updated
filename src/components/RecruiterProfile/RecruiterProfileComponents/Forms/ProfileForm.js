@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { styled } from '@mui/system'
 import FilledInput from '@mui/material/FilledInput'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
@@ -8,12 +8,12 @@ import InputLabel from '@mui/material/InputLabel'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { Box } from '@material-ui/core'
+import  Box  from '@mui/material/Box'
 import Button from '@mui/material/Button'
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
 
     modalWrapper: {
         position: 'fixed',

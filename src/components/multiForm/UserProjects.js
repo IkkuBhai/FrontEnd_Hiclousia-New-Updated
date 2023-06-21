@@ -5,6 +5,14 @@ import { Button, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { primarySkills } from '../../constraints/arrays';
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+
+
 const theme = createTheme();
 const StyledForm = styled('form')(({ theme }) => ({
   '& .MuiTextField-root': {
@@ -36,7 +44,7 @@ const ProjectForm = (props) => {
       projectTitle: '',
       projectType: '',
       description: '',
-      skills: '',
+      skills: [],
       startDate: '',
       endDate: '',
       Url: '',
@@ -51,7 +59,7 @@ const ProjectForm = (props) => {
         projectTitle: '',
         projectType: '',
         description: '',
-        skills: '',
+        skills: [],
         startDate: '',
         endDate: '',
         Url: '',
@@ -101,7 +109,7 @@ const ProjectForm = (props) => {
             projectTitle: '',
             projectType: '',
             description: '',
-            skillsUsed: '',
+            skills: [],
             startDate: '',
             endDate: '',
             Url: '',
@@ -124,8 +132,10 @@ const ProjectForm = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <StyledForm style={{
+        margin: '30px',
         border: '1px solid',
-        borderRadius: '0.5rem'
+        borderRadius: '0.5rem',
+        alignItems: 'center'
       }} onSubmit={handleSubmit}>
         <Typography textAlign="center" variant="h6" gutterBottom>
           Projects:
@@ -148,14 +158,42 @@ const ProjectForm = (props) => {
               value={project.projectType}
               onChange={(event) => handleProjectChange(event, index)}
             />
-            <TextField
+
+
+            <FormControl sx={{ m: 3, width: 600 }}>
+              <InputLabel id="demo-multiple-name-label">Skills Used</InputLabel>
+              <Select
+                name="skills"
+                value={project.skills}
+                onChange={(event) => handleProjectChange(event, index)}
+                labelId="demo-multiple-name-label"
+                multiple
+                id="demo-multiple-name"
+                input={<OutlinedInput label="Year of Passout" />}
+
+              >
+                {primarySkills.map((primarySkill, i) => (
+                  <MenuItem
+                    key={i}
+                    value={primarySkill}
+                  >
+                    {primarySkill}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {/* <TextField
               label="Skills"
               name="skills"
               variant="outlined"
               required
               value={project.skills}
               onChange={(event) => handleProjectChange(event, index)}
-            />
+            /> */}
+
+
+
             <TextField
               label="Start Date"
               name="startDate"

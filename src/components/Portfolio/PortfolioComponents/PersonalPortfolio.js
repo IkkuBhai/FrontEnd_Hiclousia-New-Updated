@@ -55,32 +55,11 @@ const cancel = {
 
 const Personal = (props) => {
 
-    // const navigate = useNavigate()
-
-    // useEffect(() => {
-
-    //     if(userId == null) {
-    //         navigate("/login")
-
-    //     }
-    // },)
-
-    // const [personalDetails , setPersonalDetails] = useState([
-    //     {
-    //         userDetailsID: userId.id,
-    //         firstName: "",
-    //         lastName: "",
-    //         profileLink: "",
-    //         doB: "",
-
-
-
-
-    //     }
-    // ])
+    
     
     return (
         <div style={modalWrapper}>
+  
             <div style={modalContainer}>
 
                 <div style={feild}>
@@ -139,3 +118,4 @@ const Personal = (props) => {
 }
 
 export default Personal
+
