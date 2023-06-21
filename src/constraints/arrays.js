@@ -183,7 +183,7 @@ let secondarySkills = [
 let sectors = [
   "Fishing industry",
   "Horticulture industry",
-  
+
   "Wood industry",
   "Mechanical Manufacturing",
   "Aerospace industry",
@@ -217,7 +217,7 @@ let sectors = [
   "Cultural industry",
   "Culture industry",
   "Education industry",
-  "Entertainment industry", 
+  "Entertainment industry",
   "Music industry",
   "Video game industry",
   "Financial services industry",
@@ -240,49 +240,7 @@ let sectors = [
   "Transport industry"
 ];
 
-let jobCategory = [
-  "Software Developer",
-  "Software Management",
-  "Software Quality",
-  "System Administrator",
-  "System Analyst",
-  "Information Technology",
-  "Business Intelligence",
-  "Cyber Security",
-  "Data Management",
-  "Database Job",
-  "Game Development",
-  "Geographic IT",
-  "Healthcare IT",
-  "Help Desk Job",
-  "Information Technology Intern",
-  "IT Audit",
-  "IT Coordinator",
-  "IT Executive Job",
-  "IT Management",
-  "IT Project",
-  "IT Specialist",
-  "IT Training",
-  "Network",
-  "Engineering",
-  "Automotive Engineering",
-  "Biomedical Engineering",
-  "Chemical Engineering",
-  "Civil Engineering",
-  "Construction Engineers",
-  "Design Engineering",
-  "Electrical Engineering",
-  "Energy Engineers",
-  "Environmental Engineering",
-  "Industrial Engineering",
-  "Manufacturing Engineering",
-  "Materials Engineering",
-  "Mechanical Engineering",
-  "Petroleum Engineering",
-  "Project Engineering",
-  "Safety Engineers",
-  "Engineering Intern"
-]
+
 
 
 let educationLevels = [
@@ -366,6 +324,18 @@ let experienceTypes = [
   'Job', 'Freelancer', 'Internship'
 ]
 
+let jobNature = [
+  "Onsite",
+  "Remote",
+  "Hybrid",
+  "Intership",
+  "Full Time",
+  "Part Time",
+  "WFH"
+
+]
+
+
 let companyTypes = [
   'MNC',
   'Start-Ups',
@@ -373,6 +343,50 @@ let companyTypes = [
   'Service-Based',
   'Product-Based'
 ]
+
+let jobCategory = [
+  "Software Developer",
+  "Software Management",
+  "Software Quality",
+  "System Administrator",
+  "System Analyst",
+  "Information Technology",
+  "Business Intelligence",
+  "Cyber Security",
+  "Data Management",
+  "Database Job",
+  "Game Development",
+  "Geographic IT",
+  "Healthcare IT",
+  "Help Desk Job",
+  "Information Technology Intern",
+  "IT Audit",
+  "IT Coordinator",
+  "IT Executive Job",
+  "IT Management",
+  "IT Project",
+  "IT Specialist",
+  "IT Training",
+  "Network",
+  "Engineering",
+  "Automotive Engineering",
+  "Biomedical Engineering",
+  "Chemical Engineering",
+  "Civil Engineering",
+  "Construction Engineers",
+  "Design Engineering",
+  "Electrical Engineering",
+  "Energy Engineers",
+  "Environmental Engineering",
+  "Industrial Engineering",
+  "Manufacturing Engineering",
+  "Materials Engineering",
+  "Mechanical Engineering",
+  "Petroleum Engineering",
+  "Project Engineering",
+  "Safety Engineers",
+  "Engineering Intern"
+];
 
 let discipline = [
   "Computer science",
@@ -413,4 +427,30 @@ let discipline = [
   "Cartography"
 ]
 
-export { location, jobRoles, primarySkills, secondarySkills, sectors, educationLevels, experience, yearofPassouts, authorities, experienceTypes, companyTypes , experiences , jobCategory , discipline}
+let salary = ["1 Lpa"
+  , "2 Lpa",
+  "3 Lpa",
+  "4 Lpa",
+  "5 Lpa",
+  "6 Lpa"
+  , "7 Lpa",
+  "8 Lpa", "9 Lpa", "10 Lpa", "More than 10 Lpa"]
+
+export {
+  jobNature,
+  location,
+  jobRoles,
+  primarySkills,
+  secondarySkills,
+  sectors,
+  educationLevels,
+  experience,
+  yearofPassouts,
+  authorities,
+  experienceTypes,
+  companyTypes,
+  experiences,
+  jobCategory,
+  discipline,
+  salary
+}

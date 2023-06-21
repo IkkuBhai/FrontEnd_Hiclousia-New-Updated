@@ -17,6 +17,31 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
 
 
+const user = JSON.parse(localStorage.getItem('userDetails')); 
+
+
+
+const handleBuy = async (plan) => {
+  const info = {
+    userDetailsID: user._id,
+    recruiterPlan: plan.title,
+    jobPostno: 3,
+  }
+  fetch("http://localhost:8000/revenueR", {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(info)
+  }).then(response => response.json().then(data => {
+    console.log(data)
+    if (data.status === true) {
+      alert("Created Plan Sucessfully")
+    }
+  }))
+};
+
 const tiers = [
   {
     title: 'Silver',
@@ -132,7 +157,7 @@ export default function PricingOne() {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant}>
+                  <Button onClick={handleBuy(tier)} fullWidth variant={tier.buttonVariant}>
                     {tier.buttonText}
                   </Button>
                 </CardActions>

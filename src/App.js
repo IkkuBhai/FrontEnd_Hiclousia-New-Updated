@@ -9,7 +9,7 @@ import SignUp from './components/loginPage/SignUp'
 import EducationForm from './components/multiForm/EducationForm'
 import ProductSearch from "./components/Search.js"
 import RecruiterSearch from "./components/RecruiterSearch"
-import JobForm from "./components/RecruiterForms/JobPostForm"
+// import JobForm from "./components/RecruiterForms/JobPostForm"
 import Dashboard from './components/Search/SearchPreferences'
 import ForgotPassword from './components/loginPage/ForgotPassword'
 import RecruiterProfileForm from "../src/components/RecruiterForms/RecruiterForm"
@@ -25,6 +25,8 @@ import SearchResult from './components/Search/SearchComponents/SearchResult'
 import RecruiterProfilePage from './components/RecruiterProfile/RecruiterProfilePage'
 import TalentPoolNew from './components/RecruiterProfile/Templates/TalentPoolNew'
 import MyPlans from './components/RecruiterProfile/Templates/MyPlans'
+import RecProfile from './components/NewRecruiterProfile/RecProfile'
+// import Search from './components/Search'
 
 
 function App() {
@@ -40,7 +42,7 @@ function App() {
                     <Fifth />
                 </>} />
 
-                
+                 
                 <Route path="Login" element={<Login />} />
                 <Route path="SignUp" element={<SignUp />} />
                 <Route path='ForgotPassword' element={<ForgotPassword />} />
@@ -62,11 +64,13 @@ function App() {
                 <Route path='RecruiterProfilePage' element={<RecruiterProfilePage />} />
                 <Route path='TalentPoolNew' element={<TalentPoolNew />} />
                 <Route path='MyPlans' element={<MyPlans/>} />
+                <Route path='RecProfile' element={<RecProfile />} />
+                {/* <Route path='Search' element={<Search />} /> */}
 
 
 
                 {/* <Route path=  "JobPostForm" element = {<JobPostForm/>}/> */}
-                <Route path="JobForm" element={<JobForm />} />
+                {/* <Route path="JobForm" element={<JobForm />} /> */}
                 {/* <Route path=  "multiform7" element = {<Form/>}/> */}
             </Routes>
 

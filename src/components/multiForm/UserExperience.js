@@ -302,8 +302,6 @@ const UserExperience = (props) => {
               ))}
             </Select>
           </FormControl>
- 
-
 
           <FormControl sx={{ m: 3, width: 600 }}>
             <InputLabel>Company Location</InputLabel>

@@ -47,7 +47,7 @@ const ProjectForm = (props) => {
       skills: [],
       startDate: '',
       endDate: '',
-      Url: '',
+      url: '',
       organizationName: '',
     },
   ]);
@@ -62,7 +62,7 @@ const ProjectForm = (props) => {
         skills: [],
         startDate: '',
         endDate: '',
-        Url: '',
+        url: '',
         organizationName: '',
       },
     ];
@@ -112,7 +112,7 @@ const ProjectForm = (props) => {
             skills: [],
             startDate: '',
             endDate: '',
-            Url: '',
+            url: '',
             organizationName: ''
           }])
         }
@@ -220,10 +220,10 @@ const ProjectForm = (props) => {
             />
             <TextField
               label="URL"
-              name="Url"
+              name="url"
               variant="outlined"
               required
-              value={project.Url}
+              value={project.url}
               onChange={(event) => handleProjectChange(event, index)}
             />
             <TextField

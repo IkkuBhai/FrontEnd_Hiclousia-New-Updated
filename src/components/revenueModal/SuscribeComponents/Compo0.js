@@ -161,7 +161,7 @@ export default function PricingZero() {
                 </ul>
               </CardContent>
               <CardActions>
-                <Button fullWidth variant={tier.buttonVariant}>
+                <Button fullWidth onClick={handleBuy(tier)} variant={tier.buttonVariant}>
                   {tier.buttonText}
                 </Button>
               </CardActions>
