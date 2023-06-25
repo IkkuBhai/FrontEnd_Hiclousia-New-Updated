@@ -20,6 +20,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import { FiEdit2 } from 'react-icons/fi'
 import { GrAdd } from 'react-icons/gr'
+import { MdDelete } from 'react-icons/md'
 import Personal from './PortfolioComponents/PersonalPortfolio'
 import EducationPortfolio from './PortfolioComponents/EducationPortfolio'
 import ProjectPortfolio from './PortfolioComponents/ProjectPortfolio'
@@ -118,129 +119,44 @@ export default function DashboardPortfolio() {
 
 
 
+    
+
+    //Education Start
+    const [eduData, setEduData] = useState([])
+
     useEffect(() => {
-        getEducationData()
-    }, [])
+        getEducation()
+    })
 
+    function getEducation(_id) {
 
-
-
-    const [eduData, setEduData] = useState(
-        {
-            _id: '',
-            educationLevel: '',
-            collegeName: '',
-            authority: '',
-            discipline: '',
-            startYear: '',
-            endYear: ''
-        }
-    )
-
-    const [isEditing, setIsEditing] = useState(false);
-    function getEducationData(id) {
-        fetch(`http://localhost:8000/education/${id}`, {
+        fetch(`http://localhost:8000/education/${_id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         })
-            .then((result) => result.json())
+           .then((result) => result.json())
             .then((resp) => {
                 console.log("resp", resp)
                 setEduData(resp)
-                setIsEditing(true);
                 console.log("eduData", eduData)
             })
             .catch(error => {
                 console.log(error)
             })
-    };
-
-    // Function to handle changes in form values
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setEduData((prevValues) => ({ ...prevValues, [name]: value }));
-    };
-
-
-    // Function to submit the form data and save it to the API
-    const handleSubmit = async (id) => {
-        await fetch(`http://localhost:8000/education/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(eduData)
-        });
-        setIsEditing(false);
-    };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    const [expData, setExpData] = useState({})
-
-    function getExperienceData() {
-        fetch(`http://localhost:8000/experience/63f229c2fcc41f1dc0ec4082`, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((result) => result.json())
-            .then((resp) => {
-                console.log("resp", resp)
-                setExpData(resp)
-                console.log("expData", expData)
-            })
-            .catch(error => {
-                console.log(error)
-            })
     }
 
-    useEffect(() => {
-        getExperienceData()
-    }, [])
+    console.log("Education", eduData)
+    //Education End
 
 
 
 
 
-    const [proData, setProData] = useState({})
 
-    function getProjects() {
-        fetch(`http://localhost:8000/projects`, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((result) => result.json())
-            .then((resp) => {
-                console.log("resp", resp)
-                setProData(resp)
-                console.log("proData", proData)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
 
-    useEffect(() => {
-        getProjects()
-    }, [])
+
 
 
     //API End
@@ -502,11 +418,23 @@ export default function DashboardPortfolio() {
                                                 float: 'right',
                                                 border: 'none',
                                                 background: 'transparent',
-                                                cursor: 'pointer'
-                                            }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} onClick={() => { setEditEducation(true); getEducationData(education._id) }} /></button>
+                                                cursor: 'pointer',
+
+                                            }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} onClick={() => setEditEducation(true)} /></button>
+
+
+                                            <button style={{
+                                                float: 'right',
+                                                border: 'none',
+                                                background: 'transparent',
+                                                cursor: 'pointer',
+                                                marginLeft: '30px'
+                                            }}><MdDelete style={{ float: 'right', fontSize: '20px' }} /></button>
 
 
                                         </ListItem>
+
+
                                         <Divider variant="inset" component="li" />
                                     </List>
                                 ))}
@@ -540,7 +468,7 @@ export default function DashboardPortfolio() {
                                 </button>
 
 
-                                {userInfo.projects?.map((projects) => (
+                                {userInfo.projects?.map((projects, i) => (
                                     <List>
 
                                         <ListItem alignItems="flex-start">
@@ -584,16 +512,16 @@ export default function DashboardPortfolio() {
                                                     </React.Fragment>
                                                 }
                                             />
-                                            <button 
-                                            onClick={() => {setEditProjects(true) ;getProjects()}}
-                                            style={{
-                                                float: 'right',
-                                                border: 'none',
-                                                background: 'transparent',
-                                                cursor: 'pointer'
-                                            }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} /></button>
+                                            <button
+                                                onClick={() => setEditProjects(true)}
+                                                style={{
+                                                    float: 'right',
+                                                    border: 'none',
+                                                    background: 'transparent',
+                                                    cursor: 'pointer'
+                                                }}><FiEdit2 style={{ float: 'right', fontSize: '20px' }} /></button>
 
-                                            {editProjects && <EditProjects projectInfoEdit={() => setEditProjects(false)} />}
+                                            {editProjects && <EditProjects id={userInfo.projects[i]._id} projectInfoEdit={() => setEditProjects(false)} />}
 
                                         </ListItem>
                                         <Divider variant="inset" component="li" />
@@ -685,7 +613,7 @@ export default function DashboardPortfolio() {
                                                 }
                                             />
                                             <button
-                                                onClick={() => { setEditExperience(true); getExperienceData() }}
+                                                onClick={() => setEditExperience(true)}
                                                 style={{
                                                     float: 'right',
                                                     border: 'none',
@@ -705,49 +633,6 @@ export default function DashboardPortfolio() {
                         </Card>
 
                         <br />
-
-                        {/* <Card style={{ width: '80%' }}>
-                            <CardContent>
-
-                                <Typography variant="h5" component="div">
-                                    Primary Skills
-                                </Typography>
-                                <button
-
-                                    style={{
-                                        float: 'right',
-                                        border: 'none',
-                                        background: 'transparent',
-                                        marginTop: '-26px',
-                                        cursor: 'pointer'
-                                    }}>
-                                    <FiEdit2 style={{ fontSize: '20px' }} />
-                                </button>
-
-                            </CardContent>
-                        </Card>
-
-                        <br />
-
-                        <Card style={{ width: '80%' }}>
-                            <CardContent>
-                                <Typography variant="h5" component="div">
-                                    Secondary Skills
-                                </Typography>
-                                <button
-                                    style={{
-                                        float: 'right',
-                                        border: 'none',
-                                        background: 'transparent',
-                                        marginTop: '-26px',
-                                        cursor: 'pointer'
-                                    }}>
-                                    <FiEdit2 style={{ fontSize: '20px' }} />
-                                </button>
-                            </CardContent>
-                        </Card> */}
-
-
                     </Container>
                 </Box>
             </Box>

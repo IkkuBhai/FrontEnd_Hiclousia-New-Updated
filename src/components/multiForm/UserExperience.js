@@ -55,6 +55,11 @@ const UserExperience = (props) => {
       location: '',
       startDate: '',
       endDate: '',
+      name: '',
+            position: '',
+            email: '',
+            contactPhone: '',
+            link: ''
     
 
     }
@@ -73,6 +78,11 @@ const UserExperience = (props) => {
       location: '',
       startDate: '',
       endDate: '',
+      name: '',
+            position: '',
+            email: '',
+            contactPhone: '',
+            link: ''
       
     }];
         setExperienceData(
@@ -106,7 +116,9 @@ const UserExperience = (props) => {
     console.log(experienceData)
     let experienceInfo = experienceData;
     experienceInfo?.map((e, index) => {
-      fetch("http://localhost:8000/experience", {
+
+      return (
+        fetch("http://localhost:8000/experience", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -123,19 +135,25 @@ const UserExperience = (props) => {
             experienceType: '',
             jobStatus: "Active",
             jobRole: '',
-            companyType: '',
-            experienceType: '',
+            companyType: '',          
             skills: [],
             companyName: '',
             location: '',
             startDate: '',
-            endDate: ''
+            endDate: '', 
+            name: '',
+            position: '',
+            email: '',
+            contactPhone: '',
+            link: ''
           }])
           navigate("/UserProjects")
 
         }
       }
       ))
+      )
+      
     })
     return true
   }
@@ -348,6 +366,80 @@ const UserExperience = (props) => {
             value={experience.endDate}
             onChange={(event) => handleExperienceChange(event, index)}
             type="date"
+            fullWidth
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+
+          <Typography>
+            Respone
+          </Typography>
+
+          <TextField
+            variant="outlined"
+            label="Name"
+            name="name"
+            value={experience.name}
+            onChange={(event) => handleExperienceChange(event, index)}
+          
+            fullWidth
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+
+<TextField
+            variant="outlined"
+            label="Email"
+            name="email"
+            value={experience.email}
+            onChange={(event) => handleExperienceChange(event, index)}
+        
+            fullWidth
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+
+<TextField
+            variant="outlined"
+            label="Position"
+            name="position"
+            value={experience.position}
+            onChange={(event) => handleExperienceChange(event, index)}
+        
+            fullWidth
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+
+<TextField
+            variant="outlined"
+            label="Phone"
+            name="contactPhone"
+            value={experience.contactPhone}
+            onChange={(event) => handleExperienceChange(event, index)}
+           
+            fullWidth
+            required
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+
+<TextField
+            variant="outlined"
+            label="Link"
+            name="link"
+            value={experience.link}
+            onChange={(event) => handleExperienceChange(event, index)}
+     
             fullWidth
             required
             InputLabelProps={{

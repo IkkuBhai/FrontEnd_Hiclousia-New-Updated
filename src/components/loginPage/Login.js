@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,19 +10,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SignUp from './SignUp';
 import { useNavigate } from 'react-router-dom'
-import ForgotPassword from './ForgotPassword';
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
 
 function Copyright(props) {
-
-
-
-
-
-
-
-
 
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -43,16 +33,6 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-
-  };
-
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -100,6 +80,16 @@ export default function SignIn() {
 
 
     <ThemeProvider theme={defaultTheme}>
+
+      <AppBar position="relative">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            Hiclousia
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+
       <Container component="main" maxWidth="xs" style={{ border: '0.1px solid grey', marginTop: '120px', borderRadius: '0.5rem', boxShadow: 'lightgrey', }}>
         <CssBaseline />
         <Box
@@ -154,13 +144,6 @@ export default function SignIn() {
                 {result.message}
               </h4>
             )}
-
-
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
-
 
             <Button
               type="submit"

@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -9,26 +8,23 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-// import StarIcon from '@mui/icons-material/StarBorder';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
-import Container from '@mui/material/Container';
-
-
-
-
-const user = JSON.parse(localStorage.getItem('userDetails')); 
-
 const tiers = [
   {
     title: 'Silver',
     price: '500',
+    duration: 15,
+    default: {skillsAnalytics: true,
+    workEvidence: true,
+    verifiedProfiles: false,
+    directEngagement: true,
+    scheduleInterview: true,
+    conductAssessment: false,} ,
     description: [
       '1 Job Post',
-      '20 Portfolios ',
-      'for 15 Days'
+      '20 Portfolios',
+      'for 15 Days',
     ],
     buttonText: 'buy',
     buttonVariant: 'outlined',
@@ -38,11 +34,10 @@ const tiers = [
   },
   {
     title: 'Gold',
-
     price: '6500',
     description: [
       '1 Job Post',
-      '20 Portfolio',
+      '20 Portfolios',
       '1 Month',
     ],
     buttonText: 'buy',
@@ -56,7 +51,7 @@ const tiers = [
     price: '23000',
     description: [
       '1 Job Post',
-      '10 Portfolio',
+      '10 Portfolios',
       '1 Month',
     ],
     buttonText: 'buy',
@@ -66,17 +61,9 @@ const tiers = [
     },
   },
 ];
-
-
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-
-
-
-
+const user = JSON.parse(localStorage.getItem('userDetails'));
 export default function PricingZero() {
-
   const handleBuy = async (plan) => {
     const info = {
       userDetailsID: user._id,
@@ -92,25 +79,17 @@ export default function PricingZero() {
       body: JSON.stringify(info)
     }).then(response => response.json().then(data => {
       console.log(data)
-      if (data.status === true) {
-        alert("Created Plan Sucessfully")
-      }
     }))
   };
-
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
       <CssBaseline />
-
-
       <Grid container spacing={5} alignItems="flex-end">
-        {tiers.map((tier) => (
-          // Enterprise card is full width at sm breakpoint
+        {tiers.map((tier, i) => (
           <Grid
             item
-            key={tier.title}
+            key={i}
             xs={12}
             sm={tier.title === 'Enterprise' ? 12 : 6}
             md={4}
@@ -120,10 +99,7 @@ export default function PricingZero() {
                 title={tier.title}
                 subheader={tier.subheader}
                 titleTypographyProps={{ align: 'center' }}
-                //   action={tier.title === 'Pro' ? <StarIcon /> : null}
-                subheaderTypographyProps={{
-                  align: 'center',
-                }}
+                subheaderTypographyProps={{ align: 'center' }}
                 sx={{
                   backgroundColor: (theme) =>
                     theme.palette.mode === 'light'
@@ -161,7 +137,7 @@ export default function PricingZero() {
                 </ul>
               </CardContent>
               <CardActions>
-                <Button fullWidth onClick={handleBuy(tier)} variant={tier.buttonVariant}>
+                <Button fullWidth variant={tier.buttonVariant} onClick={() => handleBuy(tier)}>
                   {tier.buttonText}
                 </Button>
               </CardActions>
@@ -169,8 +145,6 @@ export default function PricingZero() {
           </Grid>
         ))}
       </Grid>
-
-
     </ThemeProvider>
   );
-}
+}     

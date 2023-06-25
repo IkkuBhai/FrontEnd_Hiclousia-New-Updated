@@ -12,7 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { useNavigate } from 'react-router-dom'
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
 
 function Copyright(props) {
 
@@ -34,15 +35,6 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
 
   const [signIn, toggle] = React.useState(false);
   const [email, setEmail] = React.useState("");
@@ -51,7 +43,8 @@ export default function SignUp() {
   const [lastName, setLastName] = React.useState("");
   const [recBox, setRecBox] = React.useState(false)
   const [result, setResult] = React.useState({ status: false, message: "" })
-  const navigate = useNavigate();
+
+  // const navigate = useNavigate();
 
   function SignUpHandler(e) {
     const recruiter = recBox
@@ -95,7 +88,16 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs" style={{ border: '0.1px solid grey', marginTop: '60px', borderRadius: '0.5rem', boxShadow: 'lightgrey', marginTop: '7.5%' }}>
+
+      <AppBar position="relative">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            Hiclousia
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <Container component="main" maxWidth="xs" style={{ border: '0.1px solid grey', borderRadius: '0.5rem', boxShadow: 'lightgrey', marginTop: '7.5%' }}>
         <CssBaseline />
         <Box
           sx={{
@@ -165,12 +167,12 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
 
-                 {/* <FormControlLabel
+                {/* <FormControlLabel
                   control={<Button value="allowExtraEmails" color="primary">Talent</Button>}
                   style={{backgroundColor: 'blue', borderRadius: '0.5rem'}}
                   
                 /> */}
-                <br/>
+                <br />
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I am a recruiter."

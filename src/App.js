@@ -15,7 +15,7 @@ import ForgotPassword from './components/loginPage/ForgotPassword'
 import RecruiterProfileForm from "../src/components/RecruiterForms/RecruiterForm"
 import DashboardPortfolio from './components/Portfolio/Portfolio'
 import ResetPassword from './components/loginPage/ResetPassword'
-import { Routes,  Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import UserProfileForm from './components/multiForm/UserProfileForm'
 import UserExperience from './components/multiForm/UserExperience'
 import ProjectForm from './components/multiForm/UserProjects'
@@ -26,6 +26,8 @@ import RecruiterProfilePage from './components/RecruiterProfile/RecruiterProfile
 import TalentPoolNew from './components/RecruiterProfile/Templates/TalentPoolNew'
 import MyPlans from './components/RecruiterProfile/Templates/MyPlans'
 import RecProfile from './components/NewRecruiterProfile/RecProfile'
+import Employer from './components/RecruiterProfile/RecruiterProfileComponents/PageComponents/Employer'
+import SearchedItems from './components/Search/SearchComponents/SearchedItems'
 // import Search from './components/Search'
 
 
@@ -42,7 +44,7 @@ function App() {
                     <Fifth />
                 </>} />
 
-                 
+
                 <Route path="Login" element={<Login />} />
                 <Route path="SignUp" element={<SignUp />} />
                 <Route path='ForgotPassword' element={<ForgotPassword />} />
@@ -63,11 +65,18 @@ function App() {
                 <Route path='SearchResult' element={<SearchResult />} />
                 <Route path='RecruiterProfilePage' element={<RecruiterProfilePage />} />
                 <Route path='TalentPoolNew' element={<TalentPoolNew />} />
-                <Route path='MyPlans' element={<MyPlans/>} />
+                <Route path='MyPlans' element={<MyPlans />} />
                 <Route path='RecProfile' element={<RecProfile />} />
+                <Route path='SeacrhedItems' element={<SearchedItems />} />
+
                 {/* <Route path='Search' element={<Search />} /> */}
 
 
+                <Route path='resetPassword/:id/:token' element={<ResetPassword />} />
+                
+
+                <Route path="/Employer/:uId/:id" element={<Employer />} />
+                <Route path='TalentPoolNew/:jid' element={<TalentPoolNew />} />
 
                 {/* <Route path=  "JobPostForm" element = {<JobPostForm/>}/> */}
                 {/* <Route path="JobForm" element={<JobForm />} /> */}

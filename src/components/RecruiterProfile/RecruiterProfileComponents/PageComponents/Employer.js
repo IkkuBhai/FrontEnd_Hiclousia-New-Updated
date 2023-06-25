@@ -1,202 +1,183 @@
-import React, { useState } from "react"
-import { FiEdit2 } from 'react-icons/fi'
-import ProfileForm from "../Forms/ProfileForm"
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import  Box  from '@mui/material/Box'
-import JobDescription from "./JobDescription"
+import * as React from 'react';
+import { useState, useEffect } from 'react'
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import CameraIcon from '@mui/icons-material/PhotoCamera';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Link from '@mui/material/Link';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar';
+import WorkIcon from '@mui/icons-material/Work';
+import { useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 
 
 
-
-
-    const main = {
-        width: '100%',
-        display: 'grid',
-        gridTemplateColumns: '1fr 2fr',
-
-    }
-
-    const  profile = {
-
-        width: '90%',
-        height: '40vh',
-        gridColumn: '1/2',
-        borderRadius: '0.5rem',
-        border: '0.3px solid lightgrey',
-        marginTop: '45px',
-        marginLeft: '160px',
-        backgroundColor: 'rgb(239, 245, 250)'
-        // background-color: rgb(239, 245, 250)
-    }
-
-    const icon = {
-        float: 'right',
-        margin: '5px',
-        border: 'none',
-        background: 'transparent',
-        cursor: 'pointer'
-    }
-
-   
-
-    const cardOne = {
-
-        width: '90%',
-        marginLeft: '30px',
-        marginBottom: '15px'
-    }
-
-    const cardTwo = {
-
-        width: '90%',
-        marginLeft: '30px',
-        marginBottom: '15px',
-    }
-
-    const cardThree = {
-
-        width: '90%',
-        marginLeft: '30px',
-        marginBottom: '15px'
-    }
-
-    const typo = {
-        margin: '10px',
-        color: '#0077B5'
-    }
+const user = JSON.parse(localStorage.getItem('userDetails'));
 
 
 
+const profile = {
 
+    marginTop: '130px',
+    borderRadius: '0.8rem',
+    boxShadow: '2px 2px 4px 2px rgba(0, 0, 0, 0.2)',
+    alignItems: 'center'
 
-
-
-
-const Employer = () => {
-
-  
-
-    const [form, setForm] = useState(false)
-    // const [jobPost] = useState(false)
-    const [jobDescription , setJobDescription] = useState(false)
-
-
-    return (
-        <div style={main}>
-            <div style={profile}>
-
-                <button style={icon} onClick={() => setForm(true)}><FiEdit2 style={{ fontSize: '18px', }} /></button>
-                {form && <ProfileForm recPro={form => setForm(false)} />}
-                
-            </div>
-
-            <div >
-                <Box style={typo}>
-                    <Typography variant="h5" component="h2" >
-                        Job Posted
-                    </Typography>
-                </Box>
-                <Card sx={{ minWidth: 275, marginTop: '25px', }} style={cardOne}>
-                    <CardContent>
-                        <Typography variant="h5" component="div">
-                            Software Engineer
-                        </Typography>
-
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            Hiclousia
-                        </Typography>
-
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-
-                        </Typography>
-                        <Typography variant="body2">
-                            React
-                            <br />
-
-                        </Typography>
-                        <Typography variant="body2">
-                            Bangalore
-                            <br />
-
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small" onClick={() => setJobDescription(true)}>show more</Button>
-                        {jobDescription && <JobDescription/>}
-                    </CardActions>
-                </Card>
-
-
-
-                <Card sx={{ minWidth: 275, marginTop: '25px', }} style={cardTwo}>
-                    <CardContent>
-                        <Typography variant="h5" component="div">
-                            Software Engineer
-                        </Typography>
-
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            Hiclousia
-                        </Typography>
-
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-
-                        </Typography>
-                        <Typography variant="body2">
-                            React
-                            <br />
-
-                        </Typography>
-                        <Typography variant="body2">
-                            Bangalore
-                            <br />
-
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small">show more</Button>
-                    </CardActions>
-                </Card>
-
-
-
-
-                <Card sx={{ minWidth: 275, marginTop: '25px', }} style={cardThree}>
-                    <CardContent>
-                        <Typography variant="h5" component="div">
-                            Software Engineer
-                        </Typography>
-
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            Hiclousia
-                        </Typography>
-
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-
-                        </Typography>
-                        <Typography variant="body2">
-                            React
-                            <br />
-
-                        </Typography>
-                        <Typography variant="body2">
-                            Bangalore
-                            <br />
-
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small">show more</Button>
-                    </CardActions>
-                </Card>
-
-            </div>
-        </div> 
-    )
 }
 
-export default Employer
+function Copyright() {
+    return (
+        <Typography variant="body2" color="text.secondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="https://mui.com/">
+                Hiclousia
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
+
+const cards = [1, 2, 3];
+
+// TODO remove, this demo shouldn't need to reset the theme.
+const defaultTheme = createTheme();
+
+export default function Album() {
+
+    const navigate = useNavigate();
+    const { id, uId } = useParams()
+    const [form, setForm] = useState(false)
+    // const [jobPost] = useState(false)
+    const [jobDescription, setJobDescription] = useState(false)
+    const [getJobdetails, setGetJobdetails] = useState([]);
+    useEffect(() => {
+        const fetchData = () => {
+            fetch(`http://localhost:8000/PlanWithDetails/${user._id}/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    setGetJobdetails(data.data[0].jobPosts);
+                    console.log(data.data[0].jobPosts);
+                })
+                .catch(err => console.log(err));
+        };
+        fetchData();
+    }, []);
+    console.log(getJobdetails);
+
+    return (
+        <ThemeProvider theme={defaultTheme}>
+            <CssBaseline />
+            <AppBar position="relative">
+                <Toolbar>
+
+                    <Typography variant="h6" color="inherit" noWrap>
+                        Hiclousia
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <main>
+
+                {/* {plansDetails?.map((plan, index) => ( */}
+                <Container sx={{ py: 8 }} maxWidth="md" style={profile}>
+                    <Typography>
+                        {/* {plan.recruiterPlan} */}
+                    </Typography>
+                </Container>
+                {/* ))} */}
+
+                <Container sx={{ py: 8 }} maxWidth="md">
+                    {/* End hero unit */}
+                    {getJobdetails?.map(job => (
+                        <Grid container key={job._id} spacing={4}>
+                            {cards.map((card) => (
+                                <Grid item key={card} xs={12} sm={6} md={4}>
+                                    <Card
+                                        sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                                    >
+                                        <Avatar
+                                            alt="Avatar Image"
+                                            sx={{
+                                                width: 200,
+                                                height: 200,
+                                                alignSelf: 'center',
+                                            }}
+
+
+                                        > <WorkIcon
+                                                sx={{
+                                                    fontSize: 100,
+                                                    color: 'primary',
+                                                    alignSelf: 'center',
+                                                    mt: 4,
+                                                }}
+                                            />
+                                        </Avatar>
+
+
+
+                                        <CardContent sx={{ flexGrow: 2 }}>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                {job.jobRole[0]}
+                                            </Typography>
+                                            <br></br>
+
+                                            <Typography variant="h6" >
+                                                {job.company}
+                                            </Typography>
+                                            <br></br>
+
+                                            <Typography variant="h7" >
+                                                Primary Skills:  {job.primarySkills.join(", ")}
+                                            </Typography>
+                                            <br></br>
+
+                                            <Typography variant="h7" >
+                                                Location: {job.location}
+                                            </Typography>
+                                            <br></br>
+
+
+                                        </CardContent>
+                                        <CardActions>
+                                            <Button size="small" variant='outlined' onClick={() => setJobDescription(true)}>Description</Button>
+                                            <Button size="small" variant='outlined' onClick={()=>{navigate(`/TalentPoolNew/${job._id}`)}}>Select</Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    ))}
+                </Container>
+            </main>
+            {/* Footer */}
+            <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
+
+                <Typography
+                    variant="subtitle1"
+                    align="center"
+                    color="text.secondary"
+                    component="p"
+                >
+                    Something here to give the Someone a purpose!
+                </Typography>
+                <Copyright />
+            </Box>
+            {/* End footer */}
+        </ThemeProvider>
+    );
+}
+
+

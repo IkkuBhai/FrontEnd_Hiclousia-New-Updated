@@ -16,48 +16,84 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-
-
-
-
-
-
-
-
+import { useNavigate } from "react-router-dom"
+import CardHeader from '@mui/material/CardHeader';
 
 
 const user = JSON.parse(localStorage.getItem('userDetails'));
 
 
+
 const cards = [1, 2, 3];
-
 // TODO remove, this demo shouldn't need to reset the theme.
+
+const profile = {
+
+    marginTop: '130px',
+    borderRadius: '0.8rem',
+    boxShadow: '2px 2px 4px 2px rgba(0, 0, 0, 0.2)'
+
+}
+
+const tiers = [
+
+    {
+
+        price: '15',
+        description: [
+            '20 users included',
+            '10 GB of storage',
+            'Help center access',
+            'Priority email support',
+        ],
+        buttonText: 'Select',
+        buttonVariant: 'contained',
+    },
+    {
+
+        price: '15',
+        description: [
+            '20 users included',
+            '10 GB of storage',
+            'Help center access',
+            'Priority email support',
+        ],
+        buttonText: 'Select',
+        buttonVariant: 'contained',
+    },
+    {
+
+        price: '15',
+        description: [
+            '20 users included',
+            '10 GB of storage',
+            'Help center access',
+            'Priority email support',
+        ],
+        buttonText: 'Select',
+        buttonVariant: 'contained',
+    },
+];
+
+
+
 const defaultTheme = createTheme();
-
 export default function MyPlans() {
-
-
-
+    const navigate = useNavigate();
     const [planData, setPlanData] = useState([]);
-    function getplandetails(data) {
-        setPlanData(data)
-    }
-    useEffect(
-        () => {
-            fetch(`http://localhost:8000/revenueR/${user._id}`)
-                .then(response => response.json()
-                    .then(data => {
-                        getplandetails(data.data)
-                        console.log(data.data)
-                        console.log(planData)
-                    })
-                    .catch(err => console.log(err)));
-        }, 
-    )
-
-   
-
-
+    useEffect(() => {
+        fetch(`http://localhost:8000/revenueR/${user._id}`)
+            .then(response => response.json())
+            .then(data => {
+                setPlanData(data.data);
+                console.log(data.data);
+                console.log(planData);
+            })
+            .catch(err => console.log(err));
+    }, []);
+    const recruiterInfo = { ...planData.recruiterInfo };
+    const plansDetails = planData.plans;
+    console.log(plansDetails)
     return (
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline />
@@ -69,249 +105,170 @@ export default function MyPlans() {
                 </Toolbar>
             </AppBar>
             <main>
-                {/* Hero unit */}
-                <Box
-                    sx={{
-                        bgcolor: 'background.paper',
-                        pt: 8,
-                        pb: 6,
-                    }}
-                >
-                </Box>
-                <Container sx={{ py: 8 }} maxWidth="md">
-
-                    <Card style={{ height: '16vh', boxShadow: 'grey' }}>
-                        <ListItem alignItems="flex-start" style={{ margin: '44px' }} >
-                            <ListItemAvatar style={{ width: '50px', height: '50px' }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" style={{ fontSize: '50px' }} />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="Brunch this weekend?"
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="body2"
-                                            color="text.primary"
-                                        >
-                                            Ali Connors
-                                        </Typography>
-                                        {" — I'll be in your neighborhood doing errands this…"}
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
-                    </Card>
 
 
 
-                    <br /><br />
 
+                <Container sx={{ py: 8 }} maxWidth="md" style={profile}>
+                    <ListItem alignItems="flex-start" marginLeft="10px">
+                        <ListItemAvatar marginTop="-7px">
+                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: 130, height: 130 }} />
+                        </ListItemAvatar>
+                        <ListItemText
+                            sx={{ marginTop: '25px', marginLeft: '22px', flexGrow: 1 }}
+                            primary={
+                                <Typography variant="h4" fontFamily="Roboto, sans-serif">
+                                    {recruiterInfo.fullName}
+                                </Typography>
+                            }
 
-                    {/* End hero unit */}
-                    <Grid container spacing={4}>
-                        {cards.map((card) => (
-                            <Grid item key={card} xs={12} sm={6} md={4}>
-                                <Card
-                                    sx={{ height: '20rem', display: 'flex', flexDirection: 'column' }}
-                                >
-
-                                    <CardContent sx={{ flexGrow: 1 }}>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            Software Engineer
-                                        </Typography>
-
-                                    </CardContent>
-
-                                    <Typography style={{alignItems: 'center'}}>
-                                        Hiclousia
+                            secondary={
+                                <React.Fragment>
+                                    <Typography
+                                        sx={{ display: 'inline' }}
+                                        component="span"
+                                        variant="body2"
+                                        color="text.primary"
+                                    >
+                                        Email: {recruiterInfo.email}
+                                    </Typography>
+                                    <Typography>
+                                        Phone Number: {recruiterInfo.phoneNumber}
                                     </Typography>
 
-                                    <CardActions>
-                                        <Button size="small" >Show more</Button>
-                                        <Button size="small" href='/TalentPoolNew'>Acvite</Button>
-                                    </CardActions>
-                                </Card>
-                            </Grid>
-                        ))}
-                    </Grid>
+                                </React.Fragment>
+                            }
+                        />
+                    </ListItem>
+                </Container>
+                <br></br>
+                <br></br>
+                <br></br>
+                <Container maxWidth="md" >
+                    {plansDetails?.map((plan, index) => (
+                        <Grid key={index} container spacing={5} alignItems="flex-end">
+                            {tiers.map((tier) => (
+
+
+                                <Grid
+                                    item
+                                    key={tier.title}
+                                    xs={12}
+                                    sm={tier.title === 'Enterprise' ? 12 : 6}
+                                    md={4}
+                                >
+                                    <Card >
+                                        <CardHeader
+                                            title={plan.recruiterPlan}
+                                            subheader={tier.subheader}
+                                            titleTypographyProps={{ align: 'center' }}
+                                            subheaderTypographyProps={{
+                                                align: 'center',
+                                            }}
+                                            sx={{
+                                                backgroundColor: (theme) =>
+                                                    theme.palette.mode === 'light'
+                                                        ? theme.palette.grey[200]
+                                                        : theme.palette.grey[700],
+                                            }}
+                                        />
+                                        <CardContent sx={{
+                                            height: '15rem', alignItems: 'center',
+                                            backgroundColor: (theme) =>
+                                                theme.palette.mode === 'light'
+                                                    ? plan.recruiterPlan === 'Gold'
+                                                        ? 'goldenrod'
+                                                        : plan.recruiterPlan === 'Silver'
+                                                            ? '#c0c0c0'
+                                                            : plan.recruiterPlan === 'Platinum'
+                                                                ? '#e5e4e2'
+                                                                : theme.palette.grey[200]
+                                                    : plan.recruiterPlan === 'Gold'
+                                                        ? 'goldenrod'
+                                                        : plan.recruiterPlan === 'Silver'
+                                                            ? '#c0c0c0'
+                                                            : plan.recruiterPlan === 'Platinum'
+                                                                ? '#e5e4e2'
+                                                                : theme.palette.grey[700]
+                                        }}>
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                <Typography variant="h5" color="text.primary" sx={{ marginTop: "57px" }}>
+                                                    {plan.duration} to {plan.remainingDays} Days
+                                                </Typography>
+                                                <br />
+
+                                                <Typography variant="h6" color="text.secondary">
+                                                    {plan.jobPostno} Post
+                                                </Typography>
+                                            </Box>
+
+                                        </CardContent >
+
+
+                                        <CardActions sx={{
+                                            backgroundColor: (theme) =>
+                                                theme.palette.mode === 'light'
+                                                    ? plan.recruiterPlan === 'Gold'
+                                                        ? 'goldenrod'
+                                                        : plan.recruiterPlan === 'Silver'
+                                                            ? '#c0c0c0'
+                                                            : plan.recruiterPlan === 'Platinum'
+                                                                ? '#e5e4e2'
+                                                                : theme.palette.grey[200]
+                                                    : plan.recruiterPlan === 'Gold'
+                                                        ? 'goldenrod'
+                                                        : plan.recruiterPlan === 'Silver'
+                                                            ? '#c0c0c0'
+                                                            : plan.recruiterPlan === 'Platinum'
+                                                                ? '#e5e4e2'
+                                                                : theme.palette.grey[700]
+                                        }}>
+                                            <Button fullWidth variant='outlined' >
+                                                Active
+                                            </Button>
+                                        </CardActions>
+
+                                        <CardActions sx={{
+                                            backgroundColor: (theme) =>
+                                                theme.palette.mode === 'light'
+                                                    ? plan.recruiterPlan === 'Gold'
+                                                        ? 'goldenrod'
+                                                        : plan.recruiterPlan === 'Silver'
+                                                            ? '#c0c0c0'
+                                                            : plan.recruiterPlan === 'Platinum'
+                                                                ? '#e5e4e2'
+                                                                : theme.palette.grey[200]
+                                                    : plan.recruiterPlan === 'Gold'
+                                                        ? 'goldenrod'
+                                                        : plan.recruiterPlan === 'Silver'
+                                                            ? '#c0c0c0'
+                                                            : plan.recruiterPlan === 'Platinum'
+                                                                ? '#e5e4e2'
+                                                                : theme.palette.grey[700]
+                                        }}>
+
+
+                                            <Button fullWidth variant={tier.buttonVariant} onClick={() => { navigate(`/Employer/${user._id}/${plan.id}`) }}>
+                                                {tier.buttonText}
+                                            </Button>
+                                        </CardActions>
+                                    </Card>
+                                    <br></br>
+                                </Grid>
+                            ))}
+
+                        </Grid>
+                    ))}
                 </Container>
             </main>
         </ThemeProvider>
     );
-}
-
-// import React, { useEffect, useState } from "react"
-// import { styled } from '@mui/system'
-// import Card from '@mui/material/Card'
-// import CardActions from '@mui/material/CardActions'
-// import CardContent from '@mui/material/CardContent'
-// import Button from '@mui/material/Button'
-// import Typography from '@mui/material/Typography'
-// import { Box } from '@mui/material'
-// import JobDescription from "../RecruiterProfileComponents/PageComponents/JobDescription"
-// const useStyles = styled((theme) => ({
-//     main: {
-//         width: '100%',
-//         display: 'grid',
-//         gridTemplateColumns: '1fr 2fr',
-//     },
-//     profile: {
-//         width: '90%',
-//         height: '40vh',
-//         gridColumn: '1/2',
-//         borderRadius: '0.5rem',
-//         border: '0.3px solid lightgrey',
-//         marginTop: '45px',
-//         marginLeft: '160px',
-//         backgroundColor: 'rgb(239, 245, 250)',
-//     },
-//     icon: {
-//         float: 'right',
-//         margin: '5px',
-//         border: 'none',
-//         background: 'transparent',
-//         cursor: 'pointer',
-//     },
-//     jobPost: {
-//         gridColumn: '2/3',
-//         width: '60%',
-//         marginTop: '45px',
-//         display: 'grid',
-//         border: '0.3px solid lightgrey',
-//         borderRadius: '0.5rem',
-//         marginLeft: '180px',
-//         backgroundColor: 'rgb(239, 245, 250)',
-//     },
-//     cardOne: {
-//         width: '90%',
-//         marginLeft: '30px',
-//         marginBottom: '15px',
-//     },
-//     cardTwo: {
-//         width: '90%',
-//         marginLeft: '30px',
-//         marginBottom: '15px',
-//     },
-//     cardThree: {
-//         width: '90%',
-//         marginLeft: '30px',
-//         marginBottom: '15px',
-//     }
-
-// }))
-// const user = JSON.parse(localStorage.getItem('userDetails'));
-// export default function Employer() {
-//     const classes = useStyles()
-//     // const [form, setForm] = useState(false)
-//     // const [jobPost, setJobPost] = useState(false)
-//     // const [jobDescription , setJobDescription] = useState(false)
-//     const [planData, setPlanData] = useState([]);
-//     function getplandetails(data) {
-//         setPlanData(data)
-//     }
-//     useEffect(
-//         () => {
-//             fetch(`http://localhost:8000/revenueR/${user._id}`)
-//                 .then(response => response.json()
-//                     .then(data => {
-//                         getplandetails(data.data)
-//                         console.log(data.data)
-//                         console.log(planData)
-//                     })
-//                     .catch(err => console.log(err)));
-//         }, []
-//     )
-//     return (
-//         <div className={classes.main}>
-
-//             <div style={{ margin: '55px' }}>
-//                 <div className={classes.jobPost} style={{ display: 'flex', justifyContent: 'space-between' }}>
-//                     <Typography variant="h5" component="h2" >
-//                         Job Posted
-//                     </Typography>
-//                     <Card sx={{ minWidth: 275, marginTop: '25px' }} className={classes.cardOne}>
-//                         <CardContent>
-//                             <Typography variant="h5" component="div">
-//                                 Software Engineer
-//                             </Typography>
-//                             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-//                                 Hiclousia
-//                             </Typography>
-//                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-//                             </Typography>
-//                             <Typography variant="body2">
-//                                 React
-//                                 <br />
-//                             </Typography>
-//                             <Typography variant="body2">
-//                                 Bangalore
-//                                 <br />
-//                             </Typography>
-//                         </CardContent>
-//                         <CardActions>
-//                             <Button size="small" >show  more</Button>
-//                             <Button style={{float: 'right'}}>Select</Button>
-//                             {/* <Button onClick={() => setJobDescription(true)}>show more</Button> */}
-//                             {/* {jobDescription && <JobDescription/>} */}
-//                         </CardActions>
-//                     </Card>
-//                     <Card sx={{ minWidth: 275, marginTop: '25px' }} className={classes.cardTwo}>
-//                         <CardContent>
-//                             <Typography variant="h5" component="div">
-//                                 Software Engineer
-//                             </Typography>
-//                             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-//                                 Hiclousia
-//                             </Typography>
-//                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-//                             </Typography>
-//                             <Typography variant="body2">
-//                                 React
-//                                 <br />
-//                             </Typography>
-//                             <Typography variant="body2">
-//                                 Bangalore
-//                                 <br />
-//                             </Typography>
-//                         </CardContent>
-//                         <CardActions>
-//                             <Button size="small">show more</Button>
-//                             <Button style={{float: 'right'}} >Select</Button>
-//                         </CardActions>
-//                     </Card>
-//                     <Card sx={{ minWidth: 275, marginTop: '25px' }} className={classes.cardThree}>
-//                         <CardContent>
-//                             <Typography variant="h5" component="div">
-//                                 Software Engineer
-//                             </Typography>
-//                             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-//                                 Hiclousia
-//                             </Typography>
-//                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-//                             </Typography>
-//                             <Typography variant="body2">
-//                                 React
-//                                 <br />
-//                             </Typography>
-//                             <Typography variant="body2">
-//                                 Bangalore
-//                                 <br />
-//                             </Typography>
-//                         </CardContent>
-//                         <CardActions>
-//                             <Button size="small">show more</Button>
-//                             <Button style={{float: 'right'}}>Select</Button>
-//                         </CardActions>
-//                     </Card>
-//                 </div>
-//             </div>
-
-//         </div>
-//     )
-// }
-
-
-
-
+}      
